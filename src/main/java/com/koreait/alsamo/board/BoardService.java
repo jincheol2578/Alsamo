@@ -8,4 +8,9 @@ public class BoardService {
     @Autowired
     BoardMapper mapper;
 
+    int insBoard(BoardEntity param){
+        mapper.insBoard(param);
+        return param.getIbaord();
+    }
+
 }

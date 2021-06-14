@@ -23,8 +23,8 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public String write(BoardEntity param){
-        return null;
+    public String write(BoardEntity param) {
+        return "redirect:detail?iboard="+service.insBoard(param);
     }
 
 }

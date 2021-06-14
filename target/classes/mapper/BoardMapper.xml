@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.koreait.alsamo.board.BoardMapper">
+    <insert id="insBoard">
+        INSERT INTO t_board
+            (iboard, bcode, iuser, title, content,gNo)
+        VALUES
+        ((SELECT NEXTVAL(iboard_seq)),1,1,'t','c',(SELECT LASTVAL(iboard_seq)))
+    </insert>
+
+<!--    <insert id="insReBoard">-->
+<!--        INSERT INTO t_board-->
+<!--            (bcode, iuser, title, content, gNo, gOrd, gLayer)-->
+<!--        VALUES-->
+<!--    </insert>-->
+</mapper>
