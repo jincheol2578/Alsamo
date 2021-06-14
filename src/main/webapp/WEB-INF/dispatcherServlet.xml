@@ -21,11 +21,24 @@
     <mvc:resources mapping="/res/**" location="/res/" />
     <mvc:resources mapping="/img/**" location="file:///D:/springImg/" />
 
+    <!--인터셉터 추가될때마다 <mvc:interceptor>로 추가 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--/이하 경로들 모두 인터셉터 통과-->
+            <mvc:mapping path="/board/writeMod"/>
+            <mvc:mapping path="/board/favList"/>
+            <mvc:mapping path="/user/profile"/>
+
+            <bean class="com.koreait.alsamo.user.AuthCheckIntercepter"/><!--인터셉터 셋팅 파일 잡아주는-->
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!-- 사용할 파일명을 완성해주는 객체 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/" />
         <property name="suffix" value=".jsp" />
-        <property name="order" value="2" />
     </bean>
+
+
 
 </beans>

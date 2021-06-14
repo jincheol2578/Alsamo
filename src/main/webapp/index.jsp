@@ -11,7 +11,10 @@
     <title>Title</title>
 </head>
 <body>
-<div><h3>로그인</h3></div>
+
+
+<h3>바로가기(개발.ver)</h3>
+
 <a href="/user/login"><button>로그인</button></a>
 <a href="/user/join"><button>회원가입</button></a>
 </body>
