@@ -13,5 +13,4 @@ public class BoardEntity {
     private int gNo;
     private int gOrd;
     private int gLayer;
-
 }
