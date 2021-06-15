@@ -7,12 +7,36 @@
         INSERT INTO t_board
             (iboard, bcode, iuser, title, content,gNo)
         VALUES
-        ((SELECT NEXTVAL(iboard_seq)),1,1,'t','c',(SELECT LASTVAL(iboard_seq)))
+        ((SELECT NEXTVAL(iboard_seq)),#{bcode},#{iuser},#{title},#{content},(SELECT LASTVAL(iboard_seq)))
     </insert>
 
-<!--    <insert id="insReBoard">-->
+<!--    <insert id="insBoard">-->
 <!--        INSERT INTO t_board-->
-<!--            (bcode, iuser, title, content, gNo, gOrd, gLayer)-->
+<!--            (iboard, bcode, iuser, title, content, gNo, gOrd, gLayer)-->
 <!--        VALUES-->
+<!--        ((SELECT NEXTVAL(iboard_seq))-->
+<!--        ,#{bcode}-->
+<!--        ,#{iuser}-->
+<!--        ,#{title}-->
+<!--        ,#{content}-->
+<!--        ,#{gNo}-->
+<!--        ,#{gOrd}+1-->
+<!--        ,#{gLayer}+1-->
+<!--        )-->
 <!--    </insert>-->
+
+<!--    게시판 카테고리 SELECT sql-->
+    <select id="selBoardCategory" resultType="BoardDTO">
+        SELECT * FROM t_board_category;
+    </select>
+<!--TODO:글쓴이 레벨 표시 추가-->
+    <select id="selBoardList" resultType="BoardDomain">
+        SELECT A.iboard, A.iuser, A.bcode, A.title, A.gNo, A.gOrd, A.gLayer, A.regdate,
+        B.unm as writer
+        FROM t_board as A
+        LEFT JOIN t_user as B
+        ON A.iuser = B.iuser
+        WHERE A.bcode = #{bcode}
+        ORDER BY A.gNo desc, gOrd asc
+    </select>
 </mapper>

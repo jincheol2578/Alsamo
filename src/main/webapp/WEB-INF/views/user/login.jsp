@@ -6,8 +6,8 @@
 <body>
 <div>
     <form action="/user/login" method="post">
-        <div><input type="text" name="uid" placeholder="아이디"></div>
-        <div><input type="text" name="upw" placeholder="비밀번호"></div>
+        <div><input type="text" name="uid" value="alsamo" placeholder="아이디"></div>
+        <div><input type="text" name="upw" value="1234" placeholder="비밀번호"></div>
         <div><input type="submit" value="로그인">
             <a href="/user/join">
                 <button>회원가입</button>

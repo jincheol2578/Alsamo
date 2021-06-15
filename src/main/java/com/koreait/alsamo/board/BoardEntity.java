@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class BoardEntity {
-    private int ibaord;
+    private int iboard;
     private int iuser;
     private int bcode;
     private String title;

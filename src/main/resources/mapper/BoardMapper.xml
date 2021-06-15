@@ -26,8 +26,8 @@
 <!--    </insert>-->
 
 <!--    게시판 카테고리 SELECT sql-->
-    <select id="selBoardCategory" resultType="BoardDomain">
-        SELECT bnm FROM t_board_category;
+    <select id="selBoardCategory" resultType="BoardDTO">
+        SELECT * FROM t_board_category;
     </select>
 <!--TODO:글쓴이 레벨 표시 추가-->
     <select id="selBoardList" resultType="BoardDomain">

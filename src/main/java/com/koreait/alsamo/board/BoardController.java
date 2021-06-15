@@ -18,13 +18,6 @@ public class BoardController {
     @Autowired
     BoardService service;
 
-    // TODO:이부분은 템플릿에 넣기
-    @GetMapping("/main")
-    public String main(Model model){
-        model.addAttribute("categoryList", service.selBoardCategory());
-        return "board/main";
-    }
-
     @GetMapping("/list")
     public String list(Model model, BoardDTO param){
         model.addAttribute("boardList", service.selBoardList(param));
@@ -32,12 +25,14 @@ public class BoardController {
     }
 
     @GetMapping("/write")
-    public String write(){
+    public String write(Model model){
+        model.addAttribute("categoryList",service.selBoardCategory());
         return "board/write";
     }
 
     @PostMapping("/write")
     public String write(BoardEntity param) {
+        System.out.println(param);
         return "redirect:detail?iboard="+service.insBoard(param);
     }
 

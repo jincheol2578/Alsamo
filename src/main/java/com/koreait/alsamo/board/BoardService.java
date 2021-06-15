@@ -22,10 +22,10 @@ public class BoardService {
     public int insBoard(BoardEntity param){
         param.setIuser(myUtils.getUserPk());
         mapper.insBoard(param);
-        return param.getIbaord();
+        return param.getIboard();
     }
 
-    public List<BoardDomain> selBoardCategory(){
+    public List<BoardDTO> selBoardCategory(){
         return mapper.selBoardCategory();
     }
 

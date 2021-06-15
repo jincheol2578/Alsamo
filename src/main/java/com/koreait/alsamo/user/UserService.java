@@ -24,7 +24,6 @@ public class UserService {
             //로그인
             result.setUpw(null);
             session.setAttribute("loginUser", result);
-            System.out.println(session.getAttribute("loginUser"));
             return "/board/list";
         }else{
             //비번다름

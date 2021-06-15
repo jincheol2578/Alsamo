@@ -8,6 +8,7 @@ import lombok.Setter;
 public class BoardDTO {
     private int iboard;
     private int bcode;
+    private String bnm;
     private int iuser;
     private int startIdx;
     private int recordCnt;
