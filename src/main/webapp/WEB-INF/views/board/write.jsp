@@ -7,7 +7,7 @@
     <select name="bcode">
         <c:forEach var="category" items="${requestScope.categoryList}">
             <c:choose>
-                <c:when test="${category.bcode} eq ${param.bcode}">
+                <c:when test="${category.bcode eq param.bcode}">
                     <option value="${category.bcode}" selected="selected">${category.bnm}</option>
                 </c:when>
                 <c:otherwise>

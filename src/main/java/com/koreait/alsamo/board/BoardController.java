@@ -25,8 +25,13 @@ public class BoardController {
     }
 
     @GetMapping("/write")
-    public String write(Model model){
-        model.addAttribute("categoryList",service.selBoardCategory());
+    public String write(Model model,BoardDTO param){
+        if(param.getIboard() == 0){ //원글 작성시
+            model.addAttribute("categoryList",service.selBoardCategory());
+        }else{ // 답글 작성시
+
+        }
+
         return "board/write";
     }
 
@@ -34,6 +39,12 @@ public class BoardController {
     public String write(BoardEntity param) {
         System.out.println(param);
         return "redirect:detail?iboard="+service.insBoard(param);
+    }
+
+    @GetMapping("/detail")
+    public String detail(Model model, BoardDTO param){
+        model.addAttribute("board", service.selBoard(param));
+        return "board/detail";
     }
 
 

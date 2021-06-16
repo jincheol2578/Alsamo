@@ -9,4 +9,5 @@ public interface BoardMapper {
     int insBoard(BoardEntity param);
     List<BoardDTO> selBoardCategory();
     List<BoardDomain> selBoardList(BoardDTO param);
+    BoardDomain selBoard(BoardDTO param);
 }

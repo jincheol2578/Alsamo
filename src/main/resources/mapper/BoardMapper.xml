@@ -25,11 +25,13 @@
 <!--        )-->
 <!--    </insert>-->
 
-<!--    게시판 카테고리 SELECT sql-->
+<!--    게시판 카테고리 SELECT -->
     <select id="selBoardCategory" resultType="BoardDTO">
         SELECT * FROM t_board_category;
     </select>
-<!--TODO:글쓴이 레벨 표시 추가-->
+
+    <!--    게시판 리스트 SELECT -->
+    <!--TODO:글쓴이 레벨 표시 추가-->
     <select id="selBoardList" resultType="BoardDomain">
         SELECT A.iboard, A.iuser, A.bcode, A.title, A.gNo, A.gOrd, A.gLayer, A.regdate,
         B.unm as writer
@@ -38,5 +40,14 @@
         ON A.iuser = B.iuser
         WHERE A.bcode = #{bcode}
         ORDER BY A.gNo desc, gOrd asc
+    </select>
+
+<!--    게시글 SELECT -->
+    <select id="selBoard" resultType="BoardDomain">
+        SELECT A.*, B.unm as writer
+        FROM t_board as A
+        LEFT JOIN t_user as B
+        ON A.iuser = B.iuser
+        WHERE A.iboard = #{iboard}
     </select>
 </mapper>

@@ -33,5 +33,9 @@ public class BoardService {
         param.setIuser(myUtils.getUserPk());
         return mapper.selBoardList(param);
     }
+    public BoardDomain selBoard(BoardDTO param){
+        param.setIuser(myUtils.getUserPk());
+        return mapper.selBoard(param);
+    }
 
 }
