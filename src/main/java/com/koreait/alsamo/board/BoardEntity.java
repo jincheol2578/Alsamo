@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class BoardEntity {
-    private int ibaord;
+    private int iboard;
     private int iuser;
     private int bcode;
     private String title;
@@ -13,5 +13,4 @@ public class BoardEntity {
     private int gNo;
     private int gOrd;
     private int gLayer;
-
 }
