@@ -5,38 +5,56 @@
 <mapper namespace="com.koreait.alsamo.board.BoardMapper">
     <insert id="insBoard">
         INSERT INTO t_board
-            (iboard, bcode, iuser, title, content,gNo)
+            (iboard, bcode, iuser, title, content, group_idx)
         VALUES
         ((SELECT NEXTVAL(iboard_seq)),#{bcode},#{iuser},#{title},#{content},(SELECT LASTVAL(iboard_seq)))
     </insert>
+<!-- TODO:title 'RE : ' 입력부분 프론트에서 처리하기-->
+    <insert id="insReBoard">
+        INSERT INTO t_board
+            (iboard, bcode, iuser, title, content, group_idx, group_ord, group_dept)
+        VALUES
+        ((SELECT NEXTVAL(iboard_seq))
+        ,#{bcode}
+        ,#{iuser}
+        ,CONCAT('└ Re : ',#{title})
+        ,#{content}
+        ,#{group_idx}
+        ,#{group_ord}+1
+        ,#{group_dept}+1
+        )
 
-<!--    <insert id="insBoard">-->
-<!--        INSERT INTO t_board-->
-<!--            (iboard, bcode, iuser, title, content, gNo, gOrd, gLayer)-->
-<!--        VALUES-->
-<!--        ((SELECT NEXTVAL(iboard_seq))-->
-<!--        ,#{bcode}-->
-<!--        ,#{iuser}-->
-<!--        ,#{title}-->
-<!--        ,#{content}-->
-<!--        ,#{gNo}-->
-<!--        ,#{gOrd}+1-->
-<!--        ,#{gLayer}+1-->
-<!--        )-->
-<!--    </insert>-->
+    </insert>
 
-<!--    게시판 카테고리 SELECT sql-->
+<!--    게시판 카테고리 SELECT -->
     <select id="selBoardCategory" resultType="BoardDTO">
         SELECT * FROM t_board_category;
     </select>
-<!--TODO:글쓴이 레벨 표시 추가-->
+
+    <!--    게시판 리스트 SELECT -->
+    <!--TODO:글쓴이 레벨 표시 추가-->
     <select id="selBoardList" resultType="BoardDomain">
-        SELECT A.iboard, A.iuser, A.bcode, A.title, A.gNo, A.gOrd, A.gLayer, A.regdate,
-        B.unm as writer
+        SELECT A.*, B.unm as writer
         FROM t_board as A
         LEFT JOIN t_user as B
         ON A.iuser = B.iuser
         WHERE A.bcode = #{bcode}
-        ORDER BY A.gNo desc, gOrd asc
+        ORDER BY A.group_idx desc, A.group_ord asc
     </select>
+
+<!--    게시글 SELECT -->
+    <select id="selBoard" resultType="BoardDomain">
+        SELECT A.*, B.unm as writer
+        FROM t_board as A
+        LEFT JOIN t_user as B
+        ON A.iuser = B.iuser
+        WHERE A.iboard = #{iboard}
+    </select>
+
+    <update id="updReBoard">
+        UPDATE t_board
+        SET group_ord = group_ord+1,
+        WHERE group_idx = #{group_idx}
+        AND group_ord > #{group_ord}
+    </update>
 </mapper>

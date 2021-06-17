@@ -6,6 +6,10 @@
     <title></title>
 </head>
 <body>
-    <a href="/board/write?iboard=${param.iboard}&gno=${requestScope.board.gno}">답글</a>
+    <div>${requestScope.board.title}</div>
+    <div>${requestScope.board.content}</div>
+    <div>${requestScope.board.regdate}</div>
+    <div>${requestScope.board.writer}</div>
+    <a href="/board/write?bcode=${param.bcode}&iboard=${param.iboard}">답글</a>
 </body>
 </html>

@@ -21,8 +21,11 @@ public class BoardService {
 
     public int insBoard(BoardEntity param){
         param.setIuser(myUtils.getUserPk());
-        mapper.insBoard(param);
-        return param.getIboard();
+        return mapper.insBoard(param);
+    }
+    public int insReBoard(BoardEntity param){
+        param.setIuser(myUtils.getUserPk());
+        return mapper.insReBoard(param);
     }
 
     public List<BoardDTO> selBoardCategory(){
@@ -36,6 +39,10 @@ public class BoardService {
     public BoardDomain selBoard(BoardDTO param){
         param.setIuser(myUtils.getUserPk());
         return mapper.selBoard(param);
+    }
+
+    public int updReBoard(BoardEntity param){
+        return mapper.updReBoard(param);
     }
 
 }

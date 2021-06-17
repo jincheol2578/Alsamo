@@ -1,6 +1,7 @@
 package com.koreait.alsamo.board;
 
 import com.koreait.alsamo.MyUtils;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,16 +30,22 @@ public class BoardController {
         if(param.getIboard() == 0){ //원글 작성시
             model.addAttribute("categoryList",service.selBoardCategory());
         }else{ // 답글 작성시
-
+            model.addAttribute("board",service.selBoard(param));
         }
-
         return "board/write";
     }
 
     @PostMapping("/write")
     public String write(BoardEntity param) {
-        System.out.println(param);
-        return "redirect:detail?iboard="+service.insBoard(param);
+        if(param.getGroup_idx() == 0){
+            service.insBoard(param);
+        }else{
+            service.updReBoard(param);
+            service.insReBoard(param);
+
+        }
+        return "redirect:list?bcode="+param.getBcode();
+
     }
 
     @GetMapping("/detail")

@@ -9,7 +9,7 @@
         <td>작성일</td>
     </tr>
     <c:forEach var="item" items="${requestScope.boardList}">
-        <tr onclick="location.href='detail?iboard=${item.iboard}'">
+        <tr onclick="location.href='detail?bcode=${item.bcode}&iboard=${item.iboard}'">
             <td>${item.iboard}</td>
             <td>${item.writer}</td>
             <td>${item.title}</td>
@@ -17,4 +17,5 @@
         </tr>
     </c:forEach>
 </table>
+
 <a href="write?bcode=${param.bcode}">글쓰기</a>

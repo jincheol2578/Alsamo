@@ -2,9 +2,11 @@ package com.koreait.alsamo.board;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter
 @Setter
+@Getter
+@ToString
 public class BoardDomain extends BoardEntity{
     private String writer;
     private int uLev;

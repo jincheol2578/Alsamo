@@ -4,20 +4,29 @@
 
 
 <form action="/board/write" method="post">
-    <select name="bcode">
-        <c:forEach var="category" items="${requestScope.categoryList}">
-            <c:choose>
-                <c:when test="${category.bcode} eq ${param.bcode}">
-                    <option value="${category.bcode}" selected="selected">${category.bnm}</option>
-                </c:when>
-                <c:otherwise>
-                    <option value="${category.bcode}">${category.bnm}</option>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-
-    </select>
+    <c:choose>
+        <c:when test="${empty requestScope.board}">
+        <select name="bcode">
+            <c:forEach var="category" items="${requestScope.categoryList}">
+                <c:choose>
+                    <c:when test="${category.bcode eq param.bcode}">
+                        <option value="${category.bcode}" selected="selected">${category.bnm}</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${category.bcode}">${category.bnm}</option>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </select>
+        </c:when>
+        <c:otherwise>
+            <input type="hidden" name="bcode" value="${requestScope.board.bcode}">
+            <input type="hidden" name="group_idx" value="${requestScope.board.group_idx}">
+            <input type="hidden" name="group_ord" value="${requestScope.board.group_ord}">
+            <input type="hidden" name="group_dept" value="${requestScope.board.group_dept}">
+        </c:otherwise>
+    </c:choose>
     <input type="text" name="title" placeholder="제목">
-    <textarea name="content" placeholder="내용" ></textarea>
+    <textarea name="content" placeholder="내용"></textarea>
     <input type="submit" value="글쓰기">
 </form>
