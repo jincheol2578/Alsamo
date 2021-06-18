@@ -44,5 +44,5 @@ public class BoardService {
     public int updReBoard(BoardEntity param){
         return mapper.updReBoard(param);
     }
-
+    public int delBoard(BoardEntity param){return mapper.delBoard(param);}
 }

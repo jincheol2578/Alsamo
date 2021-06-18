@@ -33,12 +33,16 @@
 
     <!--    게시판 리스트 SELECT -->
     <!--TODO:글쓴이 레벨 표시 추가-->
+<!--    bcode가 1일땐 전체게시물.  bcode가 1보다 크면 where 추가하기-->
     <select id="selBoardList" resultType="BoardDomain">
         SELECT A.*, B.unm as writer
         FROM t_board as A
         LEFT JOIN t_user as B
         ON A.iuser = B.iuser
-        WHERE A.bcode = #{bcode}
+        <where>
+            <if test="bcode == 1">A.delete_val = 0</if>
+            <if test="bcode > 1">A.bcode = #{bcode} AND A.delete_val = 0</if>
+        </where>
         ORDER BY A.group_idx desc, A.group_ord asc
     </select>
 
@@ -48,13 +52,19 @@
         FROM t_board as A
         LEFT JOIN t_user as B
         ON A.iuser = B.iuser
-        WHERE A.iboard = #{iboard}
+        WHERE A.iboard = #{iboard} AND delete_val = 0
     </select>
 
     <update id="updReBoard">
         UPDATE t_board
-        SET group_ord = group_ord+1,
+        SET group_ord = group_ord+1
         WHERE group_idx = #{group_idx}
         AND group_ord > #{group_ord}
+    </update>
+    
+    <update id="delBoard">
+        UPDATE t_board
+        SET delete_val = 1
+        WHERE iboard = #{iboard} AND (iuser = #{iuser} OR bpw = #{bpw})
     </update>
 </mapper>

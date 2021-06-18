@@ -13,4 +13,6 @@ public class BoardEntity {
     private String title;
     private String content;
     private String regdate;
+    private int delete_val;
+    private String bpw;
 }

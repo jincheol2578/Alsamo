@@ -3,7 +3,7 @@
 <%@ taglib prefix="if" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<form action="/board/write" method="post">
+<form action="write" method="post">
     <c:choose>
         <c:when test="${empty requestScope.board}">
         <select name="bcode">

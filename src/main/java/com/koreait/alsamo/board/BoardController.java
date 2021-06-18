@@ -5,9 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.jws.WebParam;
 import java.util.ArrayList;
@@ -42,16 +40,20 @@ public class BoardController {
         }else{
             service.updReBoard(param);
             service.insReBoard(param);
-
         }
         return "redirect:list?bcode="+param.getBcode();
-
     }
 
     @GetMapping("/detail")
     public String detail(Model model, BoardDTO param){
         model.addAttribute("board", service.selBoard(param));
         return "board/detail";
+    }
+
+    @PostMapping("/delete")
+    public String delete(BoardEntity param){
+        service.delBoard(param);
+        return "response:list?bcode="+param.getBcode();
     }
 
 
