@@ -17,5 +17,12 @@
 
 <a href="/user/login"><button>로그인</button></a>
 <a href="/user/join"><button>회원가입</button></a>
+
+
+<%-- ToDo List
+    - 이메일 중복제거
+    - 이메일 양식 만들기
+
+--%>
 </body>
 </html>

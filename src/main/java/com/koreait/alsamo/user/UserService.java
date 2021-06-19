@@ -1,23 +1,20 @@
 
 package com.koreait.alsamo.user;
 
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
+
+import com.fasterxml.jackson.annotation.JacksonInject;
+import com.koreait.alsamo.mailsender.MailHandler;
+import com.koreait.alsamo.mailsender.TempKey;
+
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.util.Collections;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.gson.GsonFactory;
+import java.io.UnsupportedEncodingException;
+import java.util.Properties;
 
 @Service
 public class UserService {
@@ -28,10 +25,36 @@ public class UserService {
     @Autowired
     private HttpSession session;
 
-    public int join(UserEntity param) {
-        String crypPw = BCrypt.hashpw(param.getUpw(), BCrypt.gensalt());
-        param.setUpw(crypPw);
-        return mapper.insUser(param);
+    @Autowired
+    private JavaMailSender mailSender;
+
+
+    public int join(UserEntity param) throws MessagingException, UnsupportedEncodingException {
+        if (param.getUpw() != null) {
+            String crypPw = BCrypt.hashpw(param.getUpw(), BCrypt.gensalt());
+            param.setUpw(crypPw);
+
+            String key = new TempKey().getKey(50, false);
+            param.setAuthKey(key);
+
+            MailHandler sendMail = new MailHandler(mailSender);
+            sendMail.setSubject("Alsamo 서비스 이메일 인증");
+            sendMail.setText(new StringBuffer().append("<h1>이메일인증</h1>")
+                    .append("<a href='http://localhost:8090/user/emailConfirm?userEmail=")
+                    .append(param.getUemail())
+                    .append("&AuthKey=")
+                    .append(key)
+                    .append("' target='_blank'>이메일 인증 확인</a>").toString());
+            sendMail.setFrom("heckevil12@gmail.com", "alsamo");
+            sendMail.setTo(param.getUemail());
+            sendMail.send();
+
+
+            return mapper.insUser(param);
+
+        } else {
+            return mapper.insGoogleUser(param);
+        }
     }
 
     public String login(UserEntity param) {
@@ -53,48 +76,34 @@ public class UserService {
 
     }
 
-    private static final HttpTransport transport = new NetHttpTransport();
-    private static final JsonFactory jsonFactory = new JacksonFactory();
-    private static final String MY_APP_GOOGLE_CLIENT_ID = "227252070132-70dn36407laql4s9m54qvqcq1ib7gq9m.apps.googleusercontent.com";
-
-    public UserEntity GoogleIdTokenVerifier(String token) throws GeneralSecurityException, IOException {
-        UserEntity user = new UserEntity();
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
-                // Specify the CLIENT_ID of the app that accesses the backend:
-                .setAudience(Collections.singletonList(MY_APP_GOOGLE_CLIENT_ID))
-                // Or, if multiple clients access the backend:
-                //.setAudience(Arrays.asList(CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3))
-                .build();
-
-// (Receive idTokenString by HTTPS POST)
-//        String dCodeToken = DatatypeConverter.printBase64Binary(token);
-        GoogleIdToken idToken = verifier.verify(token);
-        if (idToken != null) {
-            Payload payload = idToken.getPayload();
-
-            // Print user identifier
-            String userId = payload.getSubject();
-            System.out.println("User ID: " + userId);
-
-            // Get profile information from payload
-            String email = payload.getEmail();
-            boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
-            String name = (String) payload.get("name");
-            String pictureUrl = (String) payload.get("picture");
-            String locale = (String) payload.get("locale");
-            String familyName = (String) payload.get("family_name");
-            String givenName = (String) payload.get("given_name");
-
-            System.out.println("payload" + payload);
-            // Use or store profile information
-            // ...
-
-            user.setUid(userId);
-            user.setUemail(email);
+    public int googleLogin(UserEntity user) {
+        UserEntity exsistUser = mapper.checkSocialUserExsist(user);
+        System.out.println(exsistUser);
+        if (exsistUser == null) {
+            //가입 필요 /user/googleJoin
+            mapper.insGoogleUser(user);
+            return 1;
 
         } else {
-            System.out.println("Invalid ID token.");
+
+            //이미 가입 완료 /board/list
+            return 0;
         }
-        return user;
+    }
+
+    public int chckAuthkey(UserEntity param) {
+        UserEntity result = mapper.chckAuthkey(param);
+        if (result == null) {
+
+            //인증이 옳바르지 않음
+            return 0;
+        } else {
+            //인증 성공
+            return 1;
+        }
+    }
+
+    public int upAuthorize(UserEntity param) {
+        return mapper.upAuthorize(param);
     }
 }

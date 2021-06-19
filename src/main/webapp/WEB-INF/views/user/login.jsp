@@ -19,6 +19,8 @@
 <body>
 <h1>로그인</h1>
 <div><h3>${errMsg}</h3></div>
+<idv><h3>${msg}</h3></idv>
+<idv><h3>${authkeyErr}</h3></idv>
 <div>
     <form action="/user/login" method="post">
         <div><input type="text" name="uid" placeholder="아이디"></div>
@@ -30,6 +32,8 @@
     </a></div>
 <%-- 구글 로그인 버튼--%>
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+<%--로그 아웃--%>
 <a href="#" onclick="signOut();">Sign out</a>
 </div>
 </body>
