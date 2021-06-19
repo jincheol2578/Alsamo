@@ -28,7 +28,7 @@
 
 <!--    게시판 카테고리 SELECT -->
     <select id="selBoardCategory" resultType="BoardDTO">
-        SELECT * FROM t_board_category;
+        SELECT * FROM t_board_category
     </select>
 
     <!--    게시판 리스트 SELECT -->
@@ -39,10 +39,8 @@
         FROM t_board as A
         LEFT JOIN t_user as B
         ON A.iuser = B.iuser
-        <where>
-            <if test="bcode == 1">A.delete_val = 0</if>
-            <if test="bcode > 1">A.bcode = #{bcode} AND A.delete_val = 0</if>
-        </where>
+        where A.delete_val = 0
+        <if test="bcode > 1">AND A.bcode = #{bcode}</if>
         ORDER BY A.group_idx desc, A.group_ord asc
     </select>
 
@@ -61,10 +59,16 @@
         WHERE group_idx = #{group_idx}
         AND group_ord > #{group_ord}
     </update>
-    
+
     <update id="delBoard">
         UPDATE t_board
         SET delete_val = 1
-        WHERE iboard = #{iboard} AND (iuser = #{iuser} OR bpw = #{bpw})
+        WHERE iboard = #{iboard} AND (iuser = #{iuser} OR board_pw = #{board_pw})
+    </update>
+
+    <update id="updBoard">
+        UPDATE t_board
+        SET title, content
+        WHERE iboard = #{iboard} AND iuser= #{iuser}
     </update>
 </mapper>

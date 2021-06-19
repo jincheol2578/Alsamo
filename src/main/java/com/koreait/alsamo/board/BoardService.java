@@ -44,5 +44,20 @@ public class BoardService {
     public int updReBoard(BoardEntity param){
         return mapper.updReBoard(param);
     }
-    public int delBoard(BoardEntity param){return mapper.delBoard(param);}
+
+    public int delBoard(BoardEntity param){
+        if(param.getIuser() == myUtils.getUserPk()){
+            return mapper.delBoard(param);
+        }else{
+            return 0;
+        }
+    }
+
+    public int updBoard(BoardEntity param){
+        if(param.getIuser() == myUtils.getUserPk()){
+            return mapper.updBoard(param);
+        }else{
+            return 0;
+        }
+    }
 }

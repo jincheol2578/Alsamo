@@ -24,7 +24,7 @@ public class UserService {
             //로그인
             result.setUpw(null);
             session.setAttribute("loginUser", result);
-            return "/board/list";
+            return "/board/list?bcode=1";
         }else{
             //비번다름
             return "login";

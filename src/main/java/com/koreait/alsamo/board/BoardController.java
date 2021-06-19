@@ -27,7 +27,9 @@ public class BoardController {
     public String write(Model model,BoardDTO param){
         if(param.getIboard() == 0){ //원글 작성시
             model.addAttribute("categoryList",service.selBoardCategory());
-        }else{ // 답글 작성시
+        }else if(param.getEdit() == 1){ //수정버튼 클릭시
+            model.addAttribute("board",service.selBoard(param));
+        }else {// 답글 작성시
             model.addAttribute("board",service.selBoard(param));
         }
         return "board/write";
@@ -52,8 +54,20 @@ public class BoardController {
 
     @PostMapping("/delete")
     public String delete(BoardEntity param){
-        service.delBoard(param);
-        return "response:list?bcode="+param.getBcode();
+        int result = service.delBoard(param);
+        if(result == 0){
+            return "redirect:/errpage?code="+result;
+        }
+        return "redirect:list?bcode="+param.getBcode();
+    }
+
+    @PostMapping("/edit")
+    public String update(BoardEntity param){
+        int result = service.updBoard(param);
+        if(result == 0){
+            return "redirect:/errpage?code="+result;
+        }
+        return "redirect:detail?bcode="+param.getBcode()+"&iboard="+param.getIboard();
     }
 
 
