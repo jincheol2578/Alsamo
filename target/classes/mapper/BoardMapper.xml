@@ -68,7 +68,7 @@
 
     <update id="updBoard">
         UPDATE t_board
-        SET title, content
+        SET title = #{title}, content = #{content}
         WHERE iboard = #{iboard} AND iuser= #{iuser}
     </update>
 </mapper>

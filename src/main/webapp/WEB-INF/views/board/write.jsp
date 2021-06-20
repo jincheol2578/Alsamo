@@ -35,16 +35,9 @@
 </c:if>
     <c:if test="${not empty param.edit}">
         <input type="hidden" name="iuser" value="${requestScope.board.iuser}">
+        <input type="hidden" name="iboard" value="${param.iboard}">
     </c:if>
-    <input type="text" name="title" placeholder="제목"
-    <c:if test="${empty param.edit}">
-            value="${requestScope.board.title}"
-    </c:if>
-        >
-    <textarea name="content" placeholder="내용">
-        <c:if test="${empty param.edit}">
-            value="${requestScope.board.content}"
-        </c:if>
-    </textarea>
+    <input type="text" name="title" placeholder="제목">
+    <textarea name="content" placeholder="내용"></textarea>
     <input type="submit" value="글쓰기">
 </form>

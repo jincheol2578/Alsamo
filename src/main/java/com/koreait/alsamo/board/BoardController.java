@@ -46,10 +46,10 @@ public class BoardController {
         return "redirect:list?bcode="+param.getBcode();
     }
 
-    @GetMapping("/detail")
-    public String detail(Model model, BoardDTO param){
+    @GetMapping("/view")
+    public String view(Model model, BoardDTO param){
         model.addAttribute("board", service.selBoard(param));
-        return "board/detail";
+        return "board/view";
     }
 
     @PostMapping("/delete")
@@ -67,7 +67,7 @@ public class BoardController {
         if(result == 0){
             return "redirect:/errpage?code="+result;
         }
-        return "redirect:detail?bcode="+param.getBcode()+"&iboard="+param.getIboard();
+        return "redirect:view?bcode="+param.getBcode()+"&iboard="+param.getIboard();
     }
 
 
