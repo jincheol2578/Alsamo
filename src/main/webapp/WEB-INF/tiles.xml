@@ -4,7 +4,7 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-    <definition name="main_template" template="/WEB-INF/views/template/template.jsp">
+    <definition name="main_template" template="/WEB-INF/views/template/template.jsp" preparer="menuPreparer">
         <put-attribute name="header" value="/WEB-INF/views/template/header.jsp" />
     </definition>
 

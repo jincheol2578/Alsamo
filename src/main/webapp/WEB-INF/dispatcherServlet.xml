@@ -40,5 +40,8 @@
                 <value>/WEB-INF/tiles.xml</value>
             </list>
         </property>
+<!--        tiles에 동적인 메뉴 구성을 위해 preparer 추가-->
+        <property name="preparerFactoryClass"
+                  value="org.springframework.web.servlet.view.tiles3.SpringBeanPreparerFactory"/>
     </bean>
 </beans>

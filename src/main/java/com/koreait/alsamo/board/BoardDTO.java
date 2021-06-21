@@ -15,6 +15,7 @@ public class BoardDTO {
     private int searchType;
     private String searchText;
     private int page = 1;
+    private int edit;
 
 
 }
