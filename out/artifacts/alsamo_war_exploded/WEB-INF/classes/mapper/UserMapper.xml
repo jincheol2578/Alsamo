@@ -3,8 +3,8 @@
 <mapper namespace="com.koreait.alsamo.user.UserMapper">
     <insert id="insUser">
         insert into t_user
-            (uid, upw, unm, uemail,authKey)
-        values (#{uid}, #{upw}, #{unm}, #{uemail},#{authKey})
+            (uid, upw, unm, rcode, uemail,authKey)
+        values (#{uid}, #{upw}, #{unm},0, #{uemail},#{authKey})
     </insert>
 
     <select id="selUser" resultType="UserEntity">

@@ -8,6 +8,9 @@
         <put-attribute name="header" value="/WEB-INF/views/template/header.jsp" />
     </definition>
 
+<!--    <definition name="board/*" extends="main_template">-->
+<!--        <put-attribute name="content" value="/WEB-INF/views/board/{1}.jsp" />-->
+<!--    </definition>-->
     <definition name="board/*" extends="main_template">
         <put-attribute name="content" value="/WEB-INF/views/board/{1}.jsp" />
     </definition>

@@ -35,7 +35,9 @@
     <!--TODO:글쓴이 레벨 표시 추가-->
 <!--    bcode가 1일땐 전체게시물.  bcode가 1보다 크면 where 추가하기-->
     <select id="selBoardList" resultType="BoardDomain">
-        SELECT A.*, B.unm as writer
+        SELECT A.iboard, A.iuser, A.bcode, A.title,A.content, A.group_idx, A.group_ord
+        , A.group_dept, A.regdate
+        , B.unm as writer
         FROM t_board as A
         LEFT JOIN t_user as B
         ON A.iuser = B.iuser
@@ -46,7 +48,9 @@
 
 <!--    게시글 SELECT -->
     <select id="selBoard" resultType="BoardDomain">
-        SELECT A.*, B.unm as writer
+        SELECT A.iboard, A.iuser, A.bcode, A.title,A.content, A.group_idx, A.group_ord
+               , A.group_dept, A.regdate
+               , B.unm as writer
         FROM t_board as A
         LEFT JOIN t_user as B
         ON A.iuser = B.iuser
@@ -63,12 +67,18 @@
     <update id="delBoard">
         UPDATE t_board
         SET delete_val = 1
-        WHERE iboard = #{iboard} AND (iuser = #{iuser} OR board_pw = #{board_pw})
+        WHERE iboard = #{iboard} AND (iuser = #{iuser}
+            OR board_pw = #{board_pw}
+            OR (select rcode from t_user where iuser = #{iuser}) = 1
+            )
     </update>
 
     <update id="updBoard">
         UPDATE t_board
         SET title = #{title}, content = #{content}
-        WHERE iboard = #{iboard} AND iuser= #{iuser}
+        WHERE iboard = #{iboard} AND (iuser = #{iuser}
+            OR board_pw = #{board_pw}
+            OR (select rcode from t_user where iuser = #{iuser}) = 1
+            )
     </update>
 </mapper>

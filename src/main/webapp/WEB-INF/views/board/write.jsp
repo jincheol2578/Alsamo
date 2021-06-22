@@ -5,11 +5,11 @@
 
 <form action="
 <c:choose>
-    <c:when test="${empty param.edit}">write</c:when>
-    <c:otherwise>edit</c:otherwise>
+    <c:when test="${empty param.modify}">write</c:when>
+    <c:otherwise>modify</c:otherwise>
 </c:choose>
 " method="post">
-<c:if test="${empty param.edit}">
+<c:if test="${empty param.modify}">
     <c:choose>
         <c:when test="${empty requestScope.board}">
         <select name="bcode">
@@ -33,9 +33,10 @@
         </c:otherwise>
     </c:choose>
 </c:if>
-    <c:if test="${not empty param.edit}">
+    <c:if test="${not empty param.modify}">
         <input type="hidden" name="iuser" value="${requestScope.board.iuser}">
         <input type="hidden" name="iboard" value="${param.iboard}">
+        <input type="hidden" name="board_pw" value="${requestScope.board_pw}">
     </c:if>
     <input type="text" name="title" placeholder="제목">
     <textarea name="content" placeholder="내용"></textarea>

@@ -1,15 +1,9 @@
 package com.koreait.alsamo.board;
 
-import com.koreait.alsamo.MyUtils;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.jws.WebParam;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/board")
@@ -27,7 +21,7 @@ public class BoardController {
     public String write(Model model,BoardDTO param){
         if(param.getIboard() == 0){ //원글 작성시
             model.addAttribute("categoryList",service.selBoardCategory());
-        }else if(param.getEdit() == 1){ //수정버튼 클릭시
+        }else if(param.getModify() == 1){ //수정버튼 클릭시
             model.addAttribute("board",service.selBoard(param));
         }else {// 답글 작성시
             model.addAttribute("board",service.selBoard(param));
@@ -51,6 +45,11 @@ public class BoardController {
         model.addAttribute("board", service.selBoard(param));
         return "board/view";
     }
+    @GetMapping("/delete")
+    public String delete(Model model,BoardDTO param){
+        model.addAttribute("board", service.selBoard(param));
+        return "board/process";
+    }
 
     @PostMapping("/delete")
     public String delete(BoardEntity param){
@@ -61,7 +60,13 @@ public class BoardController {
         return "redirect:list?bcode="+param.getBcode();
     }
 
-    @PostMapping("/edit")
+    @GetMapping("/modify")
+    public String modify(Model model,BoardDTO param){
+        model.addAttribute("board", service.selBoard(param));
+        return "board/process";
+    }
+
+    @PostMapping("/modify")
     public String update(BoardEntity param){
         int result = service.updBoard(param);
         if(result == 0){
