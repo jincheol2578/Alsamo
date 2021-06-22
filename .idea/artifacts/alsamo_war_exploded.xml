@@ -57,6 +57,9 @@
           <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.4.20" />
           <element id="library" level="project" name="Maven: org.jetbrains:annotations:13.0" />
           <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.20" />
+          <element id="library" level="project" name="Maven: javax.mail:mail:1.5.0-b01" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context-support:4.3.30.RELEASE" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="alsamo/web/Web" />
