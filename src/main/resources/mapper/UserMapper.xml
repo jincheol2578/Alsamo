@@ -1,18 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koreait.alsamo.user.UserMapper">
     <insert id="insUser">
-        INSERT INTO t_user
-            (uid, upw, unm, uemail)
-        VALUES
-            (#{uid}, #{upw}, #{unm}, #{ueamil})
+        insert into t_user
+            (uid, upw, unm, uemail,authKey)
+        values (#{uid}, #{upw}, #{unm}, #{uemail},#{authKey})
     </insert>
 
     <select id="selUser" resultType="UserEntity">
-        SELECT * FROM t_user
-        WHERE uid = #{uid}
+        select *
+        from t_user
+        where uid = #{uid}
     </select>
 
+    <insert id="insGoogleUser">
+        insert into t_Googleuser
+            (uid, unm, uemail)
+        values (#{uid}, #{unm}, #{uemail})
+    </insert>
+
+    <select id="checkSocialUserExsist" resultType="UserEntity">
+        select uid
+        from t_googleuser
+        where uid = #{uid}
+    </select>
+
+    <select id="chckAuthkey" resultType="UserEntity">
+        select *
+        from t_user
+        where uemail = #{uemail}
+          and authKey = #{authKey};
+    </select>
+
+    <update id="upAuthorize">
+        update t_user set authorize = 1 where authKey=#{authKey} and uemail=#{uemail}
+    </update>
 </mapper>
