@@ -16,5 +16,5 @@ public class UserEntity {
     private String unm;
     private String rdate;
     private String  authKey;
-    private int authorize;
+    private int auth_no;
 }
