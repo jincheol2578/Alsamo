@@ -9,12 +9,11 @@ import lombok.ToString;
 @ToString
 public class UserEntity {
     private int uno;
-    private int auth_no;
+    private int authno;
     private String uemail;
     private String uid;
     private String upw;
     private String unm;
-    private String rdate;
-    private String  authKey;
-    private int authno;
+    private String urdt;
+    private String authkey;
 }
