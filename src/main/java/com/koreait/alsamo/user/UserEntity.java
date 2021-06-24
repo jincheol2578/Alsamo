@@ -8,13 +8,13 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UserEntity {
-    private int iuser;
-    private int rcode;
+    private int uno;
+    private int authno;
     private String uemail;
     private String uid;
     private String upw;
     private String unm;
-    private String rdate;
-    private String  authKey;
-    private int authorize;
+    private String urdt;
+    private String authkey;
+
 }

@@ -3,14 +3,15 @@
 <mapper namespace="com.koreait.alsamo.user.UserMapper">
     <insert id="insUser">
         insert into t_user
-            (uid, upw, unm, uemail,authKey)
-        values (#{uid}, #{upw}, #{unm}, #{uemail},#{authKey})
+            (uid, upw, unm, uemail, authkey)
+        values (#{uid}, #{upw}, #{unm}, #{uemail}, #{authkey})
     </insert>
 
-    <select id="selUser" resultType="UserEntity">
-        select *
+    <select id="selId" resultType="UserEntity">
+        select uid
         from t_user
-        where uid = #{uid}
+        where uemail = #{uemail}
+          and uid = #{uid}
     </select>
 
     <insert id="insGoogleUser">
@@ -29,10 +30,25 @@
         select *
         from t_user
         where uemail = #{uemail}
-          and authKey = #{authKey};
+          and authkey = #{authkey};
     </select>
 
-    <update id="upAuthorize">
-        update t_user set authorize = 1 where authKey=#{authKey} and uemail=#{uemail}
+    <update id="upAuth_no">
+        update t_user
+        set authno = 1
+        where authkey = #{authkey}
+          and uemail = #{uemail}
     </update>
+    <update id="updUser">
+        update t_user
+        set upw = #{upw}
+        where uemail = #{uemail}
+    </update>
+
+    <select id="selUser" resultType="UserEntity">
+        select *
+        from t_user
+        where uid = #{uid}
+    </select>
+
 </mapper>

@@ -32,9 +32,9 @@ public class UserService {
             param.setUpw(crypPw);
 
             String key = new TempKey().getKey(50, false);
-            param.setAuthKey(key);
+            param.setAuthkey(key);
 
-/* 포트번호 바뀔시 메일 링크 포트번호 바꾸기 */
+            /* 포트번호 바뀔시 메일 링크 포트번호 바꾸기 */
             MailHandler sendMail = new MailHandler(mailSender);
             sendMail.setSubject("Alsamo 서비스 이메일 인증");
             sendMail.setText(new StringBuffer().append("<h1>이메일인증</h1>")
@@ -101,7 +101,37 @@ public class UserService {
         }
     }
 
-    public int upAuthorize(UserEntity param) {
-        return mapper.upAuthorize(param);
+    public int upAuth_no(UserEntity param) {
+        return mapper.upAuth_no (param);
     }
+
+    public void find(UserEntity param) throws MessagingException, UnsupportedEncodingException {
+        UserEntity selUser = mapper.selUser(param);
+
+        MailHandler sendMail = new MailHandler(mailSender);
+        sendMail.setSubject("Alsamo 아이디/비밀번호 찾기 이메일 인증");
+        sendMail.setText(new StringBuffer().append("<h1>아이디/비밀번호 찾기 이메일 인증</h1>")
+                .append("<a href='http://localhost:8080/user/femailConfirm?userEmail=")
+                .append(param.getUemail())
+                .append("&fAuthKey=")
+                .append(selUser.getAuthkey())
+                .append("' target='_blank'>이메일 인증확인</a>").toString());
+        sendMail.setFrom("heckevil12@gmail.com", "Alsamo");
+        sendMail.setTo(param.getUemail());
+        sendMail.send();
+
+    }
+    public UserEntity findId(UserEntity param) {
+        UserEntity user = mapper.selId(param);
+        return user;
+    }
+
+    public String updUser(UserEntity param) {
+        String hashPw = BCrypt.hashpw(param.getUpw(),BCrypt.gensalt());
+        param.setUpw(hashPw);
+        mapper.updUser(param);
+        return "/user/login";
+    }
+
+
 }
