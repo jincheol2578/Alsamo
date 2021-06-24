@@ -15,8 +15,8 @@ public class MyUtils {
     public UserEntity getLoginUser(){
         return (UserEntity) session.getAttribute("loginUser");
     }
-    // Session에서 가져온 User객체의 Iuser값을 리턴해주는 메소드
+    // Session에서 가져온 User객체의 uno 리턴해주는 메소드
     public int getUserPk(){
-        return getLoginUser() == null ? 0 : getLoginUser().getIuser();
+        return getLoginUser() == null ? 0 : getLoginUser().getUno();
     }
 }

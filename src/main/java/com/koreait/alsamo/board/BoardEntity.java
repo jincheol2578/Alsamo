@@ -4,15 +4,15 @@ import lombok.Data;
 
 @Data
 public class BoardEntity {
-    private int iboard;
-    private int iuser;
-    private int bcode;
-    private int group_idx;
-    private int group_ord;
-    private int group_dept;
-    private String title;
-    private String content;
-    private String regdate;
-    private int delete_val;
-    private String board_pw;
+    private int bno;
+    private int uno;
+    private int bcd;
+    private int bidx;
+    private int bord;
+    private int bdept;
+    private String btitle;
+    private String bctnt;
+    private String brdt;
+    private int bdel;
+    private String bpw;
 }

@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>${requestScope.title}</title>
+    <title>${requestScope.btitle}</title>
 </head>
 <body>
 <div id="container">
@@ -14,7 +14,7 @@
         <ul>
             <tiles:importAttribute name="menuList"/>
             <c:forEach var="list" items="${menuList}">
-                <li><a href="/board/list?bcode=${list.bcode}">${list.bnm}</a></li>
+                <li><a href="/board/list?bcd=${list.bcd}">${list.bnm}</a></li>
             </c:forEach>
         </ul>
         <tiles:insertAttribute name="content" />

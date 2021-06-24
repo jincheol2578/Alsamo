@@ -19,7 +19,7 @@ public class BoardController {
 
     @GetMapping("/write")
     public String write(Model model,BoardDTO param){
-        if(param.getIboard() == 0){ //원글 작성시
+        if(param.getBno() == 0){ //원글 작성시
             model.addAttribute("categoryList",service.selBoardCategory());
         }else if(param.getModify() == 1){ //수정버튼 클릭시
             model.addAttribute("board",service.selBoard(param));
@@ -31,13 +31,13 @@ public class BoardController {
 
     @PostMapping("/write")
     public String write(BoardEntity param) {
-        if(param.getGroup_idx() == 0){
+        if(param.getBidx() == 0){
             service.insBoard(param);
         }else{
             service.updReBoard(param);
             service.insReBoard(param);
         }
-        return "redirect:list?bcode="+param.getBcode();
+        return "redirect:list?bcd="+param.getBcd();
     }
 
     @GetMapping("/view")
@@ -57,7 +57,7 @@ public class BoardController {
         if(result == 0){
             return "redirect:/errpage?code="+result;
         }
-        return "redirect:list?bcode="+param.getBcode();
+        return "redirect:list?bcd="+param.getBcd();
     }
 
     @GetMapping("/modify")
@@ -72,7 +72,7 @@ public class BoardController {
         if(result == 0){
             return "redirect:/errpage?code="+result;
         }
-        return "redirect:view?bcode="+param.getBcode()+"&iboard="+param.getIboard();
+        return "redirect:view?bcd="+param.getBcd()+"&bno="+param.getBno();
     }
 
 
