@@ -9,13 +9,13 @@
         <td>작성일</td>
     </tr>
     <c:forEach var="item" items="${requestScope.boardList}">
-        <tr onclick="location.href='view?bcode=${item.bcode}&iboard=${item.iboard}'">
-            <td>${item.iboard}</td>
+        <tr onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">
+            <td>${item.bno}</td>
             <td>${item.writer}</td>
-            <td>${item.title}</td>
-            <td>${item.regdate}</td>
+            <td>${item.btitle}</td>
+            <td>${item.brdt}</td>
         </tr>
     </c:forEach>
 </table>
 
-<a href="write?bcode=${param.bcode}">글쓰기</a>
+<a href="write?bcd=${param.bcd}">글쓰기</a>
