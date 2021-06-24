@@ -1,15 +1,9 @@
 package com.koreait.alsamo.board;
 
-import com.koreait.alsamo.MyUtils;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.jws.WebParam;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/board")
@@ -25,9 +19,9 @@ public class BoardController {
 
     @GetMapping("/write")
     public String write(Model model,BoardDTO param){
-        if(param.getIboard() == 0){ //원글 작성시
+        if(param.getBno() == 0){ //원글 작성시
             model.addAttribute("categoryList",service.selBoardCategory());
-        }else if(param.getEdit() == 1){ //수정버튼 클릭시
+        }else if(param.getModify() == 1){ //수정버튼 클릭시
             model.addAttribute("board",service.selBoard(param));
         }else {// 답글 작성시
             model.addAttribute("board",service.selBoard(param));
@@ -37,19 +31,24 @@ public class BoardController {
 
     @PostMapping("/write")
     public String write(BoardEntity param) {
-        if(param.getGroup_idx() == 0){
+        if(param.getBidx() == 0){
             service.insBoard(param);
         }else{
             service.updReBoard(param);
             service.insReBoard(param);
         }
-        return "redirect:list?bcode="+param.getBcode();
+        return "redirect:list?bcd="+param.getBcd();
     }
 
     @GetMapping("/view")
     public String view(Model model, BoardDTO param){
         model.addAttribute("board", service.selBoard(param));
         return "board/view";
+    }
+    @GetMapping("/delete")
+    public String delete(Model model,BoardDTO param){
+        model.addAttribute("board", service.selBoard(param));
+        return "board/process";
     }
 
     @PostMapping("/delete")
@@ -58,16 +57,22 @@ public class BoardController {
         if(result == 0){
             return "redirect:/errpage?code="+result;
         }
-        return "redirect:list?bcode="+param.getBcode();
+        return "redirect:list?bcd="+param.getBcd();
     }
 
-    @PostMapping("/edit")
+    @GetMapping("/modify")
+    public String modify(Model model,BoardDTO param){
+        model.addAttribute("board", service.selBoard(param));
+        return "board/process";
+    }
+
+    @PostMapping("/modify")
     public String update(BoardEntity param){
         int result = service.updBoard(param);
         if(result == 0){
             return "redirect:/errpage?code="+result;
         }
-        return "redirect:view?bcode="+param.getBcode()+"&iboard="+param.getIboard();
+        return "redirect:view?bcd="+param.getBcd()+"&bno="+param.getBno();
     }
 
 

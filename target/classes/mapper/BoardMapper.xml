@@ -1,74 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.koreait.alsamo.board.BoardMapper">
     <insert id="insBoard">
         INSERT INTO t_board
-            (iboard, bcode, iuser, title, content, group_idx)
+            (b_no, b_cd, u_no, b_title, b_ctnt, b_idx)
         VALUES
-        ((SELECT NEXTVAL(iboard_seq)),#{bcode},#{iuser},#{title},#{content},(SELECT LASTVAL(iboard_seq)))
+        ((SELECT NEXTVAL(iboard_seq)),#{bcd},#{uno},#{btitle},#{bctnt},(SELECT LASTVAL(iboard_seq)))
     </insert>
 <!-- TODO:title 'RE : ' 입력부분 프론트에서 처리하기-->
     <insert id="insReBoard">
         INSERT INTO t_board
-            (iboard, bcode, iuser, title, content, group_idx, group_ord, group_dept)
+            (b_no, b_cd, u_no, b_title, b_ctnt, b_idx, b_ord, b_dept)
         VALUES
         ((SELECT NEXTVAL(iboard_seq))
-        ,#{bcode}
-        ,#{iuser}
-        ,CONCAT('└ Re : ',#{title})
-        ,#{content}
-        ,#{group_idx}
-        ,#{group_ord}+1
-        ,#{group_dept}+1
+        ,#{bcd}
+        ,#{uno}
+        ,CONCAT('└ Re : ',#{btitle})
+        ,#{bctnt}
+        ,#{bidx}
+        ,#{bord}+1
+        ,#{bdept}+1
         )
 
     </insert>
 
 <!--    게시판 카테고리 SELECT -->
     <select id="selBoardCategory" resultType="BoardDTO">
-        SELECT * FROM t_board_category
+        SELECT b_cd, b_nm FROM t_board_category
     </select>
 
     <!--    게시판 리스트 SELECT -->
     <!--TODO:글쓴이 레벨 표시 추가-->
-<!--    bcode가 1일땐 전체게시물.  bcode가 1보다 크면 where 추가하기-->
+<!--    bcd 1일땐 전체게시물.  bcd 1보다 크면 where 추가하기-->
     <select id="selBoardList" resultType="BoardDomain">
-        SELECT A.*, B.unm as writer
+        SELECT A.b_no, A.u_no, A.b_cd, A.b_title, A.b_ctnt, A.b_idx, A.b_ord
+        , A.b_dept, A.b_rdt
+        , B.u_nm as writer
         FROM t_board as A
         LEFT JOIN t_user as B
-        ON A.iuser = B.iuser
-        where A.delete_val = 0
-        <if test="bcode > 1">AND A.bcode = #{bcode}</if>
-        ORDER BY A.group_idx desc, A.group_ord asc
+        ON A.u_no = B.u_no
+        where A.b_del = 0
+        <if test="bcd > 1">AND A.b_cd = #{bcd}</if>
+        ORDER BY A.b_idx desc, A.b_ord asc
     </select>
 
 <!--    게시글 SELECT -->
     <select id="selBoard" resultType="BoardDomain">
-        SELECT A.*, B.unm as writer
+        SELECT A.b_no, A.u_no, A.b_cd, A.b_title,A.b_ctnt, A.b_idx, A.b_ord
+               , A.b_dept, A.b_rdt
+               , B.u_nm as writer
         FROM t_board as A
         LEFT JOIN t_user as B
-        ON A.iuser = B.iuser
-        WHERE A.iboard = #{iboard} AND delete_val = 0
+        ON A.u_no = B.u_no
+        WHERE A.b_no = #{bno} AND b_del = 0
     </select>
 
     <update id="updReBoard">
         UPDATE t_board
-        SET group_ord = group_ord+1
-        WHERE group_idx = #{group_idx}
-        AND group_ord > #{group_ord}
+        SET b_ord = b_ord+1
+        WHERE b_idx = #{bidx}
+        AND b_ord > #{bord}
     </update>
 
     <update id="delBoard">
         UPDATE t_board
-        SET delete_val = 1
-        WHERE iboard = #{iboard} AND (iuser = #{iuser} OR board_pw = #{board_pw})
+        SET b_del = 1
+        WHERE b_no = #{bno} AND (u_no = #{uno}
+            OR b_pw = #{bpw}
+            OR (select auth_no from t_user where u_no = #{uno}) = 1
+            )
     </update>
 
     <update id="updBoard">
         UPDATE t_board
-        SET title = #{title}, content = #{content}
-        WHERE iboard = #{iboard} AND iuser= #{iuser}
+        SET b_title = #{btitle}, b_ctnt = #{bctnt}
+        WHERE b_no = #{bno} AND (u_no = #{uno}
+            OR b_pw = #{bpw}
+            OR (select auth_no from t_user where u_no = #{uno}) = 1
+            )
     </update>
 </mapper>

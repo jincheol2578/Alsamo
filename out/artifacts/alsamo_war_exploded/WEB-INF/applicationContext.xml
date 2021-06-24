@@ -26,6 +26,7 @@
         <property name="dataSource" ref="dataSource" />
         <property name="typeAliasesPackage" value="com.koreait.alsamo"/>
         <property name="mapperLocations" value="classpath:mapper/*.xml" />
+        <property name="configuration" value="map-underscore-to-camel-case: true"/>
     </bean>
 
     <mybatis-spring:scan base-package="com.koreait.alsamo" />
