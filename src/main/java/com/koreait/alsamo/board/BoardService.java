@@ -1,7 +1,6 @@
 package com.koreait.alsamo.board;
 
 import com.koreait.alsamo.MyUtils;
-import com.koreait.alsamo.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
