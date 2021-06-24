@@ -22,7 +22,6 @@
         ,#{bord}+1
         ,#{bdept}+1
         )
-
     </insert>
 
 <!--    게시판 카테고리 SELECT -->

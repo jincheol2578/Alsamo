@@ -47,7 +47,7 @@
 
     <select id="selUser" resultType="UserEntity">
         select *
-        from tuser
+        from t_user
         where uid = #{uid}
     </select>
 
