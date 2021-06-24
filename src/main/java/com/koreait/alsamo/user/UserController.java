@@ -43,11 +43,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/join", method = RequestMethod.POST)
-    public String join(UserEntity param, RedirectAttributes rttr) throws MessagingException, UnsupportedEncodingException {
+    public String join(UserEntity param, Model model) throws MessagingException, UnsupportedEncodingException {
         System.out.println(param);
-        rttr.addAttribute("msg", "가입시 사용한 이메일로 인증해 주세요.");
+        model.addAttribute("msg", "가입시 사용한 이메일로 인증해 주세요.");
         service.join(param);
-        return "redirect:/user/login";
+        return "/user/login";
     }
 
     @ResponseBody
@@ -70,7 +70,7 @@ public class UserController {
                                @RequestParam("AuthKey") String authKey, Model model) {
 
         UserEntity param = new UserEntity();
-        param.setAuthKey(authKey);
+        param.setAuthkey(authKey);
         param.setUemail(uemail);
 
         int result = service.chckAuthkey(param);
@@ -130,12 +130,12 @@ public class UserController {
 
     // 비번 찾기 이메일 인증
     @GetMapping("/femailConfirm")
-    public String findEmailConfirm(@RequestParam("userEmail") String fEmail,
+    public String findEmailConfirm(@RequestParam("fuserEmail") String fEmail,
                                    @RequestParam("fAuthKey") String fAuthKey,
                                    Model model) {
         UserEntity param = new UserEntity();
         param.setUemail(fEmail);
-        param.setAuthKey(fAuthKey);
+        param.setAuthkey(fAuthKey);
 
         int result = service.chckAuthkey(param);
         if (result == 1) {

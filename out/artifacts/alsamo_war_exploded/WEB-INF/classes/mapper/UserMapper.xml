@@ -3,8 +3,8 @@
 <mapper namespace="com.koreait.alsamo.user.UserMapper">
     <insert id="insUser">
         insert into t_user
-            (uid, upw, unm, uemail, authKey)
-        values (#{uid}, #{upw}, #{unm}, #{uemail}, #{authKey})
+            (uid, upw, unm, uemail, authkey)
+        values (#{uid}, #{upw}, #{unm}, #{uemail}, #{authkey})
     </insert>
 
     <select id="selId" resultType="UserEntity">
@@ -30,13 +30,13 @@
         select *
         from t_user
         where uemail = #{uemail}
-          and authKey = #{authKey};
+          and authkey = #{authkey};
     </select>
 
     <update id="upAuth_no">
         update t_user
-        set auth_no = 1
-        where authKey = #{authKey}
+        set authno = 1
+        where authkey = #{authkey}
           and uemail = #{uemail}
     </update>
     <update id="updUser">
@@ -47,7 +47,7 @@
 
     <select id="selUser" resultType="UserEntity">
         select *
-        from t_user
+        from tuser
         where uid = #{uid}
     </select>
 

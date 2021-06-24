@@ -32,7 +32,7 @@ public class UserService {
             param.setUpw(crypPw);
 
             String key = new TempKey().getKey(50, false);
-            param.setAuthKey(key);
+            param.setAuthkey(key);
 
             /* 포트번호 바뀔시 메일 링크 포트번호 바꾸기 */
             MailHandler sendMail = new MailHandler(mailSender);
@@ -114,7 +114,7 @@ public class UserService {
                 .append("<a href='http://localhost:8080/user/femailConfirm?userEmail=")
                 .append(param.getUemail())
                 .append("&fAuthKey=")
-                .append(selUser.getAuthKey())
+                .append(selUser.getAuthkey())
                 .append("' target='_blank'>이메일 인증확인</a>").toString());
         sendMail.setFrom("heckevil12@gmail.com", "Alsamo");
         sendMail.setTo(param.getUemail());
