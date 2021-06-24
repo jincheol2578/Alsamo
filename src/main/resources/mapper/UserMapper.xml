@@ -7,8 +7,8 @@
         values (#{uid}, #{upw}, #{unm}, #{uemail}, #{authkey})
     </insert>
 
-    <select id="selUser" resultType="UserEntity">
-        select *
+    <select id="selId" resultType="UserEntity">
+        select uid
         from t_user
         where uemail = #{uemail}
           and uid = #{uid}
@@ -40,9 +40,15 @@
           and uemail = #{uemail}
     </update>
     <update id="updUser">
-    update t_user
-    set upw = #{upw}
-    where uemail = #{uemail}
+        update t_user
+        set upw = #{upw}
+        where uemail = #{uemail}
     </update>
+
+    <select id="selUser" resultType="UserEntity">
+        select *
+        from t_user
+        where uid = #{uid}
+    </select>
 
 </mapper>
