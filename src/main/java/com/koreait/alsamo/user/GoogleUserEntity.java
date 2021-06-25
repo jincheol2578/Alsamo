@@ -13,5 +13,5 @@ public class GoogleUserEntity {
     private String unm;
     private String rdate;
     private String  authKey;
-    private int auth_no;
+    private int authno;
 }

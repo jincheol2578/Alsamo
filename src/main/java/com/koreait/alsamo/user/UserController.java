@@ -153,4 +153,9 @@ public class UserController {
         model.addAttribute("msg", "수정된 비밀번호로 로그인 해주세요.");
         return "redirect:" + service.updUser(param);
     }
+
+    @RequestMapping("/myPage")
+    public String myPage(){
+        return "board/myPage";
+    }
 }

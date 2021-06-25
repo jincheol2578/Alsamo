@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>${requestScope.btitle}</title>
+    <link rel="stylesheet" href="/res/css/common.css">
 </head>
 <body>
 <div id="container">
