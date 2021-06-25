@@ -52,10 +52,10 @@
         )
     </insert>
 
-<!--        댓글 리스트 SELECT TODO: 25일 작업해야할거-->
+<!--        댓글 리스트 SELECT -->
     <select id="selReplyList" resultType="BoardReplyEntity">
         SELECT * FROM t_board_reply
-        LEFT JOIN
+        where bno = #{bno} and repdel = 0
     </select>
 <!--    답댓글 순서 정렬-->
     <update id="updReReply">
@@ -65,10 +65,20 @@
     </update>
 <!--    댓글 수정-->
     <update id="updReply">
-
+        UPDATE t_board_reply
+        SET repctnt = #{repctnt}, repnm = #{repnm}
+        <if test="reppw != null">
+            ,reppw = #{reppw}
+        </if>
+        WHERE repno = #{repno}
     </update>
 <!--    댓글 삭제-->
     <update id="delReply">
-
+        UPDATE t_board_reply
+        SET repdel = 1
+        WHERE repno = #{repno}
+          AND (uno = #{uno}
+              OR reppw = #{reppw}
+              OR (SELECT authno FROM t_user uno = #{uno} = 1))
     </update>
 </mapper>

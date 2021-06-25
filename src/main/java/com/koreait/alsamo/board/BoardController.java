@@ -48,7 +48,7 @@ public class BoardController {
     @GetMapping("/delete")
     public String delete(Model model,BoardDTO param){
         model.addAttribute("board", service.selBoard(param));
-        return "board/process";
+        return "board/check";
     }
 
     @PostMapping("/delete")
@@ -63,7 +63,7 @@ public class BoardController {
     @GetMapping("/modify")
     public String modify(Model model,BoardDTO param){
         model.addAttribute("board", service.selBoard(param));
-        return "board/process";
+        return "board/check";
     }
 
     @PostMapping("/modify")
