@@ -1,0 +1,104 @@
+html, body, ul {
+    padding: 0;
+    margin: 0;
+}
+
+header, ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #333;
+}
+
+/* after content 에 대한 배경색*/
+header ul:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+header ul li {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+header ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/*클래스명이 active 인거 빼고(not) hover 시킴 not = 예외처리*/
+header ul li a:hover:not(.active) {
+    background-color: #111;
+}
+
+section {
+    padding-left: 40px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+}
+
+#modal {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.modal_content{
+    background-color: white;
+    border: 1px solid #95a5a6;
+    padding: 20px;
+    width: 400px;
+    height: 500px;
+}
+
+.loginProperty{
+    border: 1px solid #00a3df;
+    margin-top: 5px;
+    padding: 10px;
+    width: 100%;
+
+}
+.loginBtn{
+    margin-top: 5px;
+    border: 1px solid #00a3df;
+    width: 30%;
+    height: 40px;
+    background-color: white;
+    display: block;
+
+
+}
+.X {
+  float: right;
+}
+.or {
+    color: #708090;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.g-signin2{
+padding-top: 10px;
+    width: 110px;
+    display: block;
+    margin: auto;
+}
+
+

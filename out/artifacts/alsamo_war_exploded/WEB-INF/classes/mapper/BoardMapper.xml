@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koreait.alsamo.board.BoardMapper">
+    <insert id="insBoard">
+        INSERT INTO t_board
+            (bno, bcd, uno, btitle, bctnt, bidx)
+        VALUES
+        ((SELECT NEXTVAL(iboard_seq)),#{bcd},#{uno},#{btitle},#{bctnt},(SELECT LASTVAL(iboard_seq)))
+    </insert>
+<!-- TODO:title 'RE : ' 입력부분 프론트에서 처리하기-->
+    <insert id="insReBoard">
+        INSERT INTO t_board
+            (bno, bcd, uno, btitle, bctnt, bidx, bord, bdept)
+        VALUES
+        ((SELECT NEXTVAL(iboard_seq))
+        ,#{bcd}
+        ,#{uno}
+        ,CONCAT('└ Re : ',#{btitle})
+        ,#{bctnt}
+        ,#{bidx}
+        ,#{bord}+1
+        ,#{bdept}+1
+        )
+
+    </insert>
+
+<!--    게시판 카테고리 SELECT -->
+    <select id="selBoardCategory" resultType="BoardDTO">
+        SELECT bcd, bnm FROM t_board_category
+    </select>
+
+    <!--    게시판 리스트 SELECT -->
+    <!--TODO:글쓴이 레벨 표시 추가-->
+<!--    bcd 1일땐 전체게시물.  bcd 1보다 크면 where 추가하기-->
+    <select id="selBoardList" resultType="BoardDomain">
+        SELECT A.bno, A.uno, A.bcd, A.btitle, A.bctnt, A.bidx, A.bord
+        , A.bdept, A.brdt
+        , B.unm as writer
+        FROM t_board as A
+        LEFT JOIN t_user as B
+        ON A.uno = B.uno
+        where A.bdel = 0
+        <if test="bcd > 1">AND A.bcd = #{bcd}</if>
+        ORDER BY A.bidx desc, A.bord asc
+    </select>
+
+<!--    게시글 SELECT -->
+    <select id="selBoard" resultType="BoardDomain">
+        SELECT A.bno, A.uno, A.bcd, A.btitle,A.bctnt, A.bidx, A.bord
+               , A.bdept, A.brdt
+               , B.unm as writer
+        FROM t_board as A
+        LEFT JOIN t_user as B
+        ON A.uno = B.uno
+        WHERE A.bno = #{bno} AND bdel = 0
+    </select>
+
+    <update id="updReBoard">
+        UPDATE t_board
+        SET bord = bord+1
+        WHERE bidx = #{bidx}
+        AND bord > #{bord}
+    </update>
+
+    <update id="delBoard">
+        UPDATE t_board
+        SET bdel = 1
+        WHERE bno = #{bno} AND (uno = #{uno}
+            OR bpw = #{bpw}
+            OR (select authno from t_user where uno = #{uno}) = 1
+            )
+    </update>
+
+    <update id="updBoard">
+        UPDATE t_board
+        SET btitle = #{btitle}, bctnt = #{bctnt}
+        WHERE bno = #{bno} AND (uno = #{uno}
+            OR bpw = #{bpw}
+            OR (select authno from t_user where uno = #{uno}) = 1
+            )
+    </update>
+</mapper>

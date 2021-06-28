@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
 @Controller
@@ -48,6 +50,13 @@ public class UserController {
         model.addAttribute("msg", "가입시 사용한 이메일로 인증해 주세요.");
         service.join(param);
         return "/user/login";
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession hs) {
+        hs.invalidate();
+
+        return "redirect:board/list";
     }
 
     @ResponseBody
@@ -119,13 +128,12 @@ public class UserController {
         return "user/findId";
     }
 
-    @PostMapping ("/findId")
-    public String findId(UserEntity param,Model model){
-       UserEntity user = service.findId(param);
-        model.addAttribute("user",user);
+    @PostMapping("/findId")
+    public String findId(UserEntity param, Model model) {
+        UserEntity user = service.findId(param);
+        model.addAttribute("user", user);
         return "/user/findId";
     }
-
 
 
     // 비번 찾기 이메일 인증
@@ -155,7 +163,7 @@ public class UserController {
     }
 
     @RequestMapping("/myPage")
-    public String myPage(){
+    public String myPage() {
         return "board/myPage";
     }
 }

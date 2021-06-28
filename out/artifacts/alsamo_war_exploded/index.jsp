@@ -10,6 +10,5 @@
 <a href="/user/join"><button>회원가입</button></a>
 
 <h1> 힘내즈아아아아아아아ㅏ아아아</h1>
-<h2> todo : css 수정</h2>
 </body>
 </html>
