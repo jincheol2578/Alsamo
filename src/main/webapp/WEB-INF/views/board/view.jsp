@@ -23,4 +23,4 @@
 </form>
 <div id="replyList" data-user-pk="${sessionScope.loginUser.uno}"></div>
 
-<script defer src="/res/js/board/view.js"></script>
+<script defer src="/res/js/board/view.js?ver=5"></script>

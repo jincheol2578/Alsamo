@@ -26,11 +26,26 @@ public class BoardReplyService {
         }
         return mapper.insReply(param);
     }
+    public int insReReply(BoardReplyEntity param){
+        if(param.getRepnm() == null && myUtils.getLoginUser() != null){
+            param.setUno(myUtils.getUserPk());
+            param.setRepnm(myUtils.getLoginUser().getUnm());
+        }
+        mapper.updReReply(param);
+        return mapper.insReply(param);
+    }
 
     public int delReply(BoardReplyEntity param) {
         if(myUtils.getLoginUser() != null){
             param.setUno(myUtils.getUserPk());
         }
         return mapper.delReply(param);
+    }
+
+    public int updReply(BoardReplyEntity param){
+        if(myUtils.getLoginUser() != null){
+            param.setUno(myUtils.getUserPk());
+        }
+        return mapper.updReply(param);
     }
 }
