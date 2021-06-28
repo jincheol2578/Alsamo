@@ -9,7 +9,7 @@ public interface BoardReplyMapper {
     int insReply(BoardReplyEntity param);
     int insReReply(BoardReplyEntity param);
 
-    List<BoardReplyEntity> selReplyList(BoardReplyEntity param);
+    List<BoardReplyDomain> selReplyList(BoardReplyEntity param);
 
     int updReReply(BoardReplyEntity param);
     int updReply(BoardReplyEntity param);
