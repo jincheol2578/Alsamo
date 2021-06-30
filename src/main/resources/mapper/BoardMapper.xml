@@ -42,6 +42,7 @@
         where A.bdel = 0
         <if test="bcd > 1">AND A.bcd = #{bcd}</if>
         ORDER BY A.bidx desc, A.bord asc
+        LIMIT #{startIdx}, #{cntPerPage}
     </select>
 
 <!--    게시글 SELECT -->
@@ -53,6 +54,12 @@
         LEFT JOIN t_user as B
         ON A.uno = B.uno
         WHERE A.bno = #{bno} AND bdel = 0
+    </select>
+<!--    총 게시물 수 가져오기-->
+    <select id="selBoardCount" resultType="Integer">
+        select count(*)
+        FROM t_board
+        WHERE bcd = #{bcd} AND bdel = 0
     </select>
 <!--    답글 순서 정렬-->
     <update id="updReBoard">
