@@ -56,7 +56,7 @@ public class UserService {
 
         if (result == null) {
             //아이디 없음
-            return "/user/login?err=1";
+            return "/user/loginErr?err=1";
         } else if (BCrypt.checkpw(param.getUpw(), result.getUpw())) {
             //로그인 성공
             result.setUpw(null);
@@ -64,7 +64,7 @@ public class UserService {
             return "/board/list";
         } else {
             //비밀번호 틀림
-            return "/user/login?err=2";
+            return "/user/loginErr?err=2";
         }
 
     }

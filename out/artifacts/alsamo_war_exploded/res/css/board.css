@@ -1,0 +1,108 @@
+
+.boardContainer {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 12px 12px 0 12px;
+    min-height: 912px;
+    height: 100%;
+}
+
+.boardContainer::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+/* list . css*/
+.table {
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 10px;
+
+}
+
+.table th {
+    text-align: center;
+}
+
+.table .bright {
+    text-align: left;
+}
+
+.boardBtn {
+    display: inline-block;
+}
+
+#boardClick:hover {
+    background-color: #cacad0;
+    cursor: pointer;
+}
+
+
+/* view . css */
+.viewContainer {
+    box-sizing: border-box;
+    width: 1080px;
+    padding: 15px;
+}
+
+.title-row {
+    box-sizing: border-box;
+    background-color: #d3d3d3;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 100%;
+    padding: 7px 12px 7px 12px;
+    text-align: center;
+}
+
+.title-row .boardtitle {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    height: 25px;
+    text-align: left;
+}
+
+.title-row span {
+    font-size: 20px;
+    display: inline-block;
+}
+
+.boardInfo-row {
+    padding: 5px 11px 5px 11px;
+    border-bottom: 1px solid black;
+}
+
+.boardInfo-row .boardInfo {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    height: 20px;
+    width: 100%;
+
+}
+
+.boardCtnt-row .boardCtnt {
+    box-sizing: border-box;
+    padding: 1rem;
+    margin: 0;
+    height: 560px;
+    width: 100%
+}
+
+.boardInfo-row .memberInfo .writerInfo, .boardInfo-row .boardInfo span {
+    display: inline-block;
+}
+
+.boardInfo-row .memberInfo .writerInfo {
+    float: left;
+}
+
+.boardInfo-row .boardInfo .infoHead, .boardInfo-row .boardInfo .infoBody {
+    float: right;
+}
+
+.boardInfo-row .boardInfo .infoHead {
+    padding: 0 3px 0 0;
+}

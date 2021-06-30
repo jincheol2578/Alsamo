@@ -1,3 +1,7 @@
+html, body{
+    width: 100%;
+    height: 100%;
+}
 html, body, ul {
     padding: 0;
     margin: 0;
@@ -7,8 +11,8 @@ header, ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    background-color: #333;
 }
+
 
 /* after content 에 대한 배경색*/
 header ul:after {
@@ -22,7 +26,7 @@ header ul li {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 13px;
     text-decoration: none;
 }
 
@@ -30,13 +34,15 @@ header ul li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 0;
     text-decoration: none;
 }
 
 /*클래스명이 active 인거 빼고(not) hover 시킴 not = 예외처리*/
 header ul li a:hover:not(.active) {
-    background-color: #111;
+    list-style-type: none;
+    text-decoration: none;
+    color: #d3d3d3;
 }
 
 section {
@@ -99,6 +105,14 @@ padding-top: 10px;
     width: 110px;
     display: block;
     margin: auto;
+}
+.loginMsg{
+    display: flex;
+    justify-content: center;
+    border: 1px solid #00a3df;
+    width: 500px;
+    box-sizing: border-box;
+
 }
 
 
