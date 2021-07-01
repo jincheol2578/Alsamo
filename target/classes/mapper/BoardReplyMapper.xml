@@ -3,5 +3,82 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.koreait.alsamo.board.reply.BoardReplyMapper">
+<!--    댓글 작성-->
+    <insert id="insReply">
+        INSERT INTO t_board_reply
+        (repno, bno, uno, repnm, repctnt, reppw, repidx)
+        VALUES
+        ((SELECT NEXTVAL(reply_seq))
+        , #{bno}
+        , <if test="uno != null">#{uno}</if>
+        <if test="uno == null">null</if>
+        ,
+        <choose>
+        <when test="repnm == null and uno != null">
+            (SELECT unm FROM t_user where uno = #{uno})
+        </when>
+        <otherwise>
+            #{repnm}
+        </otherwise>
+        </choose>
+        , #{repctnt}
+        , #{reppw}
+        , (SELECT LASTVAL(reply_seq))
+        )
+    </insert>
+<!--    대댓글 작성-->
+    <insert id="insReReply">
+        INSERT INTO t_board_reply
+        (repno, bno, uno, repnm, repctnt, reppw, repidx, repord, repdept)
+        VALUES
+        ((SELECT NEXTVAL(reply_seq))
+        , #{bno}
+        , <if test="uno != null">#{uno}</if>
+        <if test="uno == null">null</if>
+        ,
+        <choose>
+            <when test="repnm == null and uno != null">
+                (SELECT unm FROM t_user where uno = #{uno})
+            </when>
+            <otherwise>
+                #{repnm}
+            </otherwise>
+        </choose>
+        , #{repctnt}
+        , #{reppw}
+        , #{repidx}
+        , #{repord}+1
+        , #{repdept}+1
+        )
+    </insert>
 
+<!--        댓글 리스트 SELECT -->
+    <select id="selReplyList" resultType="BoardReplyEntity">
+        SELECT * FROM t_board_reply
+        where bno = #{bno} and repdel = 0
+    </select>
+<!--    답댓글 순서 정렬-->
+    <update id="updReReply">
+        UPDATE t_board_reply
+        SET repord = repord+1
+        WHERE repidx = #{repidx} AND repord > #{repord}
+    </update>
+<!--    댓글 수정-->
+    <update id="updReply">
+        UPDATE t_board_reply
+        SET repctnt = #{repctnt}, repnm = #{repnm}
+        <if test="reppw != null">
+            ,reppw = #{reppw}
+        </if>
+        WHERE repno = #{repno}
+    </update>
+<!--    댓글 삭제-->
+    <update id="delReply">
+        UPDATE t_board_reply
+        SET repdel = 1
+        WHERE repno = #{repno}
+          AND (uno = #{uno}
+              OR reppw = #{reppw}
+              OR (SELECT authno FROM t_user uno = #{uno} = 1))
+    </update>
 </mapper>

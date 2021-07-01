@@ -17,5 +17,4 @@
         </tr>
     </c:forEach>
 </table>
-
 <a href="write?bcd=${param.bcd}">글쓰기</a>
