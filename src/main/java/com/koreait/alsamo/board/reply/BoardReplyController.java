@@ -23,11 +23,15 @@ public class BoardReplyController {
         return service.selReplyList(param);
     }
 
-    @PostMapping("/reply")
-    public Map<String, Integer> insRelpy(@RequestBody BoardReplyEntity param){
-        int result = service.insReply(param);
-        Map<String,Integer> data = new HashMap<>();
-
+    @PostMapping("/reply/{idx}")
+    public Map<String, Integer> insRelpy(@RequestBody BoardReplyEntity param,@PathVariable int idx) {
+        int result = 0;
+        if(idx == 0){
+            result = service.insReply(param);
+        }else{
+            result = service.insReReply(param);
+        }
+        Map<String, Integer> data = new HashMap<>();
         data.put("result", result);
         return data;
     }
@@ -35,6 +39,15 @@ public class BoardReplyController {
     @DeleteMapping("/reply")
     public Map<String, Integer> delReply(@RequestBody BoardReplyEntity param){
         int result = service.delReply(param);
+        Map<String,Integer> data = new HashMap<>();
+
+        data.put("result", result);
+        return data;
+    }
+
+    @PutMapping("/reply")
+    public Map<String, Integer> updReply(@RequestBody BoardReplyEntity param){
+        int result = service.updReply(param);
         Map<String,Integer> data = new HashMap<>();
 
         data.put("result", result);

@@ -1,7 +1,8 @@
 const params = new URLSearchParams(location.search);
 const bnoVal = params.get('bno');
-
 const regBtn = document.getElementById('insBtn');
+let replyListElem = document.getElementById('replyList');
+
 regBtn.addEventListener('click', regReply);
 
 // INSERT
@@ -35,7 +36,7 @@ function regAjax(param){
         }
     };
 
-    fetch('reply',init)
+    fetch('reply/0',init)
         .then((res) =>{
             return res.json();
         })
@@ -43,9 +44,10 @@ function regAjax(param){
             console.log(myJson);
             if(myJson.result == 1){
                 console.log('등록성공');
-            //    TODO:리프레쉬 해줘야함
+                getListAjax();
             }else{
                 //등록실패
+                alert('에러!');
             }
         });
 }
@@ -61,7 +63,6 @@ function getListAjax(){
         })
 }
 function makeReplyList(data){
-    let replyListElem = document.getElementById('replyList');
     replyListElem.innerHTML = '';
     let tableElem = document.createElement('table');
     let trRepTitle = document.createElement('tr');
@@ -100,6 +101,7 @@ function makeReplyList(data){
         if(parseInt(loginUserPk) === item.uno || item.uno === null) {
             const delBtn = document.createElement('button');
             const modBtn = document.createElement('button');
+            const repBtn = document.createElement('button');
             let promptPw = null;
 
             //삭제버튼 클릭시
@@ -107,23 +109,46 @@ function makeReplyList(data){
                 if (item.uno === null){
                     promptPw = parseInt(prompt("비밀번호를 입력하세요", "비밀번호"));
                 }else if(confirm('삭제하시겠습니까?')){
-                    const delParam = {
+                    const param = {
                         repno: item.repno,
                         reppw: promptPw
                     };
-                    delAjax(delParam);
+                    delAjax(param);
                 }
             });
             //수정버튼 클릭시
             modBtn.addEventListener('click', ()=> {
                 //수정창 띄우기
             });
+            // repBtn.addEventListener('click',()=>{
+            //     let formElem = document.createElement('form');
+            //     let inputRepnm = document.createElement('input');
+            //     let inputReppw = document.createElement('input');
+            //     let txtRepctnt = document.createElement('textarea');
+            //     let inputReBtn = document.createElement('input');
+            //
+            //     formElem.onsubmit='return false;';
+            //     inputRepnm.type='text';
+            //     inputReppw.type='password';
+            //     inputReBtn.type='text';
+            //     inputReBtn.value='작성';
+            //
+            //
+            //     formElem.append(inputRepnm);
+            //     formElem.append(inputReppw);
+            //     formElem.append(txtRepctnt);
+            //     formElem.append(inputReBtn);
+            //
+            //     trElemCtnt.append(formElem);
+            // });  TODO: table 안에서 form 못만듬 댓글리스트 table 말고 div로 변경필요 프론트 작업이니 미뤄두기
 
             delBtn.innerText = '삭제';
             modBtn.innerText = '수정';
+            repBtn.innerText = '답글';
 
             tdElem4.append(delBtn);
             tdElem4.append(modBtn);
+            tdElem4.append(repBtn);
         }
 
         trElemCtnt.append(tdElem1);
@@ -134,16 +159,25 @@ function makeReplyList(data){
         tableElem.append(trElemCtnt);
     });
 }
-//TODO: delete 부분 오류
+
 function delAjax(param){
-    fetch('reply', {method: "DELETE", body: JSON.stringify(param)})
+    const init = {
+        method: 'DELETE',
+        body: JSON.stringify(param),
+        headers:{
+            'accept' : 'application/json',
+            'content-type' : 'application/json;charset=UTF-8'
+        }
+    };
+
+    fetch('reply', init)
         .then((res)=>{
             return res.json();
         })
         .then((myJson)=>{
             switch(myJson.result) {
                 case 0:
-                    alert('댓글 삭제를 실패하였습니다.');
+                    alert('잘못된 비밀번호입니다.');
                     break;
                 case 1:
                     getListAjax();

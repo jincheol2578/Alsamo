@@ -75,7 +75,7 @@ public class BoardController {
     }
 
     @PostMapping("/modify")
-    public String update(BoardEntity param){
+    public String modify(BoardEntity param){
         int result = service.updBoard(param);
         if(result == 0){
             return "redirect:/errpage?code="+result;
