@@ -64,4 +64,3 @@
         location.href = "/board/list?bcd="+bcd+"&page="+page;
     }
 </script>
-
