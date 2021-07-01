@@ -12,15 +12,7 @@
         , #{bno}
         , <if test="uno != null">#{uno}</if>
         <if test="uno == null">null</if>
-        ,
-        <choose>
-        <when test="repnm == null and uno != null">
-            (SELECT unm FROM t_user where uno = #{uno})
-        </when>
-        <otherwise>
-            #{repnm}
-        </otherwise>
-        </choose>
+        , #{repnm}
         , #{repctnt}
         , #{reppw}
         , (SELECT LASTVAL(reply_seq))
@@ -79,6 +71,6 @@
         WHERE repno = #{repno}
           AND (uno = #{uno}
               OR reppw = #{reppw}
-              OR (SELECT authno FROM t_user uno = #{uno} = 1))
+              OR (SELECT authno FROM t_user WHERE uno = #{uno} = 1))
     </update>
 </mapper>

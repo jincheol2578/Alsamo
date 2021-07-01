@@ -1,6 +1,7 @@
 package com.koreait.alsamo.board;
 
 import com.koreait.alsamo.MyUtils;
+import com.koreait.alsamo.common.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ public class BoardService {
 
     @Autowired
     private MyUtils myUtils;
+
     //게시글 등록
     public int insBoard(BoardEntity param){
         param.setUno(myUtils.getUserPk());
@@ -34,6 +36,10 @@ public class BoardService {
     public BoardDomain selBoard(BoardDTO param){
         param.setUno(myUtils.getUserPk());
         return mapper.selBoard(param);
+    }
+    //페이징 처리 (페이징)
+    public int selBoardCount(BoardDTO param){
+        return mapper.selBoardCount(param);
     }
     //게시글 답글 등록
     public int insReBoard(BoardEntity param){
