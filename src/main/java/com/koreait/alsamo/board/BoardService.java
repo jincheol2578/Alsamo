@@ -1,12 +1,9 @@
 package com.koreait.alsamo.board;
 
-import com.koreait.alsamo.MyUtils;
-import com.koreait.alsamo.common.Pagination;
+import com.koreait.alsamo.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
-import java.io.PrintWriter;
 import java.util.List;
 
 @Service

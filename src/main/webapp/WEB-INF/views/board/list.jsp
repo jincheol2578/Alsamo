@@ -2,23 +2,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<table>
-    <tr>
-        <td>글번호</td>
-        <td>작성자</td>
-        <td>제목</td>
-        <td>작성일</td>
-    </tr>
-    <c:forEach var="item" items="${requestScope.boardList}">
-        <tr onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">
-            <td>${item.bno}</td>
-            <td>${item.writer}</td>
-            <td>${item.btitle}</td>
-            <td>${item.brdt}</td>
+<div class="boardContainer">
+    <div class="boardBtn">
+        <div class="float-left"></div>
+        <div class="float-right">
+            <a href="write?bcd=${param.bcd}">
+                <button type="button" class="btn btn-secondary">글쓰기</button>
+            </a>
+        </div>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>글번호</th>
+            <th>작성자</th>
+            <th>제목</th>
+            <th>작성일</th>
         </tr>
-    </c:forEach>
-</table>
-<a href="write?bcd=${param.bcd}">글쓰기</a>
+        <c:forEach var="item" items="${requestScope.boardList}">
+            <tr id="boardClick" onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">
+                <td>${item.bno}</td>
+                <td>${item.writer}</td>
+                <td class="bright">${item.btitle}</td>
+                <td>${item.brdt}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
 
 <%-- TODO:부트스트랩 적용필요함--%>
 <ul class="pagination">
