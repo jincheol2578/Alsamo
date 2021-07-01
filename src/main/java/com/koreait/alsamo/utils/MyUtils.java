@@ -12,10 +12,12 @@ import java.io.UnsupportedEncodingException;
 
 @Component
 public class MyUtils {
-<<<<<<< HEAD
 // TODO: 가능하면 static으로 바꾸기
     @Autowired
     HttpSession session;
+
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     // Session에 "loginUser" 키값으로 저장된 UserEntity 객체를 리턴해주는 메소드
     public UserEntity getLoginUser(){
@@ -30,25 +32,7 @@ public class MyUtils {
     public int getUserPk(){
         return getLoginUser() == null ? 0 : getLoginUser().getUno();
     }
-=======
-    // TODO: 가능하면 static으로 바꾸기
-    @Autowired
-    HttpSession session;
 
-    @Autowired
-    private JavaMailSender javaMailSender;
-
-    // Session에 "loginUser" 키값으로 저장된 UserEntity 객체를 리턴해주는 메소드
-    public UserEntity getLoginUser() {
-        return (UserEntity) session.getAttribute("loginUser");
-    }
-
-    // Session에서 가져온 User객체의 uno 리턴해주는 메소드
-    public int getUserPk() {
-        return getLoginUser() == null ? 0 : getLoginUser().getUno();
-    }
-
->>>>>>> junho
     public void mailSender(String to, String subject, String txt) throws MessagingException, UnsupportedEncodingException {
         MailHandler mailHandler = new MailHandler(javaMailSender);
         mailHandler.setSubject(subject);
