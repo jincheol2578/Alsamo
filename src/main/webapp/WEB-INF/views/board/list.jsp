@@ -63,4 +63,8 @@
     function moveToPage(bcd, page){
         location.href = "/board/list?bcd="+bcd+"&page="+page;
     }
+<<<<<<< HEAD
 </script>
+=======
+</script>
+>>>>>>> junho

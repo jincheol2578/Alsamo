@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
 @Controller
@@ -22,19 +24,19 @@ public class UserController {
 
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("/loginErr")
     public String login(Model model, @RequestParam(value = "err", defaultValue = "0") int err) {
         switch (err) {
             case 1:
-                model.addAttribute("errMsg", "아이디를 확인해 주세요");
+                model.addAttribute("Msg", "아이디를 확인해 주세요");
                 break;
 
             case 2:
-                model.addAttribute("errMsg", "비밀번호를 확인해 주세요");
+                model.addAttribute("Msg", "비밀번호를 확인해 주세요");
                 break;
 
         }
-        return "user/login";
+        return "user/loginMsg";
     }
 
     @RequestMapping("/join")
@@ -45,9 +47,16 @@ public class UserController {
     @RequestMapping(value = "/join", method = RequestMethod.POST)
     public String join(UserEntity param, Model model) throws MessagingException, UnsupportedEncodingException {
         System.out.println(param);
-        model.addAttribute("msg", "가입시 사용한 이메일로 인증해 주세요.");
+        model.addAttribute("Msg", "가입시 사용한 이메일로 인증해 주세요.");
         service.join(param);
-        return "/user/login";
+        return "/user/loginMsg";
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession hs) {
+        hs.invalidate();
+
+        return "redirect:board/list";
     }
 
     @ResponseBody
@@ -77,16 +86,16 @@ public class UserController {
 
         switch (result) {
             case 0:
-                model.addAttribute("authkeyErr", "인증이 옳바르지 않습니다.");
+                model.addAttribute("Msg", "인증이 옳바르지 않습니다.");
                 break;
 
             case 1:
                 service.upAuth_no(param);
-                model.addAttribute("authkeyErr", "회원가입한 정보로 로그인 해주세요!");
+                model.addAttribute("Msg", "회원가입한 정보로 로그인 해주세요!");
                 break;
         }
 
-        return "/user/login";
+        return "/user/loginMsg";
     }
 
     @RequestMapping("/bridgeFind")
@@ -104,13 +113,13 @@ public class UserController {
     public String find(UserEntity param, Model model) {
         try {
 
-            model.addAttribute("msg", "이메일을 확인해 주세요.");
+            model.addAttribute("Msg", "이메일을 확인해 주세요.");
             service.find(param);
 
         } catch (MessagingException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return "/user/login";
+        return "/user/loginMsg";
     }
 
     // 아이디 찾기
@@ -119,13 +128,12 @@ public class UserController {
         return "user/findId";
     }
 
-    @PostMapping ("/findId")
-    public String findId(UserEntity param,Model model){
-       UserEntity user = service.findId(param);
-        model.addAttribute("user",user);
+    @PostMapping("/findId")
+    public String findId(UserEntity param, Model model) {
+        UserEntity user = service.findId(param);
+        model.addAttribute("user", user);
         return "/user/findId";
     }
-
 
 
     // 비번 찾기 이메일 인증
@@ -150,7 +158,13 @@ public class UserController {
 
     @PostMapping("/updUser")
     public String updUser(UserEntity param, Model model) {
-        model.addAttribute("msg", "수정된 비밀번호로 로그인 해주세요.");
-        return "redirect:" + service.updUser(param);
+        model.addAttribute("Msg", "수정된 비밀번호로 로그인 해주세요.");
+        service.updUser(param);
+        return "user/loginMsg";
+    }
+
+    @RequestMapping("/myPage")
+    public String myPage() {
+        return "board/myPage";
     }
 }

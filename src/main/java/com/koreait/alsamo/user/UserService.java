@@ -4,9 +4,11 @@ package com.koreait.alsamo.user;
 
 import com.koreait.alsamo.mailsender.MailHandler;
 import com.koreait.alsamo.mailsender.TempKey;
+import com.koreait.alsamo.utils.MyUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -22,36 +24,29 @@ public class UserService {
     @Autowired
     private HttpSession session;
 
+
     @Autowired
-    private JavaMailSender mailSender;
+    private MyUtils myUtils;
 
-
-    public int join(UserEntity param) throws MessagingException, UnsupportedEncodingException {
+    @Async("threadPoolTaskExecutor")
+    public void join(UserEntity param) throws MessagingException, UnsupportedEncodingException {
         if (param.getUpw() != null) {
             String crypPw = BCrypt.hashpw(param.getUpw(), BCrypt.gensalt());
             param.setUpw(crypPw);
 
+            /* 랜덤키 생성 */
             String key = new TempKey().getKey(50, false);
             param.setAuthkey(key);
 
-            /* 포트번호 바뀔시 메일 링크 포트번호 바꾸기 */
-            MailHandler sendMail = new MailHandler(mailSender);
-            sendMail.setSubject("Alsamo 서비스 이메일 인증");
-            sendMail.setText(new StringBuffer().append("<h1>이메일인증</h1>")
-                    .append("<a href='http://localhost:8080/user/emailConfirm?userEmail=")
-                    .append(param.getUemail())
-                    .append("&AuthKey=")
-                    .append(key)
-                    .append("' target='_blank'>이메일 인증 확인</a>").toString());
-            sendMail.setFrom("heckevil12@gmail.com", "alsamo");
-            sendMail.setTo(param.getUemail());
-            sendMail.send();
+            /* 메일 작성 */
+            String txt = String.format("<a href='http://localhost:8080/user/emailConfirm?userEmail=%S&AuthKey=%s'target='_blank'>이메일 인증 확인</a>", param.getUemail(), key);
+            String subject = "<h1>Alsamo 이메일 인증</h1>";
+            myUtils.mailSender(param.getUemail(), subject, txt);
 
-
-            return mapper.insUser(param);
+            mapper.insUser(param);
 
         } else {
-            return mapper.insGoogleUser(param);
+            mapper.insGoogleUser(param);
         }
     }
 
@@ -61,7 +56,7 @@ public class UserService {
 
         if (result == null) {
             //아이디 없음
-            return "/user/login?err=1";
+            return "/user/loginErr?err=1";
         } else if (BCrypt.checkpw(param.getUpw(), result.getUpw())) {
             //로그인 성공
             result.setUpw(null);
@@ -69,7 +64,7 @@ public class UserService {
             return "/board/list";
         } else {
             //비밀번호 틀림
-            return "/user/login?err=2";
+            return "/user/loginErr?err=2";
         }
 
     }
@@ -102,32 +97,27 @@ public class UserService {
     }
 
     public int upAuth_no(UserEntity param) {
-        return mapper.upAuth_no (param);
+        return mapper.upAuth_no(param);
     }
 
+    @Async("threadPoolTaskExecutor")
     public void find(UserEntity param) throws MessagingException, UnsupportedEncodingException {
-        UserEntity selUser = mapper.selUser(param);
 
-        MailHandler sendMail = new MailHandler(mailSender);
-        sendMail.setSubject("Alsamo 아이디/비밀번호 찾기 이메일 인증");
-        sendMail.setText(new StringBuffer().append("<h1>아이디/비밀번호 찾기 이메일 인증</h1>")
-                .append("<a href='http://localhost:8080/user/femailConfirm?userEmail=")
-                .append(param.getUemail())
-                .append("&fAuthKey=")
-                .append(selUser.getAuthkey())
-                .append("' target='_blank'>이메일 인증확인</a>").toString());
-        sendMail.setFrom("heckevil12@gmail.com", "Alsamo");
-        sendMail.setTo(param.getUemail());
-        sendMail.send();
+        /* 메일 작성 */
+        UserEntity selUser = mapper.selUser(param);
+        String subject = "Alsamo 아이디/비밀번호 찾기 이메일 인증";
+        String txt = String.format("<a href='http://localhost:8080/user/femailConfirm?fuserEmail=%s&fAuthKey=%s' target='_blank'>이메일 인증확인</a>",param.getUemail(),selUser.getAuthkey());
+        myUtils.mailSender(param.getUemail(),subject,txt);
 
     }
+
     public UserEntity findId(UserEntity param) {
         UserEntity user = mapper.selId(param);
         return user;
     }
 
     public String updUser(UserEntity param) {
-        String hashPw = BCrypt.hashpw(param.getUpw(),BCrypt.gensalt());
+        String hashPw = BCrypt.hashpw(param.getUpw(), BCrypt.gensalt());
         param.setUpw(hashPw);
         mapper.updUser(param);
         return "/user/login";
