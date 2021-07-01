@@ -37,6 +37,4 @@ public class MyUtils {
         mailHandler.setTo(to);
         mailHandler.send();
     }
-
-    ;
 }
