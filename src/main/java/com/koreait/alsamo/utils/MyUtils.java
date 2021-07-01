@@ -20,12 +20,16 @@ public class MyUtils {
     private JavaMailSender javaMailSender;
 
     // Session에 "loginUser" 키값으로 저장된 UserEntity 객체를 리턴해주는 메소드
-    public UserEntity getLoginUser() {
-        return (UserEntity) session.getAttribute("loginUser");
+    public UserEntity getLoginUser(){
+        try {
+            return (UserEntity) session.getAttribute("loginUser");
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
-
     // Session에서 가져온 User객체의 uno 리턴해주는 메소드
-    public int getUserPk() {
+    public int getUserPk(){
         return getLoginUser() == null ? 0 : getLoginUser().getUno();
     }
 
