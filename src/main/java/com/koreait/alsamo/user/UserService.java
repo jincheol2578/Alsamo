@@ -2,12 +2,10 @@
 package com.koreait.alsamo.user;
 
 
-import com.koreait.alsamo.mailsender.MailHandler;
 import com.koreait.alsamo.mailsender.TempKey;
 import com.koreait.alsamo.utils.MyUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
