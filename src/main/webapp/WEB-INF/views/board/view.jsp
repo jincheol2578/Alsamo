@@ -1,10 +1,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div>${requestScope.board.btitle}</div>
-<div>${requestScope.board.bctnt}</div>
-<div>${requestScope.board.brdt}</div>
-<div>${requestScope.board.writer}</div>
+<div class="viewContainer">
+    <div class="title-row">
+        <div class="boardtitle">
+            <span>${requestScope.board.btitle}</span>
+        </div>
+    </div>
+    <div class="boardInfo-row">
+        <div class="memberInfo">
+            <span class="writerInfo">${requestScope.board.writer}</span>
+        </div>
+        <div class="boardInfo">
+            <span class="infoBody">${requestScope.board.brdt}</span>
+            <span class="infoHead">작성일</span>
+        </div>
+
+    </div>
+    <div class="boardCtnt-row">
+        <div class="boardCtnt">
+            <span>${requestScope.board.bctnt}</span>
+        </div>
+    </div>
+
 <a href="/board/write?bcd=${param.bcd}&bno=${param.bno}">답글</a>
 
 <c:if test="${sessionScope.loginUser.uno eq requestScope.board.uno}">

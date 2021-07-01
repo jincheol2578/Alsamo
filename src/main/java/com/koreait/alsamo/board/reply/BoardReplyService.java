@@ -1,6 +1,6 @@
 package com.koreait.alsamo.board.reply;
 
-import com.koreait.alsamo.MyUtils;
+import com.koreait.alsamo.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.koreait.alsamo;
+package com.koreait.alsamo.utils;
 
 import com.koreait.alsamo.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
