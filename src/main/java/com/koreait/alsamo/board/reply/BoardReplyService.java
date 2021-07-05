@@ -39,6 +39,7 @@ public class BoardReplyService {
         if(myUtils.getLoginUser() != null){
             param.setUno(myUtils.getUserPk());
         }
+        System.out.println(param.getReppw());
         return mapper.delReply(param);
     }
 

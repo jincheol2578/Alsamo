@@ -36,7 +36,7 @@ public class FileManageController {
         String fuploadPath = req.getServletContext().getRealPath("/board/write");
 
         //폴더 경로 설정
-        String newfilename = ""+filename;
+        String newfilename = "D:\\imgTemp"+filename;
 
         //업로드 수행
         File file = new File(fuploadPath + "/" + newfilename);
