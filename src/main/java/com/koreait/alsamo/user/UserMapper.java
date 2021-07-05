@@ -19,4 +19,5 @@ public interface UserMapper {
     int updUser(UserEntity param);
 
     UserEntity selId(UserEntity param);
+
 }

@@ -35,7 +35,7 @@
 
     <update id="upAuth_no">
         update t_user
-        set authno = 1
+        set authno = 3
         where authkey = #{authkey}
           and uemail = #{uemail}
     </update>

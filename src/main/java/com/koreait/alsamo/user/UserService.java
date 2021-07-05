@@ -4,14 +4,20 @@ package com.koreait.alsamo.user;
 
 import com.koreait.alsamo.mailsender.TempKey;
 import com.koreait.alsamo.utils.MyUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.FileNameMap;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -28,6 +34,7 @@ public class UserService {
 
     @Async("threadPoolTaskExecutor")
     public void join(UserEntity param) throws MessagingException, UnsupportedEncodingException {
+
         if (param.getUpw() != null) {
             String crypPw = BCrypt.hashpw(param.getUpw(), BCrypt.gensalt());
             param.setUpw(crypPw);
@@ -104,8 +111,8 @@ public class UserService {
         /* 메일 작성 */
         UserEntity selUser = mapper.selUser(param);
         String subject = "Alsamo 아이디/비밀번호 찾기 이메일 인증";
-        String txt = String.format("<a href='http://localhost:8080/user/femailConfirm?fuserEmail=%s&fAuthKey=%s' target='_blank'>이메일 인증확인</a>",param.getUemail(),selUser.getAuthkey());
-        myUtils.mailSender(param.getUemail(),subject,txt);
+        String txt = String.format("<a href='http://localhost:8080/user/femailConfirm?fuserEmail=%s&fAuthKey=%s' target='_blank'>이메일 인증확인</a>", param.getUemail(), selUser.getAuthkey());
+        myUtils.mailSender(param.getUemail(), subject, txt);
 
     }
 
@@ -122,4 +129,53 @@ public class UserService {
     }
 
 
+//    public String uploadSuperMark(MultipartFile img) {
+//        final String PATH1 = "D:/springImg/1";
+//        File folder1 = new File(PATH1);
+//        folder1.mkdirs();
+//
+//        String ext = FilenameUtils.getExtension(img.getOriginalFilename());
+//        String fileNm = UUID.randomUUID().toString() + "." + ext;
+//
+//        File target = new File(PATH1 + "/" + fileNm);
+//        try {
+//            img.transferTo(target);
+//
+//            File defile = new File(PATH1 + "/1");
+//            if (defile.exists()) {
+//                defile.delete();
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        UserEntity param = new UserEntity();
+//        param.setProfileImg(fileNm);
+//        mapper.updSuper(param);
+//        return "/user/adminPage";
+//    }
+//
+//    public String uploadAdminMark(MultipartFile img) {
+//        final String PATH2 = "D:/springImg/2";
+//        File folder2 = new File(PATH2);
+//        folder2.mkdirs();
+//
+//        String ext = FilenameUtils.getExtension(img.getOriginalFilename());
+//        String fileNm = UUID.randomUUID().toString() + "." + ext;
+//
+//        File target = new File(PATH2 + "/2" + fileNm);
+//        try {
+//            img.transferTo(target);
+//
+//            File defile = new File(PATH2 + "/2");
+//            if (defile.exists()) {
+//                defile.delete();
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        UserEntity param = new UserEntity();
+//        param.setProfileImg(fileNm);
+//        mapper.updAdmin(param);
+//        return "/user/adminPage";
+//    }
 }
