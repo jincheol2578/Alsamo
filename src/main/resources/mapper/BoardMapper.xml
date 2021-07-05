@@ -22,7 +22,6 @@
         ,#{bord}+1
         ,#{bdept}+1
         )
-
     </insert>
 
 <!--    게시판 카테고리 SELECT -->
@@ -43,6 +42,7 @@
         where A.bdel = 0
         <if test="bcd > 1">AND A.bcd = #{bcd}</if>
         ORDER BY A.bidx desc, A.bord asc
+        LIMIT #{startIdx}, #{cntPerPage}
     </select>
 
 <!--    게시글 SELECT -->
@@ -55,14 +55,20 @@
         ON A.uno = B.uno
         WHERE A.bno = #{bno} AND bdel = 0
     </select>
-
+<!--    총 게시물 수 가져오기-->
+    <select id="selBoardCount" resultType="Integer">
+        select count(*)
+        FROM t_board
+        WHERE bcd = #{bcd} AND bdel = 0
+    </select>
+<!--    답글 순서 정렬-->
     <update id="updReBoard">
         UPDATE t_board
         SET bord = bord+1
         WHERE bidx = #{bidx}
         AND bord > #{bord}
     </update>
-
+<!--    댓글 삭제-->
     <update id="delBoard">
         UPDATE t_board
         SET bdel = 1
@@ -71,7 +77,7 @@
             OR (select authno from t_user where uno = #{uno}) = 1
             )
     </update>
-
+<!--    댓글 수정-->
     <update id="updBoard">
         UPDATE t_board
         SET btitle = #{btitle}, bctnt = #{bctnt}

@@ -9,4 +9,9 @@ class BoardControllerTest {
     @Test
     void delete() {
     }
+
+    @Test
+    void list() {
+
+    }
 }

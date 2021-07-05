@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="if" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/classic/ckeditor.js"></script>
 
 <form action="
 <c:choose>
@@ -39,6 +40,9 @@
         <input type="hidden" name="bpw" value="${requestScope.bpw}">
     </c:if>
     <input type="text" name="btitle" placeholder="제목">
-    <textarea name="bctnt" placeholder="내용"></textarea>
+    <textarea id="ckeditor" name="bctnt"></textarea>
     <input type="submit" value="글쓰기">
 </form>
+
+
+<script src="${pageContext.request.contextPath}/res/js/board/ckeditor.js"></script>
