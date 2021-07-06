@@ -26,12 +26,10 @@ public class BoardService {
     }
     //게시글 리스트 가져오기
     public List<BoardDomain> selBoardList(BoardDTO param){
-        param.setUno(myUtils.getUserPk());
         return mapper.selBoardList(param);
     }
     //게시글 가져오기
     public BoardDomain selBoard(BoardDTO param){
-        param.setUno(myUtils.getUserPk());
         return mapper.selBoard(param);
     }
     //페이징 처리 (페이징)

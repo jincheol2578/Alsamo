@@ -31,7 +31,6 @@
 
     <!--    게시판 리스트 SELECT -->
     <!--TODO:글쓴이 레벨 표시 추가-->
-<!--    bcd 1일땐 전체게시물.  bcd 1보다 크면 where 추가하기-->
     <select id="selBoardList" resultType="BoardDomain">
         SELECT A.bno, A.uno, A.bcd, A.btitle, A.bctnt, A.bidx, A.bord
         , A.bdept, A.brdt
