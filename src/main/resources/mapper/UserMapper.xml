@@ -50,5 +50,14 @@
         from t_user
         where uid = #{uid}
     </select>
-
+    <update id="updMark">
+        update t_user
+        set profileImg=#{profileImg}
+        where authno = #{authno}
+    </update>
+    <select id="selNowMark" resultType="String">
+        select profileImg
+        from t_user
+        where authno = #{authno}
+    </select>
 </mapper>

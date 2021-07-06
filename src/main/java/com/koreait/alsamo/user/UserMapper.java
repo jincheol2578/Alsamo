@@ -20,4 +20,7 @@ public interface UserMapper {
 
     UserEntity selId(UserEntity param);
 
+    int updMark(UserEntity param);
+
+    String  selNowMark(int authNo);
 }

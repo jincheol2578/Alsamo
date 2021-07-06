@@ -129,53 +129,39 @@ public class UserService {
     }
 
 
-//    public String uploadSuperMark(MultipartFile img) {
-//        final String PATH1 = "D:/springImg/1";
-//        File folder1 = new File(PATH1);
-//        folder1.mkdirs();
-//
-//        String ext = FilenameUtils.getExtension(img.getOriginalFilename());
-//        String fileNm = UUID.randomUUID().toString() + "." + ext;
-//
-//        File target = new File(PATH1 + "/" + fileNm);
-//        try {
-//            img.transferTo(target);
-//
-//            File defile = new File(PATH1 + "/1");
-//            if (defile.exists()) {
-//                defile.delete();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        UserEntity param = new UserEntity();
-//        param.setProfileImg(fileNm);
-//        mapper.updSuper(param);
-//        return "/user/adminPage";
-//    }
-//
-//    public String uploadAdminMark(MultipartFile img) {
-//        final String PATH2 = "D:/springImg/2";
-//        File folder2 = new File(PATH2);
-//        folder2.mkdirs();
-//
-//        String ext = FilenameUtils.getExtension(img.getOriginalFilename());
-//        String fileNm = UUID.randomUUID().toString() + "." + ext;
-//
-//        File target = new File(PATH2 + "/2" + fileNm);
-//        try {
-//            img.transferTo(target);
-//
-//            File defile = new File(PATH2 + "/2");
-//            if (defile.exists()) {
-//                defile.delete();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        UserEntity param = new UserEntity();
-//        param.setProfileImg(fileNm);
-//        mapper.updAdmin(param);
-//        return "/user/adminPage";
-//    }
+
+
+    public String updUserMark(MultipartFile img, int authNo) {
+       UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        final String PATH = "D:/springImg/"+authNo;
+        String nowMark = mapper.selNowMark(authNo);
+
+        File folder1 = new File(PATH);
+        folder1.mkdirs();
+
+        String ext = FilenameUtils.getExtension(img.getOriginalFilename());
+        String fileNm = UUID.randomUUID().toString() + "." + ext;
+
+        File target = new File(PATH + "/" + fileNm);
+        try {
+            img.transferTo(target);
+
+            File defile = new File(PATH+ "/" + nowMark);
+            if (defile.exists()) {
+                defile.delete();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        UserEntity param = new UserEntity();
+        param.setProfileImg(fileNm);
+        param.setAuthno(authNo);
+
+        loginUser.setProfileImg(fileNm);
+
+        mapper.updMark(param);
+        return "/user/adminpage";
+    }
+
+
 }

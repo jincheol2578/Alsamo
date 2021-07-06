@@ -52,6 +52,7 @@
 
     <div id="footer">
         Copyright 2021.
+        <div>Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
     </div>
 </div>
 </body>

@@ -58,7 +58,7 @@ public class UserController {
     public String logout(HttpSession hs) {
         hs.invalidate();
 
-        return "redirect:board/list";
+        return "redirect:/board/list";
     }
 
     @ResponseBody
@@ -170,17 +170,14 @@ public class UserController {
         return "board/myPage";
     }
 
-    @RequestMapping("/adminPage")
+    @RequestMapping("/adminpage")
     public String adminPage(){
         return "/user/adminPage";
     }
 
-    @RequestMapping(value = "/uploadSuperMark" ,method = RequestMethod.POST)
-    public String superMark(MultipartFile profileImg){
-        return "redirect:"+service.uploadSuperMark(profileImg);
-    }
-    @RequestMapping(value = "/uploadAdminMark" ,method = RequestMethod.POST)
-    public String adminMark(MultipartFile profileImg){
-        return "redirect:"+service.uploadAdminMark(profileImg);
+    @RequestMapping(value = "/updUserMark" ,method = RequestMethod.POST)
+    public String superMark(@RequestParam("profileImg") MultipartFile profileImg,
+                            @RequestParam("authNo") int authNo){
+        return "redirect:"+service.updUserMark(profileImg, authNo);
     }
 }

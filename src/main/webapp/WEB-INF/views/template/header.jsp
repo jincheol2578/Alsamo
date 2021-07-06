@@ -5,7 +5,16 @@
     <ul>
         <c:choose>
             <c:when test="${not empty sessionScope.loginUser}">
-                <li><a href="/user/myPage">${sessionScope.loginUser.uid}</a></li>
+                <li id="mark">
+                    <div id="markBox">
+                        <span id="loginName"><a href="/user/myPage">${sessionScope.loginUser.uid}</a></span>
+                        <c:if test="${sessionScope.loginUser.authno != 3 or sessionScope.loginUser.authno != 4}">
+                            <img id="markImg"
+                                 src="/img/${sessionScope.loginUser.authno}/${sessionScope.loginUser.profileImg}">
+                        </c:if>
+                    </div>
+                </li>
+
                 <li><a href="/user/logout">로그아웃</a></li>
             </c:when>
             <c:otherwise>
@@ -20,7 +29,7 @@
     </ul>
     <div id="modal" class="displayNone">
         <div class="modal_content">
-            <a href="#" onclick="closeModal();"><img id="modalBtnClose" class="X" src="/img/close.png"></a>
+            <a href="#" onclick="closeModal();"><img id="modalBtnClose" clase="X" src="/img/close.png"></a>
             <div><h3>${errMsg}</h3></div>
             <idv><h3>${requestScope.msg}</h3></idv>
             <div><h3>${authkeyErr}</h3></div>
