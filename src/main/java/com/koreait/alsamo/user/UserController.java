@@ -38,7 +38,7 @@ public class UserController {
                 break;
 
         }
-        return "user/loginMsg";
+        return "/user/loginMsg";
     }
 
     @RequestMapping("/join")

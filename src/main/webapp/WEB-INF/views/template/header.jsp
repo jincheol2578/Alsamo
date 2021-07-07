@@ -24,8 +24,8 @@
             </c:otherwise>
         </c:choose>
         <li><a href="">게시판</a></li>
-        <li><a href="board/write">글쓰기</a></li>
-        <li><a href="">술과사전</a></li>
+        <li><a href="/board/write">글쓰기</a></li>
+        <li><a href="/alcohol/alcoholList">술과사전</a></li>
     </ul>
     <div id="modal" class="displayNone">
         <div class="modal_content">
