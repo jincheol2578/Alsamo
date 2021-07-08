@@ -1,5 +1,6 @@
 package com.koreait.alsamo.board;
 
+import com.koreait.alsamo.common.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,12 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(Model model, BoardDTO param){
+        int listCnt = service.selBoardCount(param);
+        Pagination pagination = new Pagination(listCnt, param.getPage());
+
+        param.setStartIdx(pagination.getStartIndex());
+        param.setCntPerPage(pagination.getPageSize());
+        model.addAttribute("paging",pagination);
         model.addAttribute("boardList", service.selBoardList(param));
         return "board/list";
     }
@@ -20,6 +27,7 @@ public class BoardController {
     @GetMapping("/write")
     public String write(Model model,BoardDTO param){
         if(param.getBno() == 0){ //원글 작성시
+            param.setBcd(1);
             model.addAttribute("categoryList",service.selBoardCategory());
         }else if(param.getModify() == 1){ //수정버튼 클릭시
             model.addAttribute("board",service.selBoard(param));
@@ -48,7 +56,7 @@ public class BoardController {
     @GetMapping("/delete")
     public String delete(Model model,BoardDTO param){
         model.addAttribute("board", service.selBoard(param));
-        return "board/process";
+        return "board/check";
     }
 
     @PostMapping("/delete")
@@ -63,11 +71,11 @@ public class BoardController {
     @GetMapping("/modify")
     public String modify(Model model,BoardDTO param){
         model.addAttribute("board", service.selBoard(param));
-        return "board/process";
+        return "board/check";
     }
 
     @PostMapping("/modify")
-    public String update(BoardEntity param){
+    public String modify(BoardEntity param){
         int result = service.updBoard(param);
         if(result == 0){
             return "redirect:/errpage?code="+result;

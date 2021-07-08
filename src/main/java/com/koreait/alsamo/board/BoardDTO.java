@@ -9,13 +9,18 @@ public class BoardDTO {
     private int bno;
     private int bcd;
     private String bnm;
+
     private int uno;
+
     private int startIdx;
-    private int recordCnt;
+    private int cntPerPage;
+    private int page = 1;
+
     private int searchType;
     private String searchText;
-    private int page = 1;
+
     private int modify;
+
     private String bpw;
 
 
