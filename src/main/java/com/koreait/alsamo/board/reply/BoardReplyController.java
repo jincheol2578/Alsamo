@@ -1,11 +1,10 @@
 package com.koreait.alsamo.board.reply;
 
-import com.koreait.alsamo.board.BoardEntity;
+import com.koreait.alsamo.board.model.BoardReplyDomain;
+import com.koreait.alsamo.board.model.BoardReplyEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.crypto.Data;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -1,5 +1,8 @@
 package com.koreait.alsamo.board;
 
+import com.koreait.alsamo.board.model.BoardDTO;
+import com.koreait.alsamo.board.model.BoardDomain;
+import com.koreait.alsamo.board.model.BoardEntity;
 import com.koreait.alsamo.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

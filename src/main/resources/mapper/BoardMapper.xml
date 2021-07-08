@@ -8,7 +8,7 @@
         VALUES
         ((SELECT NEXTVAL(iboard_seq)),#{bcd},#{uno},#{btitle},#{bctnt},(SELECT LASTVAL(iboard_seq)))
     </insert>
-<!-- TODO:title 'RE : ' 입력부분 프론트에서 처리하기-->
+    <!-- TODO:title 'RE : ' 입력부분 프론트에서 처리하기-->
     <insert id="insReBoard">
         INSERT INTO t_board
             (bno, bcd, uno, btitle, bctnt, bidx, bord, bdept)
@@ -24,7 +24,7 @@
         )
     </insert>
 
-<!--    게시판 카테고리 SELECT -->
+    <!--    게시판 카테고리 SELECT -->
     <select id="selBoardCategory" resultType="BoardDTO">
         SELECT bcd, bnm FROM t_board_category
     </select>
@@ -40,34 +40,41 @@
         ON A.uno = B.uno
         where A.bdel = 0
         <if test="bcd > 1">AND A.bcd = #{bcd}</if>
+        <if test="searchText != null">
+            <choose>
+                <when test="searchType == '제목+내용'">
+                    --                     writer like '%'||#{searchText}||'%'TODO:작업중
+                </when>
+            </choose>
+        </if>
         ORDER BY A.bidx desc, A.bord asc
         LIMIT #{startIdx}, #{cntPerPage}
     </select>
 
-<!--    게시글 SELECT -->
+    <!--    게시글 SELECT -->
     <select id="selBoard" resultType="BoardDomain">
         SELECT A.bno, A.uno, A.bcd, A.btitle,A.bctnt, A.bidx, A.bord
-               , A.bdept, A.brdt
-               , B.unm as writer
+             , A.bdept, A.brdt
+             , B.unm as writer
         FROM t_board as A
-        LEFT JOIN t_user as B
-        ON A.uno = B.uno
+                 LEFT JOIN t_user as B
+                           ON A.uno = B.uno
         WHERE A.bno = #{bno} AND bdel = 0
     </select>
-<!--    총 게시물 수 가져오기-->
+    <!--    총 게시물 수 가져오기-->
     <select id="selBoardCount" resultType="Integer">
         select count(*)
         FROM t_board
         WHERE bcd = #{bcd} AND bdel = 0
     </select>
-<!--    답글 순서 정렬-->
+    <!--    답글 순서 정렬-->
     <update id="updReBoard">
         UPDATE t_board
         SET bord = bord+1
         WHERE bidx = #{bidx}
-        AND bord > #{bord}
+          AND bord > #{bord}
     </update>
-<!--    댓글 삭제-->
+    <!--    댓글 삭제-->
     <update id="delBoard">
         UPDATE t_board
         SET bdel = 1
@@ -76,7 +83,7 @@
             OR (select authno from t_user where uno = #{uno}) = 1
             )
     </update>
-<!--    댓글 수정-->
+    <!--    댓글 수정-->
     <update id="updBoard">
         UPDATE t_board
         SET btitle = #{btitle}, bctnt = #{bctnt}

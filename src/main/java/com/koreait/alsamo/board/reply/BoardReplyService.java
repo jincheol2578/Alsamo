@@ -1,5 +1,7 @@
 package com.koreait.alsamo.board.reply;
 
+import com.koreait.alsamo.board.model.BoardReplyDomain;
+import com.koreait.alsamo.board.model.BoardReplyEntity;
 import com.koreait.alsamo.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

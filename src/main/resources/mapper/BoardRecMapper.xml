@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.koreait.alsamo.board.rec.BoardRecMapper">
+    <insert id="insRec">
+        INSERT INTO t_board_recommendation
+            (bno, uno)
+        VALUES (#{bno}, #{uno})
+    </insert>
+    <select id="selRec" resultType="INTEGER">
+        SELECT COUNT(bno)
+        FROM t_board_recommendation
+        where bno = #{bno}
+    </select>
+    <select id="selTodayRecList" resultType="BoardDomain">
+        SELECT A.bno, A.bcd, A.btitle, A.brdt
+        , COUNT(B.uno) AS rec
+        FROM t_board A
+        INNER JOIN t_board_recommendation AS B
+        ON A.bno = B.bno
+        WHERE A.bdel = 0
+        <if test="bcd > 1">AND A.bcd = #{bcd}</if>
+        AND DATE(A.brdt) = CURDATE()
+        GROUP BY A.bno
+        ORDER BY rec DESC
+        LIMIT 20
+    </select>
+    <select id="selWeekendRecList" resultType="BoardDomain">
+        SELECT A.bno, A.bcd, A.btitle, A.brdt
+        , COUNT(B.uno) AS rec
+        FROM t_board A
+        INNER JOIN t_board_recommendation AS B
+        ON A.bno = B.bno
+        WHERE A.bdel = 0
+        <if test="bcd > 1">AND A.bcd = #{bcd}</if>
+        AND DATE(A.brdt) between (CURDATE()-7) and CURDATE()
+        GROUP BY A.bno
+        ORDER BY rec DESC
+        LIMIT 20
+    </select>
+
+    <delete id="delRec">
+        DELETE
+        FROM t_board_recommendation
+        WHERE bno = #{bno}
+          AND uno = #{uno}
+    </delete>
+</mapper>

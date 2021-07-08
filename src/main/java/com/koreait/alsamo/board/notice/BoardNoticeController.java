@@ -1,7 +1,7 @@
 package com.koreait.alsamo.board.notice;
 
-import com.koreait.alsamo.board.BoardDTO;
-import com.koreait.alsamo.board.BoardDomain;
+import com.koreait.alsamo.board.model.BoardDTO;
+import com.koreait.alsamo.board.model.BoardDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

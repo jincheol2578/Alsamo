@@ -1,10 +1,15 @@
 package com.koreait.alsamo.board;
 
+import com.koreait.alsamo.board.model.BoardDTO;
+import com.koreait.alsamo.board.model.BoardDomain;
+import com.koreait.alsamo.board.model.BoardEntity;
 import com.koreait.alsamo.common.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/board")
@@ -12,9 +17,10 @@ public class BoardController {
     @Autowired
     BoardService service;
 
+    int listCnt = 0;
     @GetMapping("/list")
     public String list(Model model, BoardDTO param){
-        int listCnt = service.selBoardCount(param);
+        listCnt = service.selBoardCount(param);
         Pagination pagination = new Pagination(listCnt, param.getPage());
 
         param.setStartIdx(pagination.getStartIndex());
@@ -23,7 +29,6 @@ public class BoardController {
         model.addAttribute("boardList", service.selBoardList(param));
         return "board/list";
     }
-
     @GetMapping("/write")
     public String write(Model model,BoardDTO param){
         if(param.getBno() == 0){ //원글 작성시
