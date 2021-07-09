@@ -1,0 +1,14 @@
+.alContainer {
+    box-sizing: border-box;
+    margin: 0;
+    border: 0;
+}
+
+.ulContainer ul li {
+    list-style-type: none;
+    float: left;
+    margin-left: 20px;
+}
+.contentContainer{
+    margin: 20px;
+}
