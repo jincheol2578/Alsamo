@@ -17,6 +17,7 @@ public interface BoardMapper {
     int updReBoard(BoardEntity param);
     int delBoard(BoardEntity param);
     int updBoard(BoardEntity param);
+    int updBoardHit(int bno);
 
     int selBoardCount(BoardDTO param);
 }

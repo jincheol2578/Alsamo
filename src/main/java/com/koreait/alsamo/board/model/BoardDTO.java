@@ -16,7 +16,7 @@ public class BoardDTO {
     private int cntPerPage;
     private int page = 1;
 
-    private int searchType;
+    private String searchType;
     private String searchText;
 
     private int modify;

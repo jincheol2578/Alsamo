@@ -15,4 +15,5 @@ public class BoardEntity {
     private String brdt;
     private int bdel;
     private String bpw;
+    private int bhit;
 }

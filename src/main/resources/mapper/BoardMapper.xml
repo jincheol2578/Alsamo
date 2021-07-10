@@ -31,7 +31,7 @@
     <!--TODO:글쓴이 레벨 표시 추가-->
     <select id="selBoardList" resultType="BoardDomain">
         SELECT A.bno, A.uno, A.bcd, A.btitle, A.bctnt, A.bidx, A.bord
-        , A.bdept, A.brdt
+        , A.bdept, A.brdt, A.bhit
         , B.unm as writer
         FROM t_board as A
         LEFT JOIN t_user as B
@@ -65,6 +65,7 @@
              , A.bord
              , A.bdept
              , A.brdt
+             , A.bhit
              , B.unm as writer
         FROM t_board as A
                  LEFT JOIN t_user as B
@@ -77,7 +78,7 @@
         select count(*)
         FROM t_board
         WHERE bcd = #{bcd}
-          AND bdel = 0
+        AND bdel = 0
         <if test="searchType != null">
             <if test="searchType == '제목+내용'">
                 AND A.btitle like CONCAT('%',#{searchText},'%')
@@ -97,6 +98,12 @@
         SET bord = bord + 1
         WHERE bidx = #{bidx}
           AND bord > #{bord}
+    </update>
+    <!--    게시글 조회수 업데이트-->
+    <update id="updBoardHit">
+        UPDATE t_board
+        SET bhit = bhit+1
+        where bno = #{bno}
     </update>
     <!--    댓글 삭제-->
     <update id="delBoard">
