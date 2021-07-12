@@ -1,4 +1,4 @@
-let newAlcoholCon = document.getElementById('newAlcoholContainer');
+ajaxAl('위스키');
 
 function getWhiskey() {
 
@@ -38,10 +38,11 @@ function getTequila() {
 
     ajaxAl(name);
 }
-function getVodka(){
+
+function getVodka() {
     const innerHTML = document.getElementById('Vodka').innerText;
-    const name={
-      name:  innerHTML
+    const name = {
+        name: innerHTML
     };
     ajaxAl(name);
 }
@@ -62,9 +63,39 @@ function ajaxAl(name) {
         })
         .then((myJson) => {
             console.log(myJson.name);
-            document.getElementById('alcoholContent').innerText = myJson.content;
+            console.log(myJson.content);
+            console.log(myJson.alImg);
+            console.log(myJson.alTable);
+            document.getElementById('alcoholContent').innerHTML = myJson.content;
             document.getElementById('alcoholName').innerText = myJson.name;
+            document.getElementById('alImg').src = myJson.alImg;
+            document.getElementById('alcoholTable').innerHTML = myJson.alTable;
+
+            addSrc();
         })
 
 }
 
+function addSrc() {
+    const container = document.querySelector('.contentContainer');
+    const a = container.getElementsByTagName('a');
+
+    for (var i = 0; i < a.length; i++) {
+        var origin = a[i].getAttribute('href');
+        var sufix = "https://ko.wikipedia.org/";
+        a[i].href = sufix + origin;
+        console.log(a[i].href);
+        console.log(origin);
+    }
+}
+
+function searchName() {
+    const value = document.querySelector('.whatsearch').value;
+    const name = {
+        name: value
+    };
+    ajaxAl(name);
+}
+function enterKey(){
+    if(window.event.keyCode==13){searchName();}
+}
