@@ -4,21 +4,27 @@
 <mapper namespace="com.koreait.alsamo.board.BoardMapper">
     <insert id="insBoard">
         INSERT INTO t_board
-            (bno, bcd, uno, btitle, bctnt, bidx)
-        VALUES ((SELECT NEXTVAL(iboard_seq)), #{bcd}, #{uno}, #{btitle}, #{bctnt}, (SELECT LASTVAL(iboard_seq)))
-    </insert>
-    <!-- TODO:title 'RE : ' 입력부분 프론트에서 처리하기-->
-    <insert id="insReBoard">
-        INSERT INTO t_board
-            (bno, bcd, uno, btitle, bctnt, bidx, bord, bdept)
+            (bno, bcd, uno, btitle, bctnt, bidx, bpw)
         VALUES ( (SELECT NEXTVAL(iboard_seq))
                , #{bcd}
                , #{uno}
-               , CONCAT('└ Re : ', #{btitle})
+               , #{btitle}
+               , #{bctnt}
+               , (SELECT LASTVAL(iboard_seq))
+               , #{bpw})
+    </insert>
+    <insert id="insReBoard">
+        INSERT INTO t_board
+            (bno, bcd, uno, btitle, bctnt, bidx, bord, bdept, bpw)
+        VALUES ( (SELECT NEXTVAL(iboard_seq))
+               , #{bcd}
+               , #{uno}
+               , #{btitle}
                , #{bctnt}
                , #{bidx}
                , #{bord} + 1
                , #{bdept} + 1)
+             , #{bpw}
     </insert>
 
     <!--    게시판 카테고리 SELECT -->
@@ -28,7 +34,6 @@
     </select>
 
     <!--    게시판 리스트 SELECT -->
-    <!--TODO:글쓴이 레벨 표시 추가-->
     <select id="selBoardList" resultType="BoardDomain">
         SELECT A.bno, A.uno, A.bcd, A.btitle, A.bctnt, A.bidx, A.bord
         , A.bdept, A.brdt, A.bhit
@@ -102,28 +107,27 @@
     <!--    게시글 조회수 업데이트-->
     <update id="updBoardHit">
         UPDATE t_board
-        SET bhit = bhit+1
+        SET bhit = bhit + 1
         where bno = #{bno}
     </update>
-    <!--    댓글 삭제-->
+    <!--    게시글 수정-->
+    <update id="updBoard">
+        UPDATE t_board
+        SET btitle = #{btitle},
+        bctnt = #{bctnt}
+        WHERE bno = #{bno}
+        AND
+        (<if test="uno != 0">uno = #{uno} OR</if>
+        bpw = #{bpw})
+    </update>
+    <!--    게시글 삭제-->
     <update id="delBoard">
         UPDATE t_board
         SET bdel = 1
         WHERE bno = #{bno}
-          AND (uno = #{uno}
-            OR bpw = #{bpw}
-            OR (select authno from t_user where uno = #{uno}) = 1
-            )
-    </update>
-    <!--    댓글 수정-->
-    <update id="updBoard">
-        UPDATE t_board
-        SET btitle = #{btitle},
-            bctnt  = #{bctnt}
-        WHERE bno = #{bno}
-          AND (uno = #{uno}
-            OR bpw = #{bpw}
-            OR (select authno from t_user where uno = #{uno}) = 1
-            )
+        AND
+        (<if test="uno != 0">uno = #{uno} OR</if>
+        bpw = #{bpw}
+        OR ((SELECT authno FROM t_user WHERE uno = #{uno}) = 1 OR 2))
     </update>
 </mapper>

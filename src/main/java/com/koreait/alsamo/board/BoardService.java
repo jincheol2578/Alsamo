@@ -6,8 +6,6 @@ import com.koreait.alsamo.board.model.BoardEntity;
 import com.koreait.alsamo.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,7 +19,9 @@ public class BoardService {
 
     //게시글 등록
     public int insBoard(BoardEntity param){
-        param.setUno(myUtils.getUserPk());
+        if(myUtils.getLoginUser() != null){
+            param.setUno(myUtils.getUserPk());
+        }
         return mapper.insBoard(param);
     }
 
@@ -35,8 +35,11 @@ public class BoardService {
     }
     //게시글 가져오기
     public BoardDomain selBoard(BoardDTO param){
-        mapper.updBoardHit(param.getBno());
         return mapper.selBoard(param);
+    }
+    //조회수 증가
+    public int updBoardHit(int bno){
+        return mapper.updBoardHit(bno);
     }
     //페이징 처리 (페이징)
     public int selBoardCount(BoardDTO param){
@@ -44,7 +47,9 @@ public class BoardService {
     }
     //게시글 답글 등록
     public int insReBoard(BoardEntity param){
-        param.setUno(myUtils.getUserPk());
+        if(myUtils.getLoginUser() != null){
+            param.setUno(myUtils.getUserPk());
+        }
         return mapper.insReBoard(param);
     }
     //게시글 답글 등록-2 순서 정리를 위한 업데이트

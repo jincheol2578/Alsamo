@@ -32,7 +32,6 @@
     </table>
 </div>
 
-<%-- TODO:부트스트랩 적용필요함--%>
 <ul class="pagination">
     <c:if test="${paging.curRange ne 1}">
         <li class="firstPage" onclick="moveToPage(${param.bcd},1)">&#171;</li>

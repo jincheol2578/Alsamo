@@ -121,7 +121,7 @@ function makeReplyList(data){
             modBtn.addEventListener('click', ()=> {
                 //수정창 띄우기
             });
-            //TODO: table 안에서 form 못만듬 댓글리스트 table 말고 div로 변경필요 프론트 작업이니 미뤄두기
+            //TODO:답글창 만들기 table 안에서 form 못만듬 댓글리스트 table 말고 div로 변경필요 프론트 작업이니 미뤄두기
 
             delBtn.innerText = '삭제';
             modBtn.innerText = '수정';

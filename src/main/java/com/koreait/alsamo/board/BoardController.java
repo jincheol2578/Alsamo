@@ -61,6 +61,7 @@ public class BoardController {
 
     @GetMapping("/view")
     public String view(Model model, BoardDTO param){
+        service.updBoardHit(param.getBno());
         model.addAttribute("board", service.selBoard(param));
         return "board/view";
     }

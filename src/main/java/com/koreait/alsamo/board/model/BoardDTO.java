@@ -20,6 +20,7 @@ public class BoardDTO {
     private String searchText;
 
     private int modify;
+    private int delChk;
 
     private String bpw;
 

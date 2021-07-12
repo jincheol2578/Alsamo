@@ -45,6 +45,9 @@
         <input type="hidden" name="bpw" value="${requestScope.bpw}">
     </c:if>
     <input type="text" name="btitle" placeholder="제목">
+    <c:if test="${not empty sessionScope.loginUser}">
+    <input type="password" name="bpw" placeholder="비밀번호">
+    </c:if>
     <textarea id="summernote" name="bctnt"></textarea>
     <input type="submit" value="글쓰기">
 </form>
