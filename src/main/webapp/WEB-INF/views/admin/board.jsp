@@ -5,31 +5,12 @@
     <title></title>
 </head>
 <body>
-<form id="tag">
+<form id="tag" onsubmit="regTag();">
     <input type="text" id="tname">
-    <input type="button" onclick="regTag();">
 </form>
+<div id="blockTag">
+<%--span으로 태그 하나씩 넣기(노션 이미지랑 비슷한거)--%>
+</div>
 </body>
-<script>
-    function regTag() {
-        const tname = document.getElementById('tname');
-        const tnameVal = tname.value;
-        const param = {
-            tname: tnameVal
-        };
-
-        const init = {
-            method: 'POST',
-            body: JSON.stringify(param),
-            headers:{
-                'accept' : 'application/json',
-                'content-type' : 'application/json;charset=UTF-8'
-            }
-        };
-        fetch('/admin/tag',init)
-        .then((res)=>{
-            return res.json();
-        })
-    }
-</script>
+<script src="/res/js/admin/admin.js"></script>
 </html>

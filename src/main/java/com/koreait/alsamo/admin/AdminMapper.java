@@ -10,10 +10,16 @@ import java.util.List;
 @Mapper
 public interface AdminMapper {
     UserEntity selAdmin(UserEntity param);
-    BoardDomain selBoardList(BoardDTO param);
+    List<BoardDomain> selBoardList(BoardDTO param);
     int selBoardCount(BoardDTO param);
+    int delBoard(AdminDTO param);
 
-    int insTag(String tname);
-    List<String> selTags();
-    int delTag(String tname);
+    int insTag(BlockTags tags);
+    List<BlockTags> selTags();
+    int delTag(int tno);
+
+    int insCategory(String bnm);
+    List<BoardCategoryEntity> selCategoryList();
+    int updCategory(BoardCategoryEntity param);
+    int delCategory(int bcd);
 }

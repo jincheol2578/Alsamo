@@ -1,21 +1,14 @@
 package com.koreait.alsamo.board;
 
 import com.koreait.alsamo.board.model.BoardDTO;
-import com.koreait.alsamo.board.model.BoardDomain;
 import com.koreait.alsamo.board.model.BoardEntity;
 import com.koreait.alsamo.common.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.HttpRequestHandler;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.CookieGenerator;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/board")

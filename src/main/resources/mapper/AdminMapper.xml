@@ -2,30 +2,72 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koreait.alsamo.admin.AdminMapper">
-    <insert id="insTag">
-        INSERT INTO t_board_tags
-        (tname)
-        VALUES
-        (#{tname})
-    </insert>
-    <select id="selTags" resultType="List">
-        SELECT * FROM t_board_tags
-    </select>
+
+    <!--    로그인-->
     <select id="selAdmin" resultType="UserEntity">
         SELECT uid, upw
         FROM t_user
         WHERE authno = (1 OR 2)
     </select>
 
+    <!--    게시판 태그 -->
+    <insert id="insTag">
+        INSERT INTO t_board_tags
+            (tname)
+        VALUES (#{tname})
+    </insert>
+    <select id="selTags" resultType="BlockTags">
+        SELECT *
+        FROM t_board_tags
+    </select>
+    <delete id="delTag">
+        DELETE
+        FROM t_board_tags
+        WHERE tno = #{tno}
+    </delete>
+
+<!--    카테고리 관리 -->
+    <insert id="insCategory">
+        INSERT INTO t_board_category
+        (bnm,cord)
+        VALUES
+        (#{bnm},#{cord})
+    </insert>
+    <select id="selCategoryList" resultType="BoardCategoryList">
+        SELECT * FROM t_board_category
+    </select>
+    <update id="updCategory">
+        UPDATE t_board_category
+        SET bnm = #{bnm}
+        WHERE bcd = #{bcd}
+    </update>
+    <update id="updCategoryOrdUp">
+        UPDATE t_board_category
+        SET
+--         <if test="cord > 0"></if> TODO:클릭시 순서변경 해결해야함
+            cord = #{cord} + 1
+        WHERE bcd = #{bcd}
+    </update>
+    <update id="updCategoryOrdDown">
+        UPDATE t_board_category
+        SET cord = #{cord} - 1
+        WHERE bcd = #{bcd}
+    </update>
+    <delete id="delCategory">
+        DELETE FROM t_board_category
+        WHERE bcd = #{bcd}
+    </delete>
+
+    <!--    게시판 관리-->
     <select id="selBoardList" resultType="BoardDomain">
         SELECT A.bno, A.uno, A.bcd, A.btitle, A.bctnt, A.bidx, A.bord
-        , A.bdept, A.brdt, A.bhit
+        , A.bdept, A.brdt, A.bhit, A.bdel
         , B.unm as writer
         FROM t_board as A
         LEFT JOIN t_user as B
         ON A.uno = B.uno
         where A.bcd = #{bcd}
-        <if test="delChk == 0">AND A.bdel = 0</if>
+        AND A.bdel = 0
         <if test="bcd > 1">AND A.bcd = #{bcd}</if>
         <if test="searchText != null">
             <foreach collection=""></foreach>
@@ -33,17 +75,24 @@
         ORDER BY A.bidx desc, A.bord asc
         LIMIT #{startIdx}, #{cntPerPage}
     </select>
+    <!--    게시글 삭제 -->
+    <update id="delBoard">
+        UPDATE t_board
+        SET bdel = 1
+        WHERE
+        <foreach collection="delChk" index="index" item="delChk" separator="or" open="">
+            bno = #{delChk}
+        </foreach>
+    </update>
+    <!--    페이징 -->
     <select id="selBoardCount" resultType="Integer">
         select count(*)
         FROM t_board
         WHERE bcd = #{bcd}
-        <if test="delChk == 0">AND bdel = 0</if>
+        AND bdel = 0
         <if test="searchText != null">
             <foreach collection=""></foreach>
         </if>
     </select>
-    <delete id="delTag">
-        DELETE FROM t_board_tags
-        WHERE tname = #{tname}
-    </delete>
+
 </mapper>

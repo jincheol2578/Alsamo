@@ -5,10 +5,10 @@ import com.koreait.alsamo.board.model.BoardDomain;
 import com.koreait.alsamo.user.UserEntity;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.SmartApplicationListener;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Service
 public class AdminService {
@@ -16,10 +16,7 @@ public class AdminService {
     AdminMapper mapper;
     @Autowired
     HttpSession session;
-
-    public int regTag(String tname){
-        return mapper.insTag(tname);
-    }
+    // 로그인
     public String login(UserEntity param){
         UserEntity result = mapper.selAdmin(param);
 
@@ -37,10 +34,38 @@ public class AdminService {
         }
     }
 
-    public BoardDomain getBoardList(BoardDTO param){
+    // 게시판 관리
+    public List<BoardDomain> getBoardList(BoardDTO param){
         return mapper.selBoardList(param);
     }
     public int getBoardCount(BoardDTO param){
         return mapper.selBoardCount(param);
+    }
+    public int delBoard(AdminDTO param){
+        return mapper.delBoard(param);
+    }
+    // 게시판 태그 관리
+    public int regTag(BlockTags tags){
+        return mapper.insTag(tags);
+    }
+    public List<BlockTags> getTags(){
+        return mapper.selTags();
+    }
+    public int delTag(int tno) {
+        return mapper.delTag(tno);
+    }
+
+    // 카테고리 관리
+    public int regCategory(String bno){
+        return mapper.insCategory(bno);
+    }
+    public List<BoardCategoryEntity> getCategoryList(){
+        return mapper.selCategoryList();
+    }
+    public int updCategory(BoardCategoryEntity param){
+        return mapper.updCategory(param);
+    }
+    public int delCategory(int bcd){
+        return mapper.delCategory(bcd);
     }
 }
