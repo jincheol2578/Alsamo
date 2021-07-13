@@ -72,6 +72,7 @@ function ajaxAl(name) {
             document.getElementById('alcoholTable').innerHTML = myJson.alTable;
 
             addSrc();
+            hindUselss();
         })
 
 }
@@ -90,7 +91,7 @@ function addSrc() {
 }
 
 function searchName() {
-    const value = document.querySelector('.whatsearch').value;
+    const value = document.querySelector('.form-control').value;
     const name = {
         name: value
     };
@@ -98,4 +99,9 @@ function searchName() {
 }
 function enterKey(){
     if(window.event.keyCode==13){searchName();}
+
+}
+
+function hindUselss(){
+    document.querySelector('#p-lang-btn').style.display = 'none';
 }
