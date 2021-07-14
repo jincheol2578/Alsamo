@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/res/css/myPage.css">
     <link rel="stylesheet" href="/res/css/board.css">
     <link rel="stylesheet" href="/res/css/layout.css">
+    <link rel="stylesheet" href="/res/css/alcoholList.css">
 
     <%-- 부트 스트랩--%>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,6 +33,7 @@
     <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
     <script def src="/res/js/googleLogin.js"></script>
     <script def src="/res/js/common.js "></script>
+    <script def src="/res/js/alcohol/alcohol.js "></script>
 
 </head>
 <body>
@@ -50,6 +52,7 @@
 
     <div id="footer">
         Copyright 2021.
+        <div>Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
     </div>
 </div>
 </body>

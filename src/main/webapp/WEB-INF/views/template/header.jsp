@@ -5,7 +5,16 @@
     <ul>
         <c:choose>
             <c:when test="${not empty sessionScope.loginUser}">
-                <li><a href="/user/myPage">${sessionScope.loginUser.uid}</a></li>
+                <li id="mark">
+                    <div id="markBox">
+                        <span id="loginName"><a href="/user/myPage">${sessionScope.loginUser.uid}</a></span>
+                        <c:if test="${sessionScope.loginUser.authno != 3 or sessionScope.loginUser.authno != 4}">
+                            <img id="markImg"
+                                 src="/img/${sessionScope.loginUser.authno}/${sessionScope.loginUser.profileImg}">
+                        </c:if>
+                    </div>
+                </li>
+
                 <li><a href="/user/logout">로그아웃</a></li>
             </c:when>
             <c:otherwise>
@@ -15,12 +24,12 @@
             </c:otherwise>
         </c:choose>
         <li><a href="">게시판</a></li>
-        <li><a href="board/write">글쓰기</a></li>
-        <li><a href="">술과사전</a></li>
+        <li><a href="/board/write">글쓰기</a></li>
+        <li><a href="/alcohol/alcoholList">술과사전</a></li>
     </ul>
     <div id="modal" class="displayNone">
         <div class="modal_content">
-            <a href="#" onclick="closeModal();"><img id="modalBtnClose" class="X" src="/img/close.png"></a>
+            <a href="#" onclick="closeModal();"><img id="modalBtnClose" clase="X" src="/img/close.png"></a>
             <div><h3>${errMsg}</h3></div>
             <idv><h3>${requestScope.msg}</h3></idv>
             <div><h3>${authkeyErr}</h3></div>
@@ -32,13 +41,6 @@
                     <button class="loginBtn" type="button">회원가입</button>
                 </a></div>
             </form>
-            <div class="or">------------------ or -----------------</div>
-
-            <%-- 구글 로그인 버튼--%>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-            <%-- 구글 로그 아웃--%>
-            <%-- <a href="#" onclick="signOut();">Sign out</a> --%>
         </div>
     </div>
 </header>

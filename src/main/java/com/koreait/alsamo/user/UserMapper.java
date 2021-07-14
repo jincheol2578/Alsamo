@@ -19,4 +19,8 @@ public interface UserMapper {
     int updUser(UserEntity param);
 
     UserEntity selId(UserEntity param);
+
+    int updMark(UserEntity param);
+
+    String  selNowMark(int authNo);
 }

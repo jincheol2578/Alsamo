@@ -16,5 +16,5 @@ public class UserEntity {
     private String unm;
     private String urdt;
     private String authkey;
-
+    private String profileImg;
 }
