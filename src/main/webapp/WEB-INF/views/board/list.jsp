@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <div class="boardContainer">
     <div class="boardBtn">
         <div class="float-left"></div>
@@ -18,6 +17,7 @@
             <th>작성자</th>
             <th>제목</th>
             <th>작성일</th>
+            <th>조회수</th>
         </tr>
         <c:forEach var="item" items="${requestScope.boardList}">
             <tr id="boardClick" onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">
@@ -25,12 +25,13 @@
                 <td>${item.writer}</td>
                 <td class="bright">${item.btitle}</td>
                 <td>${item.brdt}</td>
+                <td>${item.bhit}</td>
             </tr>
         </c:forEach>
     </table>
 </div>
 
-<%-- TODO:부트스트랩 적용필요함--%>
+
 <ul class="pagination">
     <c:if test="${paging.curRange ne 1}">
         <li class="firstPage" onclick="moveToPage(${param.bcd},1)">&#171;</li>
