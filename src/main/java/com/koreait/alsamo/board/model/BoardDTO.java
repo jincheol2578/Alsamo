@@ -1,4 +1,4 @@
-package com.koreait.alsamo.board;
+package com.koreait.alsamo.board.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,10 +16,11 @@ public class BoardDTO {
     private int cntPerPage;
     private int page = 1;
 
-    private int searchType;
+    private String searchType;
     private String searchText;
 
     private int modify;
+    private int delChk;
 
     private String bpw;
 

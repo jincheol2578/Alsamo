@@ -1,5 +1,7 @@
 package com.koreait.alsamo.board.reply;
 
+import com.koreait.alsamo.board.model.BoardReplyDomain;
+import com.koreait.alsamo.board.model.BoardReplyEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

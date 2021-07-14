@@ -1,6 +1,8 @@
 package com.koreait.alsamo.board;
 
-import com.koreait.alsamo.common.Pagination;
+import com.koreait.alsamo.board.model.BoardDTO;
+import com.koreait.alsamo.board.model.BoardDomain;
+import com.koreait.alsamo.board.model.BoardEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,6 +17,7 @@ public interface BoardMapper {
     int updReBoard(BoardEntity param);
     int delBoard(BoardEntity param);
     int updBoard(BoardEntity param);
+    int updBoardHit(int bno);
 
     int selBoardCount(BoardDTO param);
 }

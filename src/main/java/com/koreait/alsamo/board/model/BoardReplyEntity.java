@@ -1,4 +1,4 @@
-package com.koreait.alsamo.board.reply;
+package com.koreait.alsamo.board.model;
 
 import lombok.Data;
 

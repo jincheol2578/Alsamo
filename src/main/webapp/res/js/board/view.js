@@ -98,18 +98,19 @@ function makeReplyList(data){
         tdElem2.append(item.repnm);
         tdElem3.append(item.reprdt);
 
-        if(parseInt(loginUserPk) === item.uno || item.uno === null) {
+        if(parseInt(loginUserPk) === item.uno || item.uno === 0) {
             const delBtn = document.createElement('button');
             const modBtn = document.createElement('button');
-            const repBtn = document.createElement('button');
-            let promptPw = null;
 
             //삭제버튼 클릭시
             delBtn.addEventListener('click', ()=> {
-                if (item.uno === null){
-                    promptPw = parseInt(prompt("비밀번호를 입력하세요", "비밀번호"));
-                }else if(confirm('삭제하시겠습니까?')){
-                    const param = {
+                if (parseInt(loginUserPk) === item.uno) {
+                    alert(confirm())
+                    var param = {repno: item.repno};
+                    delAjax(param);
+                }else{
+                    let promptPw = parseInt(prompt("비밀번호를 입력하세요"));
+                    var param = {
                         repno: item.repno,
                         reppw: promptPw
                     };
@@ -120,36 +121,19 @@ function makeReplyList(data){
             modBtn.addEventListener('click', ()=> {
                 //수정창 띄우기
             });
-            // repBtn.addEventListener('click',()=>{
-            //     let formElem = document.createElement('form');
-            //     let inputRepnm = document.createElement('input');
-            //     let inputReppw = document.createElement('input');
-            //     let txtRepctnt = document.createElement('textarea');
-            //     let inputReBtn = document.createElement('input');
-            //
-            //     formElem.onsubmit='return false;';
-            //     inputRepnm.type='text';
-            //     inputReppw.type='password';
-            //     inputReBtn.type='text';
-            //     inputReBtn.value='작성';
-            //
-            //
-            //     formElem.append(inputRepnm);
-            //     formElem.append(inputReppw);
-            //     formElem.append(txtRepctnt);
-            //     formElem.append(inputReBtn);
-            //
-            //     trElemCtnt.append(formElem);
-            // });  TODO: table 안에서 form 못만듬 댓글리스트 table 말고 div로 변경필요 프론트 작업이니 미뤄두기
+            //TODO:답글창 만들기 table 안에서 form 못만듬 댓글리스트 table 말고 div로 변경필요 프론트 작업이니 미뤄두기
 
             delBtn.innerText = '삭제';
             modBtn.innerText = '수정';
-            repBtn.innerText = '답글';
+
 
             tdElem4.append(delBtn);
             tdElem4.append(modBtn);
-            tdElem4.append(repBtn);
+
         }
+        const repBtn = document.createElement('button');
+        repBtn.innerText = '답글';
+        tdElem4.append(repBtn);
 
         trElemCtnt.append(tdElem1);
         trElemCtnt.append(tdElem2);
