@@ -59,10 +59,10 @@ public class AdminService {
     public int regCategory(String bno){
         return mapper.insCategory(bno);
     }
-    public List<BoardCategoryEntity> getCategoryList(){
+    public List<BoardCategoryDTO> getCategoryList(){
         return mapper.selCategoryList();
     }
-    public int updCategory(BoardCategoryEntity param){
+    public int updCategory(BoardCategoryDTO param){
         return mapper.updCategory(param);
     }
     public int delCategory(int bcd){

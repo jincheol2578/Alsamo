@@ -19,7 +19,7 @@ public interface AdminMapper {
     int delTag(int tno);
 
     int insCategory(String bnm);
-    List<BoardCategoryEntity> selCategoryList();
-    int updCategory(BoardCategoryEntity param);
+    List<BoardCategoryDTO> selCategoryList();
+    int updCategory(BoardCategoryDTO param);
     int delCategory(int bcd);
 }

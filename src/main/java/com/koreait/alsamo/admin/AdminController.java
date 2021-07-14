@@ -65,12 +65,12 @@ public class AdminController {
     }
     @ResponseBody
     @GetMapping("/category")
-    public List<BoardCategoryEntity> getCategoryList(){
+    public List<BoardCategoryDTO> getCategoryList(){
         return service.getCategoryList();
     }
     @ResponseBody
     @PutMapping("/category")
-    public Map<String,Integer> updCategory(BoardCategoryEntity param){
+    public Map<String,Integer> updCategory(BoardCategoryDTO param){
         Map<String,Integer> data = new HashMap<>();
         data.put("result", service.updCategory(param));
         return data;
