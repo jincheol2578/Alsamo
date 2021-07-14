@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <div class="boardContainer">
     <div class="boardBtn">
         <div class="float-left"></div>
@@ -31,7 +32,6 @@
     </table>
 </div>
 
-
 <ul class="pagination">
     <c:if test="${paging.curRange ne 1}">
         <li class="firstPage" onclick="moveToPage(${param.bcd},1)">&#171;</li>
@@ -61,7 +61,7 @@
 </ul>
 
 <script defer>
-    function moveToPage(bcd, page) {
-        location.href = "/board/list?bcd=" + bcd + "&page=" + page;
+    function moveToPage(bcd, page){
+        location.href = "/board/list?bcd="+bcd+"&page="+page;
     }
 </script>
