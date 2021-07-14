@@ -68,7 +68,12 @@ function ajaxAl(name) {
             console.log(myJson.alTable);
             document.getElementById('alcoholContent').innerHTML = myJson.content;
             document.getElementById('alcoholName').innerText = myJson.name;
-            document.getElementById('alImg').src = myJson.alImg;
+            if (myJson.alImg == null) {
+                alert('구체적인 검색어를 입력해 주세요.')
+            } else {
+                document.getElementById('alImg').src = myJson.alImg;
+            }
+
             document.getElementById('alcoholTable').innerHTML = myJson.alTable;
 
             addSrc();
@@ -97,11 +102,15 @@ function searchName() {
     };
     ajaxAl(name);
 }
-function enterKey(){
-    if(window.event.keyCode==13){searchName();}
+
+function enterKey() {
+    if (window.event.keyCode == 13) {
+        searchName();
+    }
 
 }
 
-function hindUselss(){
+function hindUselss() {
     document.querySelector('#p-lang-btn').style.display = 'none';
 }
+
