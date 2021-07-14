@@ -10,5 +10,18 @@
     <input type="password" name="upw" placeholder="pw">
     <input type="submit" value="로그인">
 </form>
+<button onclick="regCategory()">test</button>
+
+<div>
+    태그
+<form id="tag" onsubmit="regTag();">
+    <input type="text" id="tname">
+</form>
+    <form onsubmit="regCategory()">
+        <input type="text" id="category">
+    </form>
+    <div id="blockTag"></div>
+</div>
+    <script src="/res/js/admin/admin.js"></script>
 </body>
 </html>

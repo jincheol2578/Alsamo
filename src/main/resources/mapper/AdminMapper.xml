@@ -27,30 +27,43 @@
     </delete>
 
     <!--    카테고리 관리 -->
-    <insert id="insCategory">
-        INSERT INTO t_board_category
-            (bnm, cord)
-        VALUES (#{bnm}, #{cord})
+    <insert id="insCategory">-- 카테고리생성
+    INSERT INTO t_board_category
+        (bnm, cord)
+    VALUES (#{bnm}, #{cord} + 1)
     </insert>
-
-    <select id="selCategoryList" resultType="BoardCategoryList">
-        SELECT *
-        FROM t_board_category
+    <select id="selCategoryList" resultType="BoardCategoryDTO">-- 리스트
+    SELECT *
+    FROM t_board_category
     </select>
-    <update id="updCategory">
-        UPDATE t_board_category
-        SET bnm = #{bnm}
-        WHERE bcd = #{bcd}
+    <update id="updCategory"> -- 수정
+    UPDATE t_board_category
+    SET bnm = #{bnm}
+    WHERE bcd = #{bcd}
     </update>
-    <update id="updCategoryOrd">
+    <update id="updCategoryUp">
+        <![CDATA[
+        UPDATE t_board_category
+        SET cord = cord + 1
+        WHERE cord > #{cord}
+        ]]>
+    </update>
+    <update id="updCategoryDown">
+        <![CDATA[
+        UPDATE t_board_category
+        SET cord = cord - 1
+        WHERE cord < #{cord}
+        ]]>
+    </update>
+    <update id="updCategoryOrd">-- 순서 바꾸기
         UPDATE t_board_category
         SET cord =
         case
-        <if test="updType == 'up'">
+        <if test="ordType == 'up'">
             when cord = #{cord} AND cord > 1 then cord - 1
             when cord = #{cord} - 1 then cord + 1
         </if>
-        <if test="updType == 'down'">
+        <if test="ordType == 'down'">
             when cord = #{cord} then cord + 1
             when cord = #{cord} + 1 then cord - 1
         </if>
@@ -61,7 +74,6 @@
           AND cord < (SELECT cord FROM t_board_category order by cord desc limit 1) + 1;
         ]]>
     </update>
-
     <delete id="delCategory"> -- 삭제시 트랜잭션 이용해서 밑에 게시글까지 모두삭제
     DELETE
     FROM t_board_category
@@ -81,6 +93,7 @@
         <if test="bcd > 1">AND A.bcd = #{bcd}</if>
         <if test="searchText != null">
             <foreach collection=""></foreach>
+            -- TODO:검색식 추가
         </if>
         ORDER BY A.bidx desc, A.bord asc
         LIMIT #{startIdx}, #{cntPerPage}

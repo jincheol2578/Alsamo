@@ -32,7 +32,7 @@ function regAjax(param){
         body: JSON.stringify(param),
         headers:{
             'accept' : 'application/json',
-            'content-type' : 'application/json;charset=UTF-8'
+            contentType : 'application/json;charset=UTF-8'
         }
     };
 

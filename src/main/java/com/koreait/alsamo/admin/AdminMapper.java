@@ -6,7 +6,6 @@ import com.koreait.alsamo.user.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-
 @Mapper
 public interface AdminMapper {
     UserEntity selAdmin(UserEntity param);
@@ -18,8 +17,11 @@ public interface AdminMapper {
     List<BlockTags> selTags();
     int delTag(int tno);
 
-    int insCategory(String bnm);
+    int insCategory(BoardCategoryDTO param);
     List<BoardCategoryDTO> selCategoryList();
     int updCategory(BoardCategoryDTO param);
-    int delCategory(int bcd);
+    int updCategoryUp(int cord);
+    int updCategoryDown(int cord);
+    int updCategoryOrd(BoardCategoryDTO param);
+    int delCategory(BoardCategoryDTO param);
 }

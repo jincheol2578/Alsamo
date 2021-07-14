@@ -57,31 +57,39 @@ public class AdminController {
 
 //    카테고리 관리
     @ResponseBody
-    @PostMapping("/category/{bnm}")
-    public Map<String,Integer> regCategory(@PathVariable String bnm){
+    @RequestMapping(value = "/category",method = RequestMethod.POST)
+    public Map<String,Integer> regCategory(@RequestBody BoardCategoryDTO param){
         Map<String,Integer> data = new HashMap<>();
-        data.put("result",service.regCategory(bnm));
+        data.put("result",service.regCategory(param));
         return data;
     }
     @ResponseBody
     @GetMapping("/category")
-    public List<BoardCategoryDTO> getCategoryList(){
+    public List<BoardCategoryDTO> getCategoryList() {
         return service.getCategoryList();
     }
-    @ResponseBody
-    @PutMapping("/category")
-    public Map<String,Integer> updCategory(BoardCategoryDTO param){
-        Map<String,Integer> data = new HashMap<>();
-        data.put("result", service.updCategory(param));
-        return data;
-    }
-    @ResponseBody
-    @DeleteMapping("/category/{bcd}")
-    public Map<String,Integer> updCategory(@PathVariable int bcd){
-        Map<String,Integer> data = new HashMap<>();
-        data.put("result", service.delCategory(bcd));
-        return data;
-    }
+//    @ResponseBody
+//    @PatchMapping("/category")
+//    public Map<String,Integer> updCategory(@RequestBody BoardCategoryDTO param){
+//        Map<String,Integer> data = new HashMap<>();
+//        data.put("result", service.updCategory(param));
+//        return data;
+//    }
+//    @ResponseBody
+//    @PatchMapping("/category/ord")
+//    public Map<String,Integer> updCategoryOrd(@RequestBody BoardCategoryDTO param){
+//        Map<String,Integer> data = new HashMap<>();
+//        data.put("result", service.updCategoryOrd(param));
+//        return data;
+//    }
+//
+//    @ResponseBody
+//    @DeleteMapping("/category")
+//    public Map<String,Integer> delCategory(@RequestBody BoardCategoryDTO param){
+//        Map<String,Integer> data = new HashMap<>();
+//        data.put("result", service.delCategory(param));
+//        return data;
+//    }
 
 //    유저 관리
     @GetMapping("/user")

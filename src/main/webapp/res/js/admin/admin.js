@@ -32,7 +32,7 @@ function getTags() { // 태그 가져오기
 
 getTags();
 
-function delTag(tno) {
+function delTag(tno) { // 태그삭제
     fetch('/admin/tag/' + tno, {
         method: 'DELETE'
     })
@@ -42,5 +42,40 @@ function delTag(tno) {
         .then((data)=>{
             console.log(data);
             getTags();
+        })
+}
+getCategoryList();
+function getCategoryList(){
+    fetch('/admin/category')
+        .then((res)=>{
+            return res.json();
+        })
+        .then((data)=>{
+            for (let i=0; i<data.length; i++){
+                console.log(data[i]);
+            }
+        })
+}
+
+function regCategory(){
+    categoryVal = document.getElementById('category').value;
+
+    fetch('/admin/category', {
+        method: 'POST',
+        body: JSON.stringify({
+            bnm: 'test',
+            cord: '5'
+        }),
+        headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json;charset=UTF-8'
+        }
+    })
+        .then((res)=>{
+            console.log(res);
+            return res.json();
+        })
+        .then((data)=>{
+            console.log(data);
         })
 }

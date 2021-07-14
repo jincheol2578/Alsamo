@@ -1,15 +1,11 @@
 package com.koreait.alsamo.admin;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class BoardCategoryDTO {
     private int bcd;
     private String bnm;
-    private String cord;
+    private int cord;
     private String updType;
 }
