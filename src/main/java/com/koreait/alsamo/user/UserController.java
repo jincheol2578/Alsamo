@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
@@ -36,7 +38,7 @@ public class UserController {
                 break;
 
         }
-        return "user/loginMsg";
+        return "/user/loginMsg";
     }
 
     @RequestMapping("/join")
@@ -56,7 +58,7 @@ public class UserController {
     public String logout(HttpSession hs) {
         hs.invalidate();
 
-        return "redirect:board/list";
+        return "redirect:/board/list";
     }
 
     @ResponseBody
@@ -166,5 +168,16 @@ public class UserController {
     @RequestMapping("/myPage")
     public String myPage() {
         return "board/myPage";
+    }
+
+    @RequestMapping("/adminpage")
+    public String adminPage(){
+        return "/user/adminPage";
+    }
+
+    @RequestMapping(value = "/updUserMark" ,method = RequestMethod.POST)
+    public String superMark(@RequestParam("profileImg") MultipartFile profileImg,
+                            @RequestParam("authNo") int authNo){
+        return "redirect:"+service.updUserMark(profileImg, authNo);
     }
 }

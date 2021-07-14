@@ -12,7 +12,6 @@ import java.io.UnsupportedEncodingException;
 
 @Component
 public class MyUtils {
-// TODO: 가능하면 static으로 바꾸기
     @Autowired
     HttpSession session;
 
