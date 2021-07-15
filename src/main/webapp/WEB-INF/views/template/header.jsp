@@ -41,13 +41,6 @@
                     <button class="loginBtn" type="button">회원가입</button>
                 </a></div>
             </form>
-            <div class="or">------------------ or -----------------</div>
-
-            <%-- 구글 로그인 버튼--%>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-            <%-- 구글 로그 아웃--%>
-            <%-- <a href="#" onclick="signOut();">Sign out</a> --%>
         </div>
     </div>
 </header>

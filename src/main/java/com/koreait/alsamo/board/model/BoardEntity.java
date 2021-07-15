@@ -1,4 +1,4 @@
-package com.koreait.alsamo.board;
+package com.koreait.alsamo.board.model;
 
 import lombok.Data;
 
@@ -15,4 +15,5 @@ public class BoardEntity {
     private String brdt;
     private int bdel;
     private String bpw;
+    private int bhit;
 }
