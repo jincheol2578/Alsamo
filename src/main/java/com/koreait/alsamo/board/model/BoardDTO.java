@@ -24,5 +24,5 @@ public class BoardDTO {
 
     private String bpw;
 
-
+    private String[] tags;
 }

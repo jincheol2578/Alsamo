@@ -88,12 +88,13 @@
         FROM t_board as A
         LEFT JOIN t_user as B
         ON A.uno = B.uno
-        where A.bcd = #{bcd}
-        AND A.bdel = 0
+        where A.bdel = 0
         <if test="bcd > 1">AND A.bcd = #{bcd}</if>
-        <if test="searchText != null">
-            <foreach collection=""></foreach>
-            -- TODO:검색식 추가
+        <if test="tags != null">
+            <foreach collection="tags" index="index" item="tags" separator="OR" open="AND">
+                A.btitle like CONCAT('%',#{tags},'%')
+                OR A.bctnt like CONCAT('%',#{tags},'%')
+            </foreach>
         </if>
         ORDER BY A.bidx desc, A.bord asc
         LIMIT #{startIdx}, #{cntPerPage}
@@ -103,7 +104,7 @@
         UPDATE t_board
         SET bdel = 1
         WHERE
-        <foreach collection="delChk" index="index" item="delChk" separator="or" open="">
+        <foreach collection="delChk" index="index" item="delChk" separator="or">
             bno = #{delChk}
         </foreach>
     </update>
@@ -113,8 +114,11 @@
         FROM t_board
         WHERE bcd = #{bcd}
         AND bdel = 0
-        <if test="searchText != null">
-            <foreach collection=""></foreach>
+        <if test="tags != null">
+            <foreach collection="tags" index="index" item="tags" separator="OR" open="AND">
+                btitle like CONCAT('%',#{tags},'%')
+                OR bctnt like CONCAT('%',#{tags},'%')
+            </foreach>
         </if>
     </select>
 

@@ -7,5 +7,5 @@ public class BoardCategoryDTO {
     private int bcd;
     private String bnm;
     private int cord;
-    private String updType;
+    private String ordType;
 }

@@ -57,7 +57,7 @@ public class AdminController {
 
 //    카테고리 관리
     @ResponseBody
-    @RequestMapping(value = "/category",method = RequestMethod.POST)
+    @PostMapping("/category")
     public Map<String,Integer> regCategory(@RequestBody BoardCategoryDTO param){
         Map<String,Integer> data = new HashMap<>();
         data.put("result",service.regCategory(param));
@@ -68,28 +68,27 @@ public class AdminController {
     public List<BoardCategoryDTO> getCategoryList() {
         return service.getCategoryList();
     }
-//    @ResponseBody
-//    @PatchMapping("/category")
-//    public Map<String,Integer> updCategory(@RequestBody BoardCategoryDTO param){
-//        Map<String,Integer> data = new HashMap<>();
-//        data.put("result", service.updCategory(param));
-//        return data;
-//    }
-//    @ResponseBody
-//    @PatchMapping("/category/ord")
-//    public Map<String,Integer> updCategoryOrd(@RequestBody BoardCategoryDTO param){
-//        Map<String,Integer> data = new HashMap<>();
-//        data.put("result", service.updCategoryOrd(param));
-//        return data;
-//    }
-//
-//    @ResponseBody
-//    @DeleteMapping("/category")
-//    public Map<String,Integer> delCategory(@RequestBody BoardCategoryDTO param){
-//        Map<String,Integer> data = new HashMap<>();
-//        data.put("result", service.delCategory(param));
-//        return data;
-//    }
+    @ResponseBody
+    @PatchMapping("/category")
+    public Map<String,Integer> updCategory(@RequestBody BoardCategoryDTO param){
+        Map<String,Integer> data = new HashMap<>();
+        data.put("result", service.updCategory(param));
+        return data;
+    }
+    @ResponseBody
+    @PatchMapping("/category/ord")
+    public Map<String,Integer> updCategoryOrd(@RequestBody BoardCategoryDTO param){
+        Map<String,Integer> data = new HashMap<>();
+        data.put("result", service.updCategoryOrd(param));
+        return data;
+    }
+    @ResponseBody
+    @DeleteMapping("/category")
+    public Map<String,Integer> delCategory(@RequestBody BoardCategoryDTO param){
+        Map<String,Integer> data = new HashMap<>();
+        data.put("result", service.delCategory(param));
+        return data;
+    }
 
 //    유저 관리
     @GetMapping("/user")
