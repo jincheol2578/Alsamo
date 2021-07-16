@@ -33,7 +33,7 @@
         VALUES (#{bnm}, #{cord})
     </insert>
 
-    <select id="selCategoryList" resultType="BoardCategoryList">
+    <select id="selCategoryList" resultType="BoardCategoryDTO">
         SELECT *
         FROM t_board_category
     </select>

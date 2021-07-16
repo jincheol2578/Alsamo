@@ -1,0 +1,75 @@
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 852px;
+    height: 472px;
+    margin-left: -426px;
+    margin-top: -236px;
+}
+
+table {
+    border: 1px solid #f8f8ff;
+    border-collapse: collapse;
+}
+
+th, td {
+    border-top: 1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3;
+    height: 100%;
+    text-align: center;
+
+}
+
+
+.title {
+    width: 255px;
+    padding: 90px;
+    background-color: #0d6efd;
+    border-right: 1px solid #d3d3d3;
+}
+
+.prapoties {
+    width: 596px;
+    padding-left: 20px;
+    padding-right: 70px;
+}
+
+.button_container {
+    padding-top: 10px;
+    width: 852px;
+}
+
+.button {
+    width: 100px;
+    height: 50px;
+    background-color: #0d6efd;
+    border: none;
+    display: block;
+    padding: 0;
+    float: left;
+    width: 20%;
+    margin-left: 20%;
+
+
+
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: #204ac8;
+}
+
+.inputUser {
+    padding-left: 10px;
+    float: left;
+    width: 254px;
+    height: 27px;
+    border: 1px solid #a9a9a9;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+
+}

@@ -7,8 +7,9 @@
             <button onclick="searchName();" class="btn btn-default">검색</button>
         </div>
 
-        <div class="ulContainer">
+        <div id="ulContainer">
             <ul>
+                <li>추천 검색어 : </li>
                 <li id="Whiskey" onclick="getWhiskey();">위스키</li>
                 <li id="Rum" onclick="getRum();">럼</li>
                 <li id="Jim" onclick="getJim();">진</li>
