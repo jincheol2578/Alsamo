@@ -2,6 +2,7 @@ package com.koreait.alsamo.admin;
 
 import com.koreait.alsamo.board.model.BoardDTO;
 import com.koreait.alsamo.board.model.BoardDomain;
+import com.koreait.alsamo.user.UserDTO;
 import com.koreait.alsamo.user.UserEntity;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,27 @@ public class AdminService {
             //비밀번호 틀림
             return "비밀번호를 확인해 주세요.";
         }
+    }
+    //유저관리
+    public int getUserCount(UserDTO param) {
+        return mapper.selUserCount(param);
+    }
+
+    public List<UserEntity> getUserList(UserDTO param) {
+        return mapper.selUserList(param);
+    }
+
+    public int updUser(UserDTO param) {
+        UserEntity userEntity;
+        try {
+            userEntity = (UserEntity) session.getAttribute("loginAdmin");
+            if (userEntity != null && userEntity.getAuthno() == 1) {
+                return mapper.updUser(param);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     // 게시판 관리
@@ -70,6 +92,7 @@ public class AdminService {
             return 0;
         }
     }
+
     public List<BoardCategoryDTO> getCategoryList() {
         return mapper.selCategoryList();
     }

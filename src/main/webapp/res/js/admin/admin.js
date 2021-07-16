@@ -26,7 +26,6 @@ function getTags() { // 태그 가져오기
             return res.json();
         })
         .then((data) => {
-            console.log(data);
         })
 }
 
@@ -40,7 +39,6 @@ function delTag(tno) { // 태그삭제
             return res.json();
         })
         .then((data)=>{
-            console.log(data);
             getTags();
         })
 }
@@ -52,7 +50,6 @@ function getCategoryList(){
         })
         .then((data)=>{
             for (let i=0; i<data.length; i++){
-                console.log(data[i]);
             }
         })
 }
@@ -72,10 +69,8 @@ function regCategory(){
         }
     })
         .then((res)=>{
-            console.log(res);
             return res.json();
         })
         .then((data)=>{
-            console.log(data);
         })
 }

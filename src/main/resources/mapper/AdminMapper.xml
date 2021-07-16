@@ -9,7 +9,28 @@
         FROM t_user
         WHERE authno = (1 OR 2)
     </select>
-
+    <!--    유저관리-->
+    <select id="selUserList" resultType="UserEntity">
+        SELECT uno, uemail, uid, unm, urdt
+        FROM t_user
+        <where>
+            <if test="authno != null">
+                authno = #{authno}
+            </if>
+            <if test="searchText != null">
+                uid like CONCAT('%',#{searchText},'%')
+                OR ueamil like CONCAT('%',#{searchText},'%')
+                OR unm like CONCAT('%',#{searchText},'%')
+            </if>
+        </where>
+        ORDER BY uno desc
+        LIMIT #{startIdx}, #{cntPerPage}
+    </select>
+    <update id="updUser">
+        UPDATE t_user
+        SET authno = #{authno}
+        WHERE uno = #{uno}
+    </update>
     <!--    게시판 태그 -->
     <insert id="insTag">
         INSERT INTO t_board_tags
@@ -120,6 +141,15 @@
                 OR bctnt like CONCAT('%',#{tags},'%')
             </foreach>
         </if>
+    </select>
+    <select id="selUserCount" resultType="Integer">
+        select count(*)
+        FROM t_user
+        <where>
+            <if test="authno != null">
+                authno = #{authno}
+            </if>
+        </where>
     </select>
 
 </mapper>
