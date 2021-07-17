@@ -61,19 +61,7 @@ public class UserController {
         return "redirect:/board/list";
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/googleJoin", method = RequestMethod.POST)
-    public int googleJoin(@RequestBody UserEntity user) {
-        System.out.println("aJax user :" + user);
-        int googleUser = service.googleLogin(user);
-        System.out.println(googleUser);
-        return googleUser;
-    }
 
-    @RequestMapping("/googleJoin")
-    public String googleJoin() {
-        return "user/googleJoin";
-    }
 
     //    회원가입시 이메일 인증
     @RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)

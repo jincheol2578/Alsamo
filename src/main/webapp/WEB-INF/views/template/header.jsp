@@ -2,16 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <header>
-    <ul>
+    <ul id="markBoxUl">
         <c:choose>
             <c:when test="${not empty sessionScope.loginUser}">
                 <li id="mark">
                     <div id="markBox">
                         <span id="loginName"><a href="/user/myPage">${sessionScope.loginUser.uid}</a></span>
-                        <c:if test="${sessionScope.loginUser.authno != 3 or sessionScope.loginUser.authno != 4}">
-                            <img id="markImg"
-                                 src="/img/${sessionScope.loginUser.authno}/${sessionScope.loginUser.profileImg}">
-                        </c:if>
                     </div>
                 </li>
 
