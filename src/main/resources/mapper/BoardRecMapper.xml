@@ -5,13 +5,20 @@
 <mapper namespace="com.koreait.alsamo.board.rec.BoardRecMapper">
     <insert id="insRec">
         INSERT INTO t_board_recommendation
-            (bno, uno)
-        VALUES (#{bno}, #{uno})
+            (bno, uno, rec)
+        VALUES (#{bno}, #{uno}, #{rec})
     </insert>
-    <select id="selRec" resultType="INTEGER">
-        SELECT COUNT(bno)
+    <select id="selRec" resultType="BoardRecDTO">
+        SELECT rec, COUNT(bno) AS cnt, uno
         FROM t_board_recommendation
-        where bno = #{bno}
+        WHERE bno = #{bno}
+        GROUP BY rec
+        ORDER BY rec DESC
+    </select>
+    <select id="selRecChk" resultType="BoardRecDTO">
+        SELECT COUNT(uno) AS recChk, rec
+        FROM t_board_recommendation
+        WHERE bno = #{bno} AND uno = #{uno};
     </select>
     <select id="selTodayRecList" resultType="BoardDomain">
         SELECT A.bno, A.bcd, A.btitle, A.brdt

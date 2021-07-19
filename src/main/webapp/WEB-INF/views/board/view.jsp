@@ -25,11 +25,13 @@
     <div class="boardRec-row">
         <div class="recBody">
             <button type="button" id="upRecBtn">
-<%--                <img src="">--%>
+                <%--                <img src="">--%>
                 업
+                <span id="cntUp"></span>
             </button>
             <button tpye="button" id="downRecBtn">
                 다운
+                <span id="cntDown"></span>
             </button>
         </div>
     </div>

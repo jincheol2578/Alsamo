@@ -112,19 +112,19 @@ function makeReplyList(data) {
                 const inputReBtn = document.createElement('input');
 
                 formElem.onsubmit = 'return false;';
-                formElem.id='reReplyFrm'+item.repno;
+                formElem.id = 'reReplyFrm' + item.repno;
                 inputRepnm.type = 'text';
                 inputReppw.type = 'password';
                 inputReBtn.type = 'button';
                 inputReBtn.value = '작성';
-                if(liElem.className === "reReply"){
+                if (liElem.className === "reReply") {
                     formElem.append(inputRepnm);
                     formElem.append(inputReppw);
                     formElem.append(txtRepctnt);
                     formElem.append(inputReBtn);
                     liElem.append(formElem);
-                }else {
-                    document.getElementById('reReplyFrm'+item.repno).remove();
+                } else {
+                    document.getElementById('reReplyFrm' + item.repno).remove();
                 }
             });
 
@@ -171,14 +171,104 @@ function delAjax(param) {
 }
 
 getListAjax();
+getRec(bnoVal);
 
-//추천
-// const upRecBtn = document.getElementById('upRecBtn');
-// const downRecBtn = document.getElementById('downRecBtn');
-// // data로 bno 받아야함
-// upRecBtn.addEventListener('click',regRec(1));
-// downRecBtn.addEventListener('click',delRec(2))
-// function regRec(btnIdx){
-//
-//     fetch()
-// }
+//게시글 추천
+const upRecBtn = document.getElementById('upRecBtn');
+const downRecBtn = document.getElementById('downRecBtn');
+
+upRecBtn.addEventListener('click', () => {
+    recClicked(1, upRecBtn.className);
+});
+downRecBtn.addEventListener('click', () => {
+    recClicked(0, downRecBtn.className);
+});
+
+function recClicked(recVal, btnClassName) {
+    if (upRecBtn.className !== 'clicked' && downRecBtn.className !== 'clicked') {
+        regRec(recVal);
+    } else if (btnClassName === 'clicked') {
+        delRec();
+    } else {
+        alert('이미 추천한 게시글입니다.')
+    }
+}
+
+
+// 추천수
+function getRec(bno) {
+    const upCntElem = document.getElementById('cntUp');
+    const downCntElem = document.getElementById('cntDown');
+    fetch('/board/rec/' + bno)
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            for (var i = 0; i < data.result.length; i++) {
+                if (data.result[i].rec === 1) {
+                    upCntElem.innerText = data.result[i].cnt;
+                } else {
+                    downCntElem.innerText = data.result[i].cnt;
+                }
+            }
+            if (data.recCheck.recChk === 1) {
+                toggleRec(data.recCheck.rec);
+            } else {
+                toggleRec(2);
+            }
+        });
+}
+
+function toggleRec(toggle) {
+    switch (toggle) {
+        case 0:
+            downRecBtn.classList.add('clicked');
+            break;
+        case 1:
+            upRecBtn.classList.add('clicked');
+            break;
+        case 2:
+            downRecBtn.classList.remove('clicked');
+            upRecBtn.classList.remove('clicked');
+    }
+}
+
+// 추천, 비추천
+function regRec(recVal) {
+    fetch('/board/rec', {
+        method: 'POST',
+        body: JSON.stringify({
+            bno: bnoVal,
+            rec: recVal
+        }),
+        headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json;charset=UTF-8'
+        }
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            if (data.result === 0) {
+                alert('로그인을 해주세요');  //로그인 필요
+            }
+            getRec(bnoVal);
+        });
+}
+
+// 추천,비추천 해제
+function delRec() {
+    fetch('/board/rec/' + bnoVal, {
+        method: 'DELETE'
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            if (data.result === 0) {
+                alert('잘못된 접근입니다.');
+            }
+            getRec(bnoVal);
+        })
+}
