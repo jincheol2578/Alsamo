@@ -88,4 +88,12 @@
 
 }
 
+.swiper-container {
+    width: 240px;
+}
+
+.swiper-slide img {
+    width: 240px !important;
+    height: 320px !important;
+}
 

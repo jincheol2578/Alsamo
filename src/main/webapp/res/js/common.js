@@ -1,4 +1,3 @@
-
 function openModal(){
    document.querySelector('#modal').style.display='flex';
 }
@@ -6,3 +5,4 @@ function openModal(){
 function closeModal(){
     document.querySelector('#modal').style.display='none';
 }
+

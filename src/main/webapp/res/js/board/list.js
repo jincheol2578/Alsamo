@@ -1,33 +1,41 @@
 function makeUl(count) {
     let targets = document.getElementById(count);
+
+    targets.classList.toggle('userId');
+
     let divElem = document.createElement('div');
     let ulElem = document.createElement('ul');
     let liWhatWriteElem = document.createElement('li');
     let liWhatReplElem = document.createElement('li');
     let liWhoElem = document.createElement('li');
-    let highlightElem = document.createElement('em');
+    let aTagElemPrf=document.createElement('a');
+    let aTagElemWhatWrt=document.createElement('a');
+    let aTagElemRep=document.createElement('a');
 
+    aTagElemPrf.innerText = '프로필';
+    aTagElemWhatWrt.innerText = '작성글';
+    aTagElemRep.innerText = '댓글';
+    if (targets.className === 'userId') {
+        divElem.append(ulElem);
 
-    liWhoElem.innerText = '프로필';
-    liWhatWriteElem.innerText = '작성글';
-    liWhatReplElem.innerText = '댓글';
+        ulElem.append(liWhoElem);
+        ulElem.append(liWhatWriteElem);
+        ulElem.append(liWhatReplElem);
 
-    ulElem.append(liWhoElem);
-    ulElem.append(liWhatWriteElem);
-    ulElem.append(liWhatReplElem);
+        liWhoElem.append(aTagElemPrf);
+        liWhatWriteElem.append(aTagElemWhatWrt);
+        liWhatReplElem.append(aTagElemRep);
 
-    divElem.append(ulElem);
-    divElem.setAttribute('id', count);
-    divElem.setAttribute('class', 'infoUser');
+        divElem.setAttribute('id', 'info' + count);
+        divElem.setAttribute('class', 'infoUser');
+        aTagElemPrf.setAttribute('href','/user/info');
+        aTagElemWhatWrt.setAttribute('href','/user/info');
+        aTagElemRep.setAttribute('href','/user/info');
 
-    targets.append(divElem);
-    console.log(targets);
+        targets.append(divElem);
 
-
+    } else {
+        document.getElementById('info' + count).remove();
+    }
 }
 
-// whereBoxs.forEach(function (whereBox) {
-//     whereBox.addEventListener('click', makeUl);
-//
-//
-// })

@@ -27,7 +27,7 @@
         <div class="modal_content">
             <a href="#" onclick="closeModal();"><img id="modalBtnClose" clase="X" src="/img/close.png"></a>
             <div><h3>${errMsg}</h3></div>
-            <idv><h3>${requestScope.msg}</h3></idv>
+            <div><h3>${requestScope.msg}</h3></div>
             <div><h3>${authkeyErr}</h3></div>
             <form class="loginForm" action="/user/login" method="post">
                 <div><input class="loginProperty" type="text" name="uid" placeholder="아이디"></div>
