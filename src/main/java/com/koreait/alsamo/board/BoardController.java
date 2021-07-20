@@ -1,6 +1,7 @@
 package com.koreait.alsamo.board;
 
 import com.koreait.alsamo.board.model.BoardDTO;
+import com.koreait.alsamo.board.model.BoardDomain;
 import com.koreait.alsamo.board.model.BoardEntity;
 import com.koreait.alsamo.common.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,16 @@ public class BoardController {
     }
     @GetMapping("/write")
     public String write(Model model,BoardDTO param){
+        BoardDomain board = service.selBoard(param);
         if(param.getBno() == 0){ //원글 작성시
             param.setBcd(1);
             model.addAttribute("categoryList",service.selBoardCategory());
         }else if(param.getModify() == 1){ //수정버튼 클릭시
-            model.addAttribute("board",service.selBoard(param));
+            if(param.getBpw() != board.getBpw()){
+                return "board/errpage";
+            }else{
+                model.addAttribute("board",service.selBoard(param));
+            }
         }else {// 답글 작성시
             model.addAttribute("board",service.selBoard(param));
         }

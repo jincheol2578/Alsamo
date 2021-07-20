@@ -117,17 +117,20 @@
         bctnt = #{bctnt}
         WHERE bno = #{bno}
         AND
-        (<if test="uno != 0">uno = #{uno} OR</if>
+        (
+        <if test="uno != 0">uno = #{uno} OR</if>
         bpw = #{bpw})
     </update>
     <!--    게시글 삭제-->
     <update id="delBoard">
+
         UPDATE t_board
         SET bdel = 1
         WHERE bno = #{bno}
-        AND
-        (<if test="uno != 0">uno = #{uno} OR</if>
-        bpw = #{bpw}
-        OR ((SELECT authno FROM t_user WHERE uno = #{uno}) = 1 OR 2))
+          AND (<if test="uno != 0">uno = #{uno} OR </if>
+            bpw = #{bpw}
+        <![CDATA[
+            OR ((SELECT authno FROM t_user WHERE uno = #{uno}) < 3))
+        ]]>
     </update>
 </mapper>

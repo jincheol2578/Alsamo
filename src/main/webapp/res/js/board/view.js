@@ -2,7 +2,7 @@ const params = new URLSearchParams(location.search);
 const bnoVal = params.get('bno');
 const regBtn = document.getElementById('insBtn');
 let replyListElem = document.getElementById('replyList');
-
+const loginUserPk = replyListElem.dataset.userPk;
 regBtn.addEventListener('click', regReply);
 
 // 댓글등록
@@ -69,16 +69,15 @@ function makeReplyList(data) {
 
     replyListElem.append(ulElem);
 
-    const loginUserPk = replyListElem.dataset.userPk;
 
     data.forEach((item) => {
         let liElem = document.createElement('li');
-        let repElem1 = document.createElement('span');
-        let repElem2 = document.createElement('span');
-        let repElem3 = document.createElement('span');
-        let repElem4 = document.createElement('span');
-        repElem1.innerText = item.repctnt;
-        repElem2.append(item.repnm);
+        let repElem1 = document.createElement('div');
+        let repElem2 = document.createElement('div');
+        let repElem3 = document.createElement('div');
+        let repElem4 = document.createElement('div');
+        repElem1.append(item.repnm);
+        repElem2.append(item.repctnt);
         repElem3.append(item.reprdt);
         if (parseInt(loginUserPk) === item.uno || item.uno === 0) {
             const delBtn = document.createElement('button');
@@ -101,10 +100,10 @@ function makeReplyList(data) {
                 }
             });
             // 답글버튼
-            liElem.addEventListener('click', () => {
+            repElem2.addEventListener('click', () => {
                 liElem.classList.toggle("reReply");
 
-
+                const reReplyElem = document.createElement('div');
                 const formElem = document.createElement('form');
                 const inputRepnm = document.createElement('input');
                 const inputReppw = document.createElement('input');
@@ -204,14 +203,17 @@ function getRec(bno) {
             return res.json();
         })
         .then((data) => {
+            upCntElem.innerText = '';
+            downCntElem.innerText = '';
             for (var i = 0; i < data.result.length; i++) {
                 if (data.result[i].rec === 1) {
                     upCntElem.innerText = data.result[i].cnt;
-                } else {
+                } else if (data.result[i].rec === 0) {
                     downCntElem.innerText = data.result[i].cnt;
                 }
             }
-            if (data.recCheck.recChk === 1) {
+
+            if (data.recCheck !== null && data.recCheck.recChk === 1) {
                 toggleRec(data.recCheck.rec);
             } else {
                 toggleRec(2);
