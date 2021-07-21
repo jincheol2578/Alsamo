@@ -54,7 +54,6 @@ public class AdminController {
         param.setStartIdx(pagination.getStartIndex());
         param.setCntPerPage(pagination.getPageSize());
         data.put("paging", pagination);
-        System.out.println(service.getUserList(param));
         data.put("userList", service.getUserList(param));
         return data;
     }
@@ -96,7 +95,6 @@ public class AdminController {
     @DeleteMapping("/board")
     public Map<String, Integer> delBoard(@RequestBody AdminDTO param) {
         Map<String, Integer> data = new HashMap<>();
-        System.out.println(param);
         data.put("result", service.delBoard(param));
         return data;
     }

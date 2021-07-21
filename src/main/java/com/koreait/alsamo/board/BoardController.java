@@ -22,7 +22,6 @@ public class BoardController {
     public String list(Model model, BoardDTO param){
         listCnt = service.selBoardCount(param);
         Pagination pagination = new Pagination(listCnt, param.getPage());
-
         param.setStartIdx(pagination.getStartIndex());
         param.setCntPerPage(pagination.getPageSize());
         model.addAttribute("paging",pagination);

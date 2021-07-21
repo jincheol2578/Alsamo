@@ -43,16 +43,19 @@
         ON A.uno = B.uno
         where A.bdel = 0
         <if test="bcd > 1">AND A.bcd = #{bcd}</if>
-        <if test="searchType != null">
-            <if test="searchType == '제목+내용'">
-                AND A.btitle like CONCAT('%',#{searchText},'%')
-                OR A.bctnt like CONCAT('%',#{searchText},'%')
+        <if test="searchType != 0">
+            <if test="searchType == 1">
+                AND (A.btitle like CONCAT('%',#{searchText},'%')
+                OR A.bctnt like CONCAT('%',#{searchText},'%'))
             </if>
-            <if test="searchType == '제목'">
+            <if test="searchType == 2">
                 AND A.btitle like CONCAT('%',#{searchText},'%')
             </if>
-            <if test="searchType == '내용'">
+            <if test="searchType == 3">
                 AND A.bctnt like CONCAT('%',#{searchText},'%')
+            </if>
+            <if test="searchType == 4">
+                AND B.unm like CONCAT('%',#{searchText},'%')
             </if>
         </if>
         ORDER BY A.bidx desc, A.bord asc
@@ -81,19 +84,24 @@
     <!--    총 게시물 수 가져오기-->
     <select id="selBoardCount" resultType="Integer">
         select count(*)
-        FROM t_board
-        WHERE bcd = #{bcd}
-        AND bdel = 0
+        FROM t_board as A
+        LEFT JOIN t_user as B
+        ON A.uno = B.uno
+        WHERE A.bdel = 0
+        <if test="bcd > 1">AND bcd = #{bcd}</if>
         <if test="searchType != null">
-            <if test="searchType == '제목+내용'">
+            <if test="searchType == 1">
                 AND A.btitle like CONCAT('%',#{searchText},'%')
                 OR A.bctnt like CONCAT('%',#{searchText},'%')
             </if>
-            <if test="searchType == '제목'">
+            <if test="searchType == 2">
                 AND A.btitle like CONCAT('%',#{searchText},'%')
             </if>
-            <if test="searchType == '내용'">
+            <if test="searchType == 3">
                 AND A.bctnt like CONCAT('%',#{searchText},'%')
+            </if>
+            <if test="searchType == 4">
+                AND B.uno like CONCAT('%',#{searchText},'%')
             </if>
         </if>
     </select>

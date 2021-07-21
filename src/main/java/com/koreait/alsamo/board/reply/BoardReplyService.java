@@ -34,14 +34,13 @@ public class BoardReplyService {
             param.setRepnm(myUtils.getLoginUser().getUnm());
         }
         mapper.updReReply(param);
-        return mapper.insReply(param);
+        return mapper.insReReply(param);
     }
 
     public int delReply(BoardReplyEntity param) {
         if(myUtils.getLoginUser() != null){
             param.setUno(myUtils.getUserPk());
         }
-        System.out.println(param.getReppw());
         return mapper.delReply(param);
     }
 

@@ -48,6 +48,7 @@
     <select id="selReplyList" resultType="BoardReplyEntity">
         SELECT * FROM t_board_reply
         where bno = #{bno} and repdel = 0
+        ORDER BY repidx desc, repord asc
     </select>
 <!--    답댓글 순서 정렬-->
     <update id="updReReply">

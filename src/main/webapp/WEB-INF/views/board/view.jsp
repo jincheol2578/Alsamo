@@ -55,4 +55,4 @@
     <div id="replyList" data-user-pk="${sessionScope.loginUser.uno}"></div>
 
 </div>
-<script defer src="/res/js/board/view.js?ver=16"></script>
+<script defer src="/res/js/board/view.js"></script>

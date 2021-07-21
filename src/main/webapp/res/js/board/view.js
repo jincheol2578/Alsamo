@@ -24,11 +24,22 @@ function regReply() {
         reppw: reppwVal,
         repctnt: repctntElem.value
     };
-    regAjax(param);
+    regAjax(param, 0);
     repFrmElem.reset();
 }
 
-function regAjax(param) {
+function regAjax(param, idx) {
+    if (isNaN(parseInt(loginUserPk)) && param.reppw === '') {
+        alert('비밀번호를 입력해주세요.');
+        return;
+    } else if (isNaN(parseInt(loginUserPk)) && param.repnm === '') {
+        alert('아이디를 입력해주세요.');
+        return;
+    } else if (param.repctnt === '') {
+        alert('내용을 입력해주세요.');
+        return;
+    }
+
     const init = {
         method: 'POST',
         body: JSON.stringify(param),
@@ -38,7 +49,7 @@ function regAjax(param) {
         }
     };
 
-    fetch('reply/0', init)
+    fetch('reply/' + idx, init)
         .then((res) => {
             return res.json();
         })
@@ -47,7 +58,7 @@ function regAjax(param) {
                 getListAjax();
             } else {
                 //등록실패
-                alert('에러!');
+                alert('등록 실패.');
             }
         });
 }
@@ -60,9 +71,10 @@ function getListAjax() {
         })
         .then((myJson) => {
             makeReplyList(myJson);
-        })
+        });
 }
 
+//리스트 만들기
 function makeReplyList(data) {
     replyListElem.innerHTML = '';
     let ulElem = document.createElement('ul');
@@ -79,9 +91,9 @@ function makeReplyList(data) {
         repElem1.append(item.repnm);
         repElem2.append(item.repctnt);
         repElem3.append(item.reprdt);
+        // 자기 댓글이거나 익명댓글인 경우 삭제 버튼 만들어주기
         if (parseInt(loginUserPk) === item.uno || item.uno === 0) {
             const delBtn = document.createElement('button');
-            const repBtn = document.createElement('button');
             let promptPw = null;
 
             //삭제버튼 클릭시
@@ -99,11 +111,11 @@ function makeReplyList(data) {
                     return;
                 }
             });
-            // 답글버튼
+
+            // 답글버튼 - 댓글 내용 클릭 시 댓글밑에 생성
             repElem2.addEventListener('click', () => {
                 liElem.classList.toggle("reReply");
 
-                const reReplyElem = document.createElement('div');
                 const formElem = document.createElement('form');
                 const inputRepnm = document.createElement('input');
                 const inputReppw = document.createElement('input');
@@ -113,36 +125,66 @@ function makeReplyList(data) {
                 formElem.onsubmit = 'return false;';
                 formElem.id = 'reReplyFrm' + item.repno;
                 inputRepnm.type = 'text';
+                inputRepnm.classList.add('reRepName');
                 inputReppw.type = 'password';
+                inputReppw.classList.add('reRepPwd');
+                txtRepctnt.classList.add('reRepCtnt');
                 inputReBtn.type = 'button';
                 inputReBtn.value = '작성';
+
+                /*
+                댓글 클릭했을때 liElem에 'reReply'클래스 추가해줌
+                'reReply' 클래스가 있으면 대댓글창 생성 없으면 삭제
+                */
                 if (liElem.className === "reReply") {
-                    formElem.append(inputRepnm);
-                    formElem.append(inputReppw);
+                    if (isNaN(parseInt(loginUserPk))) {
+                        formElem.append(inputRepnm);
+                        formElem.append(inputReppw);
+                    }
                     formElem.append(txtRepctnt);
                     formElem.append(inputReBtn);
                     liElem.append(formElem);
                 } else {
                     document.getElementById('reReplyFrm' + item.repno).remove();
                 }
+
+                // 답글 전송버튼 눌렀을떄
+                inputReBtn.addEventListener('click', () => {
+                    let reRepFrm = document.getElementById('reReplyFrm' + item.repno);
+                    let reRepName = null;
+                    let reRepPwd = null;
+                    let reRepCtnt = null;
+                    // if (parseInt(loginUserPk) !== 0) {
+                    //     reRepName = reRepFrm.querySelector('.reRepName').value;
+                    //     reRepPwd = reRepFrm.querySelector('.reRepPwd').value;
+                    //     reRepCtnt = reRepFrm.querySelector('.reRepCtnt').value;
+                    // }
+                    const param = {
+                        bno: bnoVal,
+                        repnm: reRepName,
+                        reppw: reRepPwd,
+                        repctnt: reRepCtnt,
+                        repidx: item.repidx,
+                        repord: item.repord,
+                        repdept: item.repdept
+                    }
+                    regAjax(param, 1);
+                    console.log(param);
+                })
             });
 
             delBtn.innerText = '삭제';
-            repBtn.innerText = '답글';
-
             repElem4.append(delBtn);
-            repElem4.append(repBtn);
         }
         ulElem.append(liElem);
         liElem.append(repElem1);
         liElem.append(repElem2);
         liElem.append(repElem3);
         liElem.append(repElem4);
-
-
     });
 }
 
+// 댓글 삭제
 function delAjax(param) {
     const init = {
         method: 'DELETE',
