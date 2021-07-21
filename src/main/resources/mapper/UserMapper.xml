@@ -60,4 +60,5 @@
         from t_user
         where authno = #{authno}
     </select>
+
 </mapper>

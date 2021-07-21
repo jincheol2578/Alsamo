@@ -22,6 +22,7 @@
 
         <c:forEach var="item" items="${requestScope.boardList}" varStatus="status">
             <tr id="boardClick" class="boardClick">
+                <input type="hidden" id="userPk" value="${item.uno}">
                 <td>${item.bno}</td>
                 <td class="" id="${status.index}" onclick="makeUl(${status.index});">${item.writer}
                 </td>

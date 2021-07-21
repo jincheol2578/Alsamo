@@ -48,7 +48,11 @@
                 </c:forEach>
             </ul>
         </div>
+        <div class="container-fluid">
+            <tiles:insertAttribute name="footer"/>
+        </div>
     </div>
+
 </div>
 
 </body>

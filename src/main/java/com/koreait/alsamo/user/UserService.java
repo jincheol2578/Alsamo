@@ -74,20 +74,6 @@ public class UserService {
 
     }
 
-    public int googleLogin(UserEntity user) {
-        UserEntity exsistUser = mapper.checkSocialUserExsist(user);
-        System.out.println(exsistUser);
-        if (exsistUser == null) {
-            //가입 필요 /user/googleJoin
-            mapper.insGoogleUser(user);
-            return 1;
-
-        } else {
-
-            //이미 가입 완료 /board/list
-            return 0;
-        }
-    }
 
     public int chckAuthkey(UserEntity param) {
         UserEntity result = mapper.chckAuthkey(param);

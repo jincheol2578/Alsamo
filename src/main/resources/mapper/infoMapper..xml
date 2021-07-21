@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koreait.alsamo.user.info.InfoMapper">
+    <select id="selAllBoardWho" resultType="BoardDomain">
+        SELECT A.bno
+             , A.uno
+             , A.bcd
+             , A.btitle
+             , A.bctnt
+             , A.bidx
+             , A.bord
+             , A.bdept
+             , A.brdt
+             , A.bhit
+             , B.unm as writer
+        FROM t_board as A
+                 LEFT JOIN t_user as B
+                           ON A.uno = B.uno
+        where A.uno = #{param}
+    </select>
+    <select id="selAllRepWho" resultType="BoardReplyEntity">
+        select *
+        from t_board_reply
+        where uno = #{param}
+    </select>
+    <select id="countAllWrite" resultType="int">
+        SELECT COUNT(case when uno = #{param} then 1 end) FROM t_board;
+    </select>
+    <select id="countAllReply" resultType="int">
+        SELECT COUNT(case when uno = #{param} then 1 end) FROM t_board_reply;
+    </select>
+</mapper>

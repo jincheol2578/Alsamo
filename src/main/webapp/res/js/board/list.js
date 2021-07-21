@@ -11,6 +11,7 @@ function makeUl(count) {
     let aTagElemPrf=document.createElement('a');
     let aTagElemWhatWrt=document.createElement('a');
     let aTagElemRep=document.createElement('a');
+    let userPk = document.getElementById('userPk').value;
 
     aTagElemPrf.innerText = '프로필';
     aTagElemWhatWrt.innerText = '작성글';
@@ -28,9 +29,9 @@ function makeUl(count) {
 
         divElem.setAttribute('id', 'info' + count);
         divElem.setAttribute('class', 'infoUser');
-        aTagElemPrf.setAttribute('href','/user/info');
-        aTagElemWhatWrt.setAttribute('href','/user/info');
-        aTagElemRep.setAttribute('href','/user/info');
+        aTagElemPrf.setAttribute('href','/user/info?uno='+userPk);
+        aTagElemWhatWrt.setAttribute('href','/user/info?uno='+userPk);
+        aTagElemRep.setAttribute('href','/user/info?uno='+userPk);
 
         targets.append(divElem);
 
@@ -38,4 +39,3 @@ function makeUl(count) {
         document.getElementById('info' + count).remove();
     }
 }
-

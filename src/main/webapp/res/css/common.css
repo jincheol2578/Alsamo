@@ -89,11 +89,16 @@
 }
 
 .swiper-container {
-    width: 240px;
+box-sizing: border-box;
+    width: 1170px;
+    height: 180px;
 }
+.swiper-slide{
+    width: 100%;
 
+}
 .swiper-slide img {
-    width: 240px !important;
-    height: 320px !important;
+   object-fit: contain;
+    height: 150px;
 }
 
