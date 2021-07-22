@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 @Controller
 @RequestMapping("/admin")
@@ -29,14 +30,14 @@ public class AdminController {
     @PostMapping("/login")
     public String login(UserEntity param, Model model) {
         model.addAttribute("loginMsg", service.login(param));
-        return "redirect:main";
+        return "/WEB-INF/views/main.jsp";
     }
 
     //    로그아웃
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
-        return "redirect:main";
+        return "/WEB-INF/views/main.jsp";
     }
     //    유저 관리
     @GetMapping("/user")
@@ -110,8 +111,10 @@ public class AdminController {
 
     @ResponseBody
     @GetMapping("/category")
-    public List<BoardCategoryDTO> getCategoryList() {
-        return service.getCategoryList();
+    public Map<String, List<BoardCategoryDTO>> getCategoryList() {
+        Map<String, List<BoardCategoryDTO>> data = new TreeMap<>();
+        data.put("result", service.getCategoryList());
+        return data;
     }
 
     @ResponseBody

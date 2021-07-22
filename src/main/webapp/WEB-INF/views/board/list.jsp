@@ -5,26 +5,31 @@
 <div class="boardContainer">
     <div class="boardList">
         <table class="table">
-            <thead>
+            <thead class="thead">
             <tr>
                 <th>글번호</th>
-                <th>작성자</th>
                 <th>제목</th>
+                <th>작성자</th>
                 <th>작성일</th>
                 <th>조회수</th>
+                <th>추천수</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="notice">
+            </tbody>
+            <tbody class="boardList">
             <c:forEach var="item" items="${requestScope.boardList}">
                 <tr id="boardClick" onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">
                     <td>${item.bno}</td>
-                    <td>${item.writer}</td>
                     <td class="bright">${item.btitle}</td>
+                    <td>${item.writer}</td>
                     <td>${item.brdt}</td>
                     <td>${item.bhit}</td>
+                    <td>${item.rec}</td>
                 </tr>
             </c:forEach>
             </tbody>
+
         </table>
     </div>
 

@@ -13,6 +13,7 @@ public interface BoardMapper {
     int insReBoard(BoardEntity param);
     List<BoardDTO> selBoardCategory();
     List<BoardDomain> selBoardList(BoardDTO param);
+    List<BoardDomain> selMainBoardList(int bcd);
     BoardDomain selBoard(BoardDTO param);
     int updReBoard(BoardEntity param);
     int delBoard(BoardEntity param);

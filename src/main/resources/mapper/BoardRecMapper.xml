@@ -21,30 +21,34 @@
         WHERE bno = #{bno} AND uno = #{uno};
     </select>
     <select id="selTodayRecList" resultType="BoardDomain">
-        SELECT A.bno, A.bcd, A.btitle, A.brdt
-        , COUNT(B.uno) AS rec
+        SELECT A.bno, A.bcd, A.btitle, A.brdt, B.bnm
+        , (SELECT COUNT(B.bno)
+        FROM t_board_recommendation as B
+        WHERE B.bno = A.bno AND B.rec = 1) as rec
         FROM t_board A
-        INNER JOIN t_board_recommendation AS B
-        ON A.bno = B.bno
+        LEFT JOIN t_board_category AS B
+        ON B.bcd = A.bcd
         WHERE A.bdel = 0
-        <if test="bcd > 1">AND A.bcd = #{bcd}</if>
         AND DATE(A.brdt) = CURDATE()
         GROUP BY A.bno
+        HAVING rec > 0
         ORDER BY rec DESC
-        LIMIT 20
+        LIMIT 10
     </select>
     <select id="selWeekendRecList" resultType="BoardDomain">
-        SELECT A.bno, A.bcd, A.btitle, A.brdt
-        , COUNT(B.uno) AS rec
+        SELECT A.bno, A.bcd, A.btitle, A.brdt, B.bnm
+        , (SELECT COUNT(B.bno)
+        FROM t_board_recommendation AS B
+        WHERE B.bno = A.bno AND rec = 1) AS rec
         FROM t_board A
-        INNER JOIN t_board_recommendation AS B
-        ON A.bno = B.bno
+        LEFT JOIN t_board_category AS B
+        ON B.bcd = A.bcd
         WHERE A.bdel = 0
-        <if test="bcd > 1">AND A.bcd = #{bcd}</if>
         AND DATE(A.brdt) between (CURDATE()-7) and CURDATE()
         GROUP BY A.bno
+        HAVING rec > 0
         ORDER BY rec DESC
-        LIMIT 20
+        LIMIT 10
     </select>
 
     <delete id="delRec">

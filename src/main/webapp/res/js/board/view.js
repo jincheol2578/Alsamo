@@ -77,17 +77,17 @@ function getListAjax() {
 //리스트 만들기
 function makeReplyList(data) {
     replyListElem.innerHTML = '';
-    let ulElem = document.createElement('ul');
+    const ulElem = document.createElement('ul');
 
     replyListElem.append(ulElem);
 
 
     data.forEach((item) => {
-        let liElem = document.createElement('li');
-        let repElem1 = document.createElement('div');
-        let repElem2 = document.createElement('div');
-        let repElem3 = document.createElement('div');
-        let repElem4 = document.createElement('div');
+        const liElem = document.createElement('li');
+        const repElem1 = document.createElement('div');
+        const repElem2 = document.createElement('div');
+        const repElem3 = document.createElement('div');
+        const repElem4 = document.createElement('div');
         repElem1.append(item.repnm);
         repElem2.append(item.repctnt);
         repElem3.append(item.reprdt);

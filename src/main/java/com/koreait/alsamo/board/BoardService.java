@@ -35,6 +35,11 @@ public class BoardService {
         return mapper.selBoardList(param);
     }
 
+    //메인 게시판 리스트 가져오기
+    public List<BoardDomain> selMainBoardList(int bcd) {
+        return mapper.selMainBoardList(bcd);
+    }
+
     //게시글 가져오기
     public BoardDomain selBoard(BoardDTO param) {
         return mapper.selBoard(param);

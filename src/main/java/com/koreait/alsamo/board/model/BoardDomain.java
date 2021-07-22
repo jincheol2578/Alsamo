@@ -10,4 +10,5 @@ import lombok.ToString;
 public class BoardDomain extends BoardEntity{
     private String writer;
     private String bnm;
+    private int rec;
 }

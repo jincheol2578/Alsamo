@@ -8,7 +8,6 @@
 <script src="/res/summernote/lang/summernote-ko-KR.js"></script>
 
 <link rel="stylesheet" href="/res/summernote/summernote-lite.css">
-<%--  --%>
 <form action="
 <c:choose>
     <c:when test="${empty param.modify}">write</c:when>
@@ -42,14 +41,14 @@
     <c:if test="${not empty param.modify}">
         <input type="hidden" name="uno" value="${requestScope.board.uno}">
         <input type="hidden" name="bno" value="${param.bno}">
-        <input type="hidden" name="bpw" value="${requestScope.bpw}">
+        <input type="hidden" name="bpw" value="${requestScope.board.bpw}">
     </c:if>
-    <input type="text" name="btitle" placeholder="제목">
-    <c:if test="${empty sessionScope.loginUser}">
-    <input type="password" name="bpw" placeholder="비밀번호">
+    <input type="text" name="btitle" placeholder="제목" value="${requestScope.board.btitle}">
+    <c:if test="${empty sessionScope.loginUser && param.modify ne 1}">
+    <input type="password" name="bpw" placeholder="비밀번호" value="${requestScope.board.bpw}">
     </c:if>
-    <textarea id="summernote" name="bctnt"></textarea>
+    <textarea id="summernote" name="bctnt">${requestScope.board.bctnt}</textarea>
     <input type="submit" value="글쓰기">
 </form>
 
-<script src="/res/summernote/summernote.js?ver=1"></script>
+<script src="/res/summernote/summernote.js"></script>

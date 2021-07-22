@@ -5,27 +5,30 @@
 <mapper namespace="com.koreait.alsamo.board.notice.BoardNoticeMapper">
     <insert id="insNotice">
         INSERT INTO t_board_notice
-        (bno)
-        VALUES
-        (#{bno})
+            (bno)
+        VALUES (#{bno})
     </insert>
 
     <select id="selNoticeList" resultType="BoardDomain">
         SELECT A.bno, A.uno, A.bcd, A.btitle, A.bctnt, A.bidx, A.bord
         , A.bdept, A.brdt
         , B.unm as writer
+        , (SELECT COUNT(D.bno)
+        FROM t_board_recommendation AS D
+        WHERE D.bno = A.bno AND rec = 1) AS rec
         FROM t_board as A
         INNER JOIN t_board_notice as C
-            ON A.bno = C.bno
+        ON A.bno = C.bno
         LEFT JOIN t_user as B
-            ON A.uno = B.uno
+        ON A.uno = B.uno
         where A.bdel = 0 AND A.bcd > 1
         <if test="bcd > 2">AND A.bcd = #{bcd}</if>
         ORDER BY A.bidx desc, A.bord asc
     </select>
 
     <delete id="delNotice">
-        delete from t_board_notice
+        delete
+        from t_board_notice
         where bno = #{bno}
     </delete>
 </mapper>
