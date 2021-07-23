@@ -22,17 +22,17 @@ public class AdminService {
     public String login(UserEntity param) {
         UserEntity result = mapper.selAdmin(param);
 
-        if (result == null) {
+        if (result.getUid() == null) {
             //아이디 없음
-            return "아이디가 존재하지 않습니다.";
+            return "/admin?err=1";
         } else if (BCrypt.checkpw(param.getUpw(), result.getUpw())) {
             //로그인 성공
             result.setUpw(null);
             session.setAttribute("loginAdmin", result);
-            return "로그인 성공";
+            return "/admin/main";
         } else {
             //비밀번호 틀림
-            return "비밀번호를 확인해 주세요.";
+            return "/admin?err=2";
         }
     }
     //유저관리
@@ -58,7 +58,7 @@ public class AdminService {
     }
 
     // 게시판 관리
-    public List<BoardDomain> getBoardList(BoardDTO param) {
+    public List<BoardDomain> getBoardList(AdminDTO param) {
         return mapper.selBoardList(param);
     }
 

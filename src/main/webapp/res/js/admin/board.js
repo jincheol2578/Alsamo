@@ -1,3 +1,41 @@
+
+
+
+getTags();
+
+let tags = new Object();
+let array = new Array();
+
+const param = {
+    tags: tags
+};
+
+function getBoardList() {
+    console.log(JSON.stringify(param));
+    /*TODO: 07.23 마무리
+    GET 메소드로는 body를 보낼수 없음.
+    그래서 POST로 변경
+
+    */
+
+    fetch('/admin/board', {
+        method: 'POST',
+        body: JSON.stringify(param),
+        headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json;charset=UTF-8'
+        }
+    })
+        .then((res)=>{
+            return res.json();
+        })
+        .then((data)=>{
+            console.log(data);
+        })
+}
+
+getBoardList();
+
 function regTag() { // 태그를 등록하는 ajax 함수
     const tnameElem = document.getElementById('tname');
     const tnameVal = tnameElem.value;
@@ -26,10 +64,13 @@ function getTags() { // 태그 가져오기
             return res.json();
         })
         .then((data) => {
+            data.forEach((item)=>{
+                tags
+            })
         })
 }
 
-getTags();
+
 
 function delTag(tno) { // 태그삭제
     fetch('/admin/tag/' + tno, {
@@ -53,7 +94,7 @@ function getCategoryList(){
             }
         })
 }
-
+// 카테고리 등록
 function regCategory(){
     categoryVal = document.getElementById('category').value;
 

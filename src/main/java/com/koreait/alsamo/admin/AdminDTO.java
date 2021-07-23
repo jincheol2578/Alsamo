@@ -11,4 +11,5 @@ public class AdminDTO {
     private int[] delChk;
     private int bcd;
     private String bnm;
+    private String[] tags;
 }

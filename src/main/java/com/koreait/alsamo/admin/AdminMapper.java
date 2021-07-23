@@ -11,7 +11,7 @@ import java.util.List;
 public interface AdminMapper {
     UserEntity selAdmin(UserEntity param);
 
-    List<BoardDomain> selBoardList(BoardDTO param);
+    List<BoardDomain> selBoardList(AdminDTO param);
     int selBoardCount(BoardDTO param);
     int delBoard(AdminDTO param);
 

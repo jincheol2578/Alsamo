@@ -7,7 +7,7 @@
     <select id="selAdmin" resultType="UserEntity">
         SELECT uid, upw
         FROM t_user
-        WHERE authno = (1 OR 2)
+        WHERE authno = 1 or authno = 2
     </select>
     <!--    유저관리-->
     <select id="selUserList" resultType="UserEntity">
@@ -119,7 +119,6 @@
             </foreach>
         </if>
         ORDER BY A.bidx desc, A.bord asc
-        LIMIT #{startIdx}, #{cntPerPage}
     </select>
     <!--    게시글 삭제 -->
     <update id="delBoard">

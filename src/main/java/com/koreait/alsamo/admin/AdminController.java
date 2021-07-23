@@ -1,6 +1,5 @@
 package com.koreait.alsamo.admin;
 
-import com.koreait.alsamo.board.model.BoardDTO;
 import com.koreait.alsamo.common.Pagination;
 import com.koreait.alsamo.user.UserDTO;
 import com.koreait.alsamo.user.UserEntity;
@@ -21,25 +20,36 @@ public class AdminController {
     @Autowired
     AdminService service;
 
-    @GetMapping
-    public String main() {
-        return "admin/main";
+    @GetMapping()
+    public String login() {
+        return "/admin/login";
     }
 
     //    로그인
     @PostMapping("/login")
     public String login(UserEntity param, Model model) {
-        model.addAttribute("loginMsg", service.login(param));
-        return "/WEB-INF/views/main.jsp";
+        return "redirect:" + service.login(param);
     }
 
     //    로그아웃
     @GetMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.invalidate();
-        return "/WEB-INF/views/main.jsp";
+        return "redirect:login";
     }
-    //    유저 관리
+
+    //    메인화면
+    @GetMapping("/main")
+    public String main() {
+        return "admin/main";
+    }
+
+    //    게시판관리
+    @GetMapping("/board")
+    public String board() {
+        return "admin/board";
+    }
+
     @GetMapping("/user")
     public String user() {
         return "admin/user";
@@ -69,16 +79,13 @@ public class AdminController {
 
     //    게시판 리스트
     @ResponseBody
-    @GetMapping("/board")
-    public Map<String, Object> getBoardList(@RequestBody BoardDTO param) {
-        int listCnt = service.getBoardCount(param);
-        Pagination pagination = new Pagination(listCnt, param.getPage());
+    @PostMapping("/board")
+    public Map<String, Object> getBoardList(@RequestParam String json) {
         Map<String, Object> data = new HashMap<>();
+        AdminDTO param = new AdminDTO();
 
-        param.setStartIdx(pagination.getStartIndex());
-        param.setCntPerPage(pagination.getPageSize());
-        data.put("paging", pagination);
-        data.put("boardList", service.getBoardList(param));
+
+//        data.put("boardList", service.getBoardList(param));
         return data;
     }
 
