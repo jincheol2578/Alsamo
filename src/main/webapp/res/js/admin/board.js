@@ -1,26 +1,18 @@
 
-
-
-getTags();
-
-let tags = new Object();
-let array = new Array();
-
-const param = {
-    tags: tags
-};
-
+// 게시글 가져오기
 function getBoardList() {
-    console.log(JSON.stringify(param));
     /*TODO: 07.23 마무리
-    GET 메소드로는 body를 보낼수 없음.
-    그래서 POST로 변경
-
-    */
+     GET 메소드로는 body를 보낼수 없음.
+     그래서 POST로 변경
+     body에 tags 넣어줘야함
+     tags 뿌리고 element값 가져와서 배열 만들고 뿌리기
+     */
 
     fetch('/admin/board', {
         method: 'POST',
-        body: JSON.stringify(param),
+        body: JSON.stringify({
+            bcd: 1
+        }),
         headers: {
             'accept': 'application/json',
             'content-type': 'application/json;charset=UTF-8'
@@ -30,20 +22,52 @@ function getBoardList() {
             return res.json();
         })
         .then((data)=>{
-            console.log(data);
+            const tableElem = document.getElementById('datatablesSimple');
+            const tbodyElem = tableElem.querySelector('tbody');
+
+            data.boardList.forEach((item)=>{
+                const trElem = document.createElement('tr');
+                const bnoElem = document.createElement('td');
+                const writerElem = document.createElement('td');
+                const btitleElem = document.createElement('td');
+                const hitElem = document.createElement('td');
+                const recElem = document.createElement('td');
+                const brdtElem = document.createElement('td');
+
+                bnoElem.innerText = item.bno;
+                writerElem.innerText = item.writer;
+                btitleElem.innerText = item.btitle;
+                hitElem.innerText = item.bhit;
+                recElem.innerText = item.rec;
+                brdtElem.innerText = item.brdt;
+
+                trElem.append(bnoElem);
+                trElem.append(writerElem);
+                trElem.append(btitleElem);
+                trElem.append(hitElem);
+                trElem.append(recElem);
+                trElem.append(brdtElem);
+                tbodyElem.append(trElem);
+            })
         })
 }
 
 getBoardList();
 
+const tnameElem = document.getElementById('txtTag');
+
+tnameElem.addEventListener('keypress', (e)=>{
+    if(e.key === 'Enter'){
+        regTag();
+    }
+});
+
 function regTag() { // 태그를 등록하는 ajax 함수
-    const tnameElem = document.getElementById('tname');
-    const tnameVal = tnameElem.value;
 
     fetch('/admin/tag', {
         method: 'POST',
         body: JSON.stringify({
-            tname: tnameVal
+            tname: tnameElem.value
         }),
         headers: {
             'accept': 'application/json',
@@ -55,22 +79,41 @@ function regTag() { // 태그를 등록하는 ajax 함수
         })
         .then((data) => {
             getTags();
+            tnameElem.value = '';
         });
 }
 
 function getTags() { // 태그 가져오기
+
     fetch('/admin/tag')
         .then((res) => {
             return res.json();
         })
         .then((data) => {
-            data.forEach((item)=>{
-                tags
-            })
-        })
+            makeTagList(data);
+        });
 }
 
+function makeTagList(data) {
+    const tagBoxElem = document.getElementById('tagBox');
+    tagBoxElem.innerText = '';
+    data.tags.forEach((item)=>{
+        const tagElem = document.createElement('li');
+        const delElem = document.createElement('button')
+        tagElem.innerText = item.tname;
+        delElem.className = 'tagDelBtn';
 
+        delElem.addEventListener('click',()=>{
+            if (confirm("삭제하시겠습니까")){
+                delTag(item.tno);
+            }
+        })
+        tagElem.append(delElem);
+        tagBoxElem.append(tagElem);
+    });
+}
+
+getTags();
 
 function delTag(tno) { // 태그삭제
     fetch('/admin/tag/' + tno, {

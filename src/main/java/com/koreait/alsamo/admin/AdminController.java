@@ -80,12 +80,10 @@ public class AdminController {
     //    게시판 리스트
     @ResponseBody
     @PostMapping("/board")
-    public Map<String, Object> getBoardList(@RequestParam String json) {
+    public Map<String, Object> getBoardList(@RequestBody AdminDTO param) {
         Map<String, Object> data = new HashMap<>();
-        AdminDTO param = new AdminDTO();
 
-
-//        data.put("boardList", service.getBoardList(param));
+        data.put("boardList", service.getBoardList(param));
         return data;
     }
 
@@ -160,8 +158,10 @@ public class AdminController {
 
     @ResponseBody
     @GetMapping("/tag")
-    public List<BlockTags> getTags() {
-        return service.getTags();
+    public Map<String, List<BlockTags>> getTags() {
+        Map<String, List<BlockTags>> data = new HashMap<>();
+        data.put("tags", service.getTags());
+        return data;
     }
 
     @ResponseBody
