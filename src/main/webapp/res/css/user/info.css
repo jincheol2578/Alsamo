@@ -1,0 +1,51 @@
+.table td, .table  th{
+    min-width: 10rem;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+}
+.table  th{
+    height: 0.2rem;
+}
+
+a{
+    vertical-align: middle;
+    text-decoration: none;
+    color: black;
+}
+
+.infoNameContainer{
+    margin-top: 12px;
+}
+p{
+    margin: 8px 0px 8px 0px;
+}
+#infoCategory ul li a{
+    display: block;
+    width: 102px;
+    height: 35px;
+    text-align: center;
+    padding-right: 1px;
+    line-height: 34px;
+}
+#infoCategory ul li{
+    box-sizing: border-box;
+    border: 1px solid #dee2e6;
+    width: 102px;
+    height: 35px;
+    border-spacing: 10px;
+    float: left;
+
+}
+#infoCategory ul li:hover{
+    background-color: #dee2e6;
+    cursor: pointer;
+}
+#infoCategory ul {
+    list-style: none;
+    padding: 0px;
+
+}
+.infoContent{
+    margin-top: 60px;
+}

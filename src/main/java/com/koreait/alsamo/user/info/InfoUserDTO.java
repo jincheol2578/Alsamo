@@ -15,6 +15,6 @@ public class InfoUserDTO {
     private int uno;
     private List<BoardDomain> boardList;
     private int countBoardList;
-    private List<BoardReplyEntity> replyList;
+    private List<InfoReplyDTO> replyList;
     private int countReplyList;
 }

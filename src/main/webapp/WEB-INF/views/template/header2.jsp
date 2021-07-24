@@ -8,7 +8,7 @@
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                <li class="nav-item active"><a class="nav-link" href="http://localhost:8080/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="http://localhost:8080/">Home</a></li>
 
                 <%-- Todo list link 활용 방안 생각 --%>
                 <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
@@ -36,7 +36,7 @@
         </div>
     </div>
 </nav>
-<div id="modal" class="displayNone">
+<div id="modal" class="displayNone" >
     <div class="modal_content">
         <a href="#" onclick="closeModal();"><img id="modalBtnClose" clase="X" src="/img/close.png"></a>
         <div><h3>${errMsg}</h3></div>

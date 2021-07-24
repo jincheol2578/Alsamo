@@ -22,9 +22,8 @@
 
         <c:forEach var="item" items="${requestScope.boardList}" varStatus="status">
             <tr id="boardClick" class="boardClick">
-                <input type="hidden" id="userPk" value="${item.uno}">
                 <td>${item.bno}</td>
-                <td class="" id="${status.index}" onclick="makeUl(${status.index});">${item.writer}
+                <td class="" id="${status.index}"<c:if test="${item.uno !=0}">onclick="makeUl(${status.index},${item.uno});"</c:if>>${item.writer}
                 </td>
                 <td class="bright" onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">${item.btitle}</td>
                 <td>${item.brdt}</td>

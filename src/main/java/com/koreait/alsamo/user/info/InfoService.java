@@ -19,12 +19,10 @@ public class InfoService {
     public List<BoardDomain> selAllWrite(int param) { return mapper.selAllBoardWho(param); }
 
     // 리스트 카운트
-    public int selAllWriteCount(int param) {
-        return mapper.countAllWrite(param);
-    }
+    public int selAllWriteCount(int param) { return mapper.countAllWrite(param); }
 
     // 리플 리스트
-    public List<BoardReplyEntity> selAllReply(int param) {
+    public List<InfoReplyDTO> selAllReply(int param) {
         return mapper.selAllRepWho(param);
     }
 

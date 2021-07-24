@@ -1,0 +1,14 @@
+.table td, .table  th{
+    min-width: 10rem;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+}
+a{
+    vertical-align: middle;
+    text-decoration: none;
+    color: black;
+}
+#infoReplyContainer{
+    margin-top: 12px;
+}

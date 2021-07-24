@@ -39,6 +39,7 @@
     justify-content: center;
     align-items: center;
     display: none;
+    z-index: 9;
 }
 
 .modal_content {
@@ -89,6 +90,7 @@
 }
 
 .swiper-container {
+    position: absolute;
 box-sizing: border-box;
     width: 1170px;
     height: 180px;

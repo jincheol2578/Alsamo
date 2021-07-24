@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface InfoMapper {
     List<BoardDomain> selAllBoardWho(int param);
-    List<BoardReplyEntity> selAllRepWho(int param);
+    List<InfoReplyDTO> selAllRepWho(int param);
     int countAllWrite(int param);
     int countAllReply(int param);
 }

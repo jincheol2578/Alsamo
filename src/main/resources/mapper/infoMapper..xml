@@ -18,15 +18,23 @@
                            ON A.uno = B.uno
         where A.uno = #{param}
     </select>
-    <select id="selAllRepWho" resultType="BoardReplyEntity">
-        select *
-        from t_board_reply
-        where uno = #{param}
+    <select id="selAllRepWho" resultType="InfoReplyDTO">
+        SELECT A.repctnt, A.bno, A.reprdt, B.uno,
+               (SELECT D.bnm FROM t_board AS C
+                                      LEFT JOIN t_board_category AS D
+                                                ON C.bcd = D.bcd
+                WHERE C.bno = A.bno) AS bnm
+        FROM t_board_reply AS A
+                 LEFT JOIN t_user AS B
+                           ON A.uno = B.uno
+        WHERE B.uno = #{param}
     </select>
     <select id="countAllWrite" resultType="int">
-        SELECT COUNT(case when uno = #{param} then 1 end) FROM t_board;
+        SELECT COUNT(case when uno = #{param} then 1 end)
+        FROM t_board;
     </select>
     <select id="countAllReply" resultType="int">
-        SELECT COUNT(case when uno = #{param} then 1 end) FROM t_board_reply;
+        SELECT COUNT(case when uno = #{param} then 1 end)
+        FROM t_board_reply;
     </select>
 </mapper>

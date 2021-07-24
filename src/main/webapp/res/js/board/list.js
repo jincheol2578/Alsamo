@@ -1,4 +1,4 @@
-function makeUl(count) {
+function makeUl(count,pk) {
     let targets = document.getElementById(count);
 
     targets.classList.toggle('userId');
@@ -11,7 +11,7 @@ function makeUl(count) {
     let aTagElemPrf=document.createElement('a');
     let aTagElemWhatWrt=document.createElement('a');
     let aTagElemRep=document.createElement('a');
-    let userPk = document.getElementById('userPk').value;
+    // let userPk = document.getElementById('userPk').value;
 
     aTagElemPrf.innerText = '프로필';
     aTagElemWhatWrt.innerText = '작성글';
@@ -29,9 +29,9 @@ function makeUl(count) {
 
         divElem.setAttribute('id', 'info' + count);
         divElem.setAttribute('class', 'infoUser');
-        aTagElemPrf.setAttribute('href','/user/info?uno='+userPk);
-        aTagElemWhatWrt.setAttribute('href','/user/info?uno='+userPk);
-        aTagElemRep.setAttribute('href','/user/info?uno='+userPk);
+        aTagElemPrf.setAttribute('href','/user/info?uno='+pk);
+        aTagElemWhatWrt.setAttribute('href','/user/info?uno='+pk);
+        aTagElemRep.setAttribute('href','/user/info?uno='+pk);
 
         targets.append(divElem);
 
