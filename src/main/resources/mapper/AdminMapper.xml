@@ -116,9 +116,9 @@
         where A.bdel = 0
         <if test="bcd > 1">AND A.bcd = #{bcd}</if>
         <if test="tags != null">
-            <foreach collection="tags" index="index" item="tags" separator="OR" open="AND">
-                A.btitle like CONCAT('%',#{tags},'%')
-                OR A.bctnt like CONCAT('%',#{tags},'%')
+            <foreach collection="tags" index="index" item="tags" separator="OR" open="AND (" close=")">
+                A.btitle like CONCAT('%',#{tags.tname},'%')
+                OR A.bctnt like CONCAT('%',#{tags.tname},'%')
             </foreach>
         </if>
         ORDER BY A.bidx desc, A.bord asc

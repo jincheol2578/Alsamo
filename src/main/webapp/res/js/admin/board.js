@@ -1,3 +1,4 @@
+/*--------------BoardList-----------------*/
 
 // 게시글 가져오기
 function getBoardList() {
@@ -25,14 +26,26 @@ function getBoardList() {
             const tableElem = document.getElementById('datatablesSimple');
             const tbodyElem = tableElem.querySelector('tbody');
 
+            tbodyElem.innerText = '';
+
             data.boardList.forEach((item)=>{
                 const trElem = document.createElement('tr');
+                const chkBoxElem = document.createElement('td');
                 const bnoElem = document.createElement('td');
                 const writerElem = document.createElement('td');
                 const btitleElem = document.createElement('td');
                 const hitElem = document.createElement('td');
                 const recElem = document.createElement('td');
                 const brdtElem = document.createElement('td');
+
+                const labelElem = document.createElement('label');
+
+                const delBox = document.createElement('input');
+                delBox.type = 'checkbox';
+                delBox.value = item.bno;
+                delBox.name = 'delChk';
+                labelElem.append(delBox);
+                chkBoxElem.append(labelElem);
 
                 bnoElem.innerText = item.bno;
                 writerElem.innerText = item.writer;
@@ -41,6 +54,7 @@ function getBoardList() {
                 recElem.innerText = item.rec;
                 brdtElem.innerText = item.brdt;
 
+                trElem.append(chkBoxElem);
                 trElem.append(bnoElem);
                 trElem.append(writerElem);
                 trElem.append(btitleElem);
@@ -53,6 +67,30 @@ function getBoardList() {
 }
 
 getBoardList();
+
+const checkBoxElem = document.getElementById('allChk');
+const delChkElem = document.getElementsByName('delChk');
+checkBoxElem.addEventListener('click',()=>{
+    if(checkBoxElem.checked){
+        for(let i = 0; i < delChkElem.length; i++){
+            delChkElem[i].checked = true;
+        }
+    }else{
+        for(let i = 0; i < delChkElem.length; i++){
+            delChkElem[i].checked = false;
+        }
+    }
+});
+
+
+function delBoard(){
+    const delChkVal = new Array;
+    for(let i = 0; i < delChkElem.length; i++) {
+
+    }
+}
+
+/*------------------Tag-----------------*/
 
 const tnameElem = document.getElementById('txtTag');
 
@@ -91,6 +129,7 @@ function getTags() { // 태그 가져오기
         })
         .then((data) => {
             makeTagList(data);
+            getBoardList();
         });
 }
 
@@ -126,6 +165,9 @@ function delTag(tno) { // 태그삭제
             getTags();
         })
 }
+
+/*------------------------Category-------------------------*/
+
 getCategoryList();
 function getCategoryList(){
     fetch('/admin/category')
@@ -137,6 +179,7 @@ function getCategoryList(){
             }
         })
 }
+
 // 카테고리 등록
 function regCategory(){
     categoryVal = document.getElementById('category').value;

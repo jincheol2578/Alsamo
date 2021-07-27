@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -11,5 +13,5 @@ public class AdminDTO {
     private int[] delChk;
     private int bcd;
     private String bnm;
-    private String[] tags;
+    private List<BlockTags> tags;
 }
