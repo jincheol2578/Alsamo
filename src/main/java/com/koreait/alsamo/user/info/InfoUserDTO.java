@@ -17,4 +17,8 @@ public class InfoUserDTO {
     private int countBoardList;
     private List<InfoReplyDTO> replyList;
     private int countReplyList;
+    private int page = 1;
+    private int perPageCount =10;
+    private int startIdx ;
+    private int selMaxPageVal;
 }

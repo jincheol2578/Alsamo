@@ -12,3 +12,16 @@ a{
 #infoWriteContainer{
     margin-top: 12px;
 }
+
+#infoPagging li {
+    list-style: none;
+    float: left;
+    margin-right: 9px;
+}
+#infoPagging li a{
+    font-size: 14px;
+}
+#infoPagging li .active {
+    color: red;
+}
+

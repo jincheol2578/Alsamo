@@ -6,8 +6,8 @@
         <div><h2>${requestScope.infoUser.boardList[0].writer} 님의 프로필</h2></div>
         <div>
             <ul>
-                <li><a href="/user/infowrite?uno=${requestScope.infoUser.boardList[0].uno}">게시글</a></li>
-                <li><a href="/user/inforeply?uno=${requestScope.infoUser.boardList[0].uno}">댓글</a></li>
+                <li><a href="/user/infowrite?uno=${requestScope.infoUser.boardList[0].uno}&page=1">게시글</a></li>
+                <li><a href="/user/inforeply?uno=${requestScope.infoUser.boardList[0].uno}&page=1">댓글</a></li>
 
             </ul>
         </div>
@@ -22,7 +22,7 @@
                 <th></th>
                 <th>total ${infoUser.countBoardList} </th>
             </tr>
-            <c:forEach var="item" items="${requestScope.infoUser.boardList}" begin="0" end="5">
+            <c:forEach var="item" items="${requestScope.infoUser.boardList}" begin="0" end="4">
                 <tr>
                     <td><a href="/board/view?bcd=${item.bcd}&bno=${item.bno}">${item.btitle}</a></td>
                     <td><a href="/board/view?bcd=${item.bcd}&bno=${item.bno}">${item.bctnt}</a></td>
@@ -59,6 +59,7 @@
                     </td>
                 </tr>
             </c:forEach>
+
         </table>
     </div>
 </div>

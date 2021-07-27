@@ -16,9 +16,9 @@ public class InfoUserController {
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public String infoUser(@RequestParam("uno") int param, Model model) {
         InfoUserDTO dto = new InfoUserDTO();
-
-        dto.setBoardList(service.selAllWrite(param));
-        dto.setReplyList(service.selAllReply(param));
+        dto.setUno(param);
+        dto.setBoardList(service.selAllWrite(dto));
+        dto.setReplyList(service.selAllReply(dto));
         dto.setCountReplyList(service.selAllReplyCount(param));
         dto.setCountBoardList(service.selAllWriteCount(param));
         System.out.println(dto.getReplyList());
@@ -27,23 +27,30 @@ public class InfoUserController {
         model.addAttribute("infoUser", dto);
         return "user/info";
     }
-
     @RequestMapping(value = "/infowrite", method = RequestMethod.GET)
-    public String infoUserWrite(@RequestParam("uno") int param, Model model) {
+    public String infoUserWriteGet(@RequestParam("uno") int param,
+                                @RequestParam("page") int page, Model model) {
         InfoUserDTO dto = new InfoUserDTO();
-        dto.setBoardList(service.selAllWrite(param));
+        dto.setPage(page);
+        dto.setUno(param);
+        dto.setBoardList(service.selAllWrite(dto));
         dto.setCountBoardList(service.selAllWriteCount(param));
+        model.addAttribute("maxPage",service.selMaxPageVal(dto));
         model.addAttribute("infoUser", dto);
         return "user/infoWrite";
     }
 
     @RequestMapping(value = "/inforeply", method = RequestMethod.GET)
-    public String infoUserReply(@RequestParam("uno") int param, Model model) {
+    public String infoUserReply(@RequestParam("uno") int param,
+             @RequestParam("page") int page, Model model) {
         InfoUserDTO dto = new InfoUserDTO();
-        dto.setReplyList(service.selAllReply(param));
+        dto.setPage(page);
+        dto.setUno(param);
+        dto.setReplyList(service.selAllReply(dto));
         dto.setCountReplyList(service.selAllReplyCount(param));
         model.addAttribute("infoUser", dto);
         return "user/infoReply";
     }
+
 
 }

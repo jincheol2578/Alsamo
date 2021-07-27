@@ -1,13 +1,9 @@
 package com.koreait.alsamo.user.info;
 
 import com.koreait.alsamo.board.model.BoardDomain;
-import com.koreait.alsamo.board.model.BoardEntity;
-import com.koreait.alsamo.board.model.BoardReplyEntity;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,13 +12,21 @@ public class InfoService {
     private InfoMapper mapper;
 
     // 글쓴 리스트
-    public List<BoardDomain> selAllWrite(int param) { return mapper.selAllBoardWho(param); }
+    public List<BoardDomain> selAllWrite(InfoUserDTO param) {
+        int startIdx = (param.getPage()-1)*param.getPerPageCount();
+        param.setStartIdx(startIdx);
+        return mapper.selAllBoardWho(param);
+    }
 
     // 리스트 카운트
-    public int selAllWriteCount(int param) { return mapper.countAllWrite(param); }
+    public int selAllWriteCount(int param) {
+        return mapper.countAllWrite(param);
+    }
 
     // 리플 리스트
-    public List<InfoReplyDTO> selAllReply(int param) {
+    public List<InfoReplyDTO> selAllReply(InfoUserDTO param) {
+        int startIdx = (param.getPage()-1)*param.getPerPageCount();
+        param.setStartIdx(startIdx);
         return mapper.selAllRepWho(param);
     }
 
@@ -31,4 +35,10 @@ public class InfoService {
         return mapper.countAllReply(param);
     }
 
+    //마지막 페이지 val
+    public int selMaxPageVal(InfoUserDTO param) {
+        return mapper.selMaxPageVal(param);
+    }
+
 }
+
