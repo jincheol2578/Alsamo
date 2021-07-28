@@ -11,13 +11,13 @@
     </definition>
 
     <definition name="board/*" extends="main_template">
-        <put-attribute name="content" value="/WEB-INF/views/board/{1}.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/board/{1}.jsp" />
     </definition>
     <definition name="user/*" extends="main_template">
-        <put-attribute name="content" value="/WEB-INF/views/user/{1}.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/user/{1}.jsp" />
     </definition>
     <definition name="alcohol/*" extends="main_template">
-        <put-attribute name="content" value="/WEB-INF/views/alcohol/{1}.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/alcohol/{1}.jsp" />
     </definition>
 
 </tiles-definitions>
