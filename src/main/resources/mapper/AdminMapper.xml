@@ -7,9 +7,31 @@
     <select id="selAdmin" resultType="UserEntity">
         SELECT uid, upw
         FROM t_user
-        WHERE authno = (1 OR 2)
+        WHERE authno = 1
+           or authno = 2
     </select>
-
+    <!--    유저관리-->
+    <select id="selUserList" resultType="UserEntity">
+        SELECT uno, uemail, uid, unm, urdt
+        FROM t_user
+        <where>
+            <if test="authno != null">
+                authno = #{authno}
+            </if>
+            <if test="searchText != null">
+                uid like CONCAT('%',#{searchText},'%')
+                OR ueamil like CONCAT('%',#{searchText},'%')
+                OR unm like CONCAT('%',#{searchText},'%')
+            </if>
+        </where>
+        ORDER BY uno desc
+        LIMIT #{startIdx}, #{cntPerPage}
+    </select>
+    <update id="updUser">
+        UPDATE t_user
+        SET authno = #{authno}
+        WHERE uno = #{uno}
+    </update>
     <!--    게시판 태그 -->
     <insert id="insTag">
         INSERT INTO t_board_tags
@@ -27,31 +49,44 @@
     </delete>
 
     <!--    카테고리 관리 -->
-    <insert id="insCategory">
-        INSERT INTO t_board_category
-            (bnm, cord)
-        VALUES (#{bnm}, #{cord})
+    <insert id="insCategory">-- 카테고리생성
+    INSERT INTO t_board_category
+        (bnm, cord)
+    VALUES (#{bnm}, #{cord} + 1)
     </insert>
-
-    <select id="selCategoryList" resultType="BoardCategoryDTO">
-        SELECT *
-        FROM t_board_category
-        ORDER BY cord asc
+    <select id="selCategoryList" resultType="BoardCategoryDTO">-- 리스트
+    SELECT *
+    FROM t_board_category
+    ORDER BY cord asc
     </select>
-    <update id="updCategory">
-        UPDATE t_board_category
-        SET bnm = #{bnm}
-        WHERE bcd = #{bcd}
+    <update id="updCategory"> -- 수정
+    UPDATE t_board_category
+    SET bnm = #{bnm}
+    WHERE bcd = #{bcd}
     </update>
-    <update id="updCategoryOrd">
+    <update id="updCategoryUp">
+        <![CDATA[
+        UPDATE t_board_category
+        SET cord = cord + 1
+        WHERE cord > #{cord}
+        ]]>
+    </update>
+    <update id="updCategoryDown">
+        <![CDATA[
+        UPDATE t_board_category
+        SET cord = cord - 1
+        WHERE cord < #{cord}
+        ]]>
+    </update>
+    <update id="updCategoryOrd">-- 순서 바꾸기
         UPDATE t_board_category
         SET cord =
         case
-        <if test="updType == 'up'">
+        <if test="ordType == 'up'">
             when cord = #{cord} AND cord > 1 then cord - 1
             when cord = #{cord} - 1 then cord + 1
         </if>
-        <if test="updType == 'down'">
+        <if test="ordType == 'down'">
             when cord = #{cord} then cord + 1
             when cord = #{cord} + 1 then cord - 1
         </if>
@@ -62,7 +97,6 @@
           AND cord < (SELECT cord FROM t_board_category order by cord desc limit 1) + 1;
         ]]>
     </update>
-
     <delete id="delCategory"> -- 삭제시 트랜잭션 이용해서 밑에 게시글까지 모두삭제
     DELETE
     FROM t_board_category
@@ -73,25 +107,29 @@
     <select id="selBoardList" resultType="BoardDomain">
         SELECT A.bno, A.uno, A.bcd, A.btitle, A.bctnt, A.bidx, A.bord
         , A.bdept, A.brdt, A.bhit, A.bdel
-        , B.unm as writer
+        , B.unm as writer,
+        (SELECT COUNT(C.bno)
+        FROM t_board_recommendation AS C
+        WHERE C.bno = A.bno AND rec = 1) AS rec
         FROM t_board as A
         LEFT JOIN t_user as B
         ON A.uno = B.uno
-        where A.bcd = #{bcd}
-        AND A.bdel = 0
+        where A.bdel = 0
         <if test="bcd > 1">AND A.bcd = #{bcd}</if>
-        <if test="searchText != null">
-            <foreach collection=""></foreach>
+        <if test="tags != null">
+            <foreach collection="tags" index="index" item="tags" separator="OR" open="AND (" close=")">
+                A.btitle like CONCAT('%',#{tags.tname},'%')
+                OR A.bctnt like CONCAT('%',#{tags.tname},'%')
+            </foreach>
         </if>
         ORDER BY A.bidx desc, A.bord asc
-        LIMIT #{startIdx}, #{cntPerPage}
     </select>
     <!--    게시글 삭제 -->
     <update id="delBoard">
         UPDATE t_board
         SET bdel = 1
         WHERE
-        <foreach collection="delChk" index="index" item="delChk" separator="or" open="">
+        <foreach collection="delChk" index="index" item="delChk" separator="or">
             bno = #{delChk}
         </foreach>
     </update>
@@ -101,9 +139,21 @@
         FROM t_board
         WHERE bcd = #{bcd}
         AND bdel = 0
-        <if test="searchText != null">
-            <foreach collection=""></foreach>
+        <if test="tags != null">
+            <foreach collection="tags" index="index" item="tags" separator="OR" open="AND">
+                btitle like CONCAT('%',#{tags},'%')
+                OR bctnt like CONCAT('%',#{tags},'%')
+            </foreach>
         </if>
+    </select>
+    <select id="selUserCount" resultType="Integer">
+        select count(*)
+        FROM t_user
+        <where>
+            <if test="authno != null">
+                authno = #{authno}
+            </if>
+        </where>
     </select>
 
 </mapper>
