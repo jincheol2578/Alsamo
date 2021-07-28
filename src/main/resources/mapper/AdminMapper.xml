@@ -7,7 +7,8 @@
     <select id="selAdmin" resultType="UserEntity">
         SELECT uid, upw
         FROM t_user
-        WHERE authno = 1 or authno = 2
+        WHERE authno = 1
+           or authno = 2
     </select>
     <!--    유저관리-->
     <select id="selUserList" resultType="UserEntity">
@@ -54,9 +55,9 @@
     VALUES (#{bnm}, #{cord} + 1)
     </insert>
     <select id="selCategoryList" resultType="BoardCategoryDTO">-- 리스트
-    SELECT *
-    FROM t_board_category
-    ORDER BY cord asc
+        SELECT *
+        FROM t_board_category
+        ORDER BY cord asc
     </select>
     <update id="updCategory"> -- 수정
     UPDATE t_board_category

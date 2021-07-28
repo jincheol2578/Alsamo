@@ -1,3 +1,45 @@
+function makeUl(count, pk) {
+    let targets = document.getElementById(count);
+
+    targets.classList.toggle('userId');
+
+    let divElem = document.createElement('div');
+    let ulElem = document.createElement('ul');
+    let liWhatWriteElem = document.createElement('li');
+    let liWhatReplElem = document.createElement('li');
+    let liWhoElem = document.createElement('li');
+    let aTagElemPrf = document.createElement('a');
+    let aTagElemWhatWrt = document.createElement('a');
+    let aTagElemRep = document.createElement('a');
+    // let userPk = document.getElementById('userPk').value;
+
+    aTagElemPrf.innerText = '프로필';
+    aTagElemWhatWrt.innerText = '작성글';
+    aTagElemRep.innerText = '댓글';
+    if (targets.className === 'userId') {
+        divElem.append(ulElem);
+
+        ulElem.append(liWhoElem);
+        ulElem.append(liWhatWriteElem);
+        ulElem.append(liWhatReplElem);
+
+        liWhoElem.append(aTagElemPrf);
+        liWhatWriteElem.append(aTagElemWhatWrt);
+        liWhatReplElem.append(aTagElemRep);
+
+        divElem.setAttribute('id', 'info' + count);
+        divElem.setAttribute('class', 'infoUser');
+        aTagElemPrf.setAttribute('href', '/user/info?uno=' + pk);
+        aTagElemWhatWrt.setAttribute('href', '/user/info?uno=' + pk);
+        aTagElemRep.setAttribute('href', '/user/info?uno=' + pk);
+
+        targets.append(divElem);
+
+    } else {
+        document.getElementById('info' + count).remove();
+    }
+}
+
 const params = new URLSearchParams(location.search);
 const bcdVal = params.get('bcd');
 const pageVal = params.get('page');
@@ -17,6 +59,7 @@ function getNoticeList() {
             makeNoticeList(data);
         });
 }
+
 // 공지사항 리스트 생성
 function makeNoticeList(data) {
 
@@ -62,6 +105,7 @@ document.getElementById('searchBtn').addEventListener('click', () => {
             + "&searchType=" + searchType.value + "&searchText=" + searchText.value;
     }
 });
+
 // 페이지 이동
 function moveToPage(bcd, page) {
     let url = "/board/list?bcd=" + bcd
@@ -73,6 +117,7 @@ function moveToPage(bcd, page) {
             + "&searchText=" + searchTextVal;
     }
 }
+
 if(searchTypeVal !== null && searchTextVal !== null){
     searchType.value = searchTypeVal;
     searchText.value = searchTextVal;
