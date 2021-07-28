@@ -34,9 +34,9 @@
     </insert>
 
     <select id="selCategoryList" resultType="BoardCategoryDTO">
-        SELECT *
-        FROM t_board_category
-        ORDER BY cord asc
+    SELECT *
+    FROM t_board_category
+    ORDER BY cord asc
     </select>
     <update id="updCategory">
         UPDATE t_board_category

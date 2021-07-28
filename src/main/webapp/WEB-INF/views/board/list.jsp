@@ -1,6 +1,39 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="boardContainer">
+    <div class="boardList">
+        <table class="table">
+            <thead class="thead">
+            <tr>
+                <th>글번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회수</th>
+                <th>추천수</th>
+            </tr>
+            </thead>
+            <tbody class="notice">
+            </tbody>
+            <tbody class="boardList">
+            <c:forEach var="item" items="${requestScope.boardList}" varStatus="status">
+            <tr id="boardClick" class="boardClick">
+                <td>${item.bno}</td>
+                <td class="" id="${status.index}"
+                <c:if test="${item.uno !=0}">onclick="makeUl(${status.index},${item.uno});"</c:if>>${item.writer}
+                </td>
+                <td class="bright"
+                    onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">${item.btitle}</td>
+                <td>${item.brdt}</td>
+                <td>${item.bhit}</td>
+                <td>${item.rec}</td>
+            </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+
+</div>
     <div class="boardBtn">
         <div class="float-left"></div>
         <div class="float-right">
@@ -10,28 +43,6 @@
         </div>
     </div>
 
-    <table class="table">
-        <tr>
-            <th>글번호</th>
-            <th>작성자</th>
-            <th>제목</th>
-            <th>작성일</th>
-            <th>조회수</th>
-        </tr>
-
-        <c:forEach var="item" items="${requestScope.boardList}" varStatus="status">
-            <tr id="boardClick" class="boardClick">
-                <td>${item.bno}</td>
-                <td class="" id="${status.index}"
-                    <c:if test="${item.uno !=0}">onclick="makeUl(${status.index},${item.uno});"</c:if>>${item.writer}
-                </td>
-                <td class="bright" onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">${item.btitle}</td>
-                <td>${item.brdt}</td>
-                <td>${item.bhit}</td>
-
-            </tr>
-        </c:forEach>
-    </table>
     <div id="paggingBox">
         <ul class="pagination">
             <c:if test="${paging.curRange ne 1}">
