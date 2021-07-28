@@ -10,19 +10,13 @@
         <put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp" />
     </definition>
 
-<!--    <definition name="board/*" extends="main_template">-->
-<!--        <put-attribute name="content" value="/WEB-INF/views/board/{1}.jsp" />-->
-<!--    </definition>-->
-
-    <definition name="*/*" extends="main_template">
-        <put-attribute name="res" value="{1}/{2}"/>
-        <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
+    <definition name="board/" extends="main_template">
+        <put-attribute name="content" value="/WEB-INF/views/board/{1}.jsp" />
     </definition>
-
-
-<!--    <definition name="*/*" extends="main_template">    content 빼먹지 말것!!! 다음 풀때 지울꺼 -->
-<!--        <put-attribute name="res" value="{1}/{2}" />-->
-<!--        <put-attribute name="content" value=""/>-->
-<!--    </definition>-->
-
+    <definition name="user/" extends="main_template">
+        <put-attribute name="content" value="/WEB-INF/views/user/{1}.jsp" />
+    </definition>
+    <definition name="alcohol/*" extends="main_template">
+    <put-attribute name="content" value="/WEB-INF/views/alcohol/{1}.jsp" />
+    </definition>
 </tiles-definitions>

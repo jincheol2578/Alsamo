@@ -1,8 +1,3 @@
-ajaxAl('위스키');
-function goHome(){
-    location.href="/board/list";
-}
-
 function openModal() {
     document.querySelector('#modal').style.display = 'flex';
 }
@@ -11,6 +6,11 @@ function closeModal() {
     document.querySelector('#modal').style.display = 'none';
 }
 
+ajaxAl('위스키');
+
+function goHome() {
+    location.href = "/board/list";
+}
 
 function getWhiskey() {
 
@@ -60,7 +60,7 @@ function getVodka() {
 }
 
 function searchAl(name) {
-    location.href='/alcohol/alcoholList';
+    location.href = '/alcohol/alcoholList';
     const al = document.getElementById(name);
     const alData = {
         name: al.dataset.name
