@@ -1,0 +1,27 @@
+.table td, .table  th{
+    min-width: 10rem;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+}
+a{
+    vertical-align: middle;
+    text-decoration: none;
+    color: black;
+}
+#infoWriteContainer{
+    margin-top: 12px;
+}
+
+#infoPagging li {
+    list-style: none;
+    float: left;
+    margin-right: 9px;
+}
+#infoPagging li a{
+    font-size: 14px;
+}
+#infoPagging li .active {
+    color: red;
+}
+

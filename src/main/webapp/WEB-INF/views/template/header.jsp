@@ -2,16 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <header>
-    <ul>
+    <ul id="markBoxUl">
         <c:choose>
             <c:when test="${not empty sessionScope.loginUser}">
                 <li id="mark">
                     <div id="markBox">
                         <span id="loginName"><a href="/user/myPage">${sessionScope.loginUser.uid}</a></span>
-                        <c:if test="${sessionScope.loginUser.authno != 3 or sessionScope.loginUser.authno != 4}">
-                            <img id="markImg"
-                                 src="/img/${sessionScope.loginUser.authno}/${sessionScope.loginUser.profileImg}">
-                        </c:if>
                     </div>
                 </li>
 
@@ -31,7 +27,7 @@
         <div class="modal_content">
             <a href="#" onclick="closeModal();"><img id="modalBtnClose" clase="X" src="/img/close.png"></a>
             <div><h3>${errMsg}</h3></div>
-            <idv><h3>${requestScope.msg}</h3></idv>
+            <div><h3>${requestScope.msg}</h3></div>
             <div><h3>${authkeyErr}</h3></div>
             <form class="loginForm" action="/user/login" method="post">
                 <div><input class="loginProperty" type="text" name="uid" placeholder="아이디"></div>

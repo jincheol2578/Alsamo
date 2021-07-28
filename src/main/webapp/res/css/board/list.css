@@ -1,10 +1,8 @@
-
 .boardContainer {
     box-sizing: border-box;
     width: 100%;
-    margin: 12px 12px 0 12px;
-    min-height: 912px;
-    height: 100%;
+    margin: 12px 0px 12px 0px;
+
 }
 
 .boardContainer::after {
@@ -14,6 +12,10 @@
 }
 
 /* list . css*/
+.pagination {
+    padding-left: 8px;
+}
+
 .table {
     box-sizing: border-box;
     width: 100%;
@@ -35,7 +37,6 @@
 
 #boardClick:hover {
     background-color: #cacad0;
-    cursor: pointer;
 }
 
 
@@ -105,4 +106,56 @@
 
 .boardInfo-row .boardInfo .infoHead {
     padding: 0 3px 0 0;
+}
+
+#boardClick td {
+    text-align: center;
+}
+
+.bright, .userId:hover {
+    cursor: pointer;
+
+}
+/* 유저 인포 아이디 클릭시 노출*/
+.infoUser {
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    margin-left:80px;
+    padding: 0px;
+
+
+}
+.infoUser ul {
+    margin: 0px;
+    padding: 0px;
+}
+.infoUser ul li {
+    list-style: none;
+    margin: 0px;
+    padding: 0px 9px 0px 9px;
+    width: 85px;
+    height: 25px;
+    border: 1px solid black;
+}
+.infoUser ul li a{
+    text-decoration: none;
+    color: black;
+}
+.infoUser ul li a:hover{
+    color: red;
+}
+#boardClick td:nth-child(2){
+    cursor: pointer;
+}
+.active{
+    font-size: 20px;
+    margin: auto;
+}
+.active:hover{
+    cursor: pointer;
+    border-bottom: 1px solid black;
+}
+#pagingBox{
+    width: 100%;
 }

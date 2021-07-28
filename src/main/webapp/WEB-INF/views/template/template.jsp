@@ -3,57 +3,57 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>${requestScope.btitle}</title>
-    <link rel="stylesheet" href="/res/css/common.css">
-    <link rel="stylesheet" href="/res/css/myPage.css">
-    <link rel="stylesheet" href="/res/css/board.css">
-    <link rel="stylesheet" href="/res/css/layout.css">
-    <link rel="stylesheet" href="/res/css/alcoholList.css">
+<link>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta name="description" content=""/>
+<meta name="author" content=""/>
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="/res/assets/favicon.ico"/>
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="/res/css/styles.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script defer src="/res/js/scripts.js"></script>
+<title>${requestScope.btitle}</title>
+<link rel="stylesheet" href="/res/css/common.css">
+<link rel="stylesheet" href="/res/css/<tiles:getAsString name="res"/>.css">
+<script defer src="/res/js/<tiles:getAsString name="res"/>.js"></script>
 
-    <%-- 부트 스트랩--%>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<%--부트스트랩--%>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-    <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"></script>
+<script defer src="/res/js/common.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <%-- 반응형 웹 --%>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Google 로그인 -->
-    <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id"
-          content="227252070132-70dn36407laql4s9m54qvqcq1ib7gq9m.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-    <script def src="/res/js/googleLogin.js"></script>
-    <script def src="/res/js/common.js "></script>
-    <script def src="/res/js/alcohol/alcohol.js "></script>
+<%--Swiper--%>
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 </head>
 <body>
-<div id="container">
-    <div id="header"><tiles:insertAttribute name="header"/></div>
-
-    <div id="section">
-        <ul>
-            <tiles:importAttribute name="menuList"/>
-            <c:forEach var="list" items="${menuList}">
-                <li><a href="/board/list?bcd=${list.bcd}">${list.bnm}</a></li>
-            </c:forEach>
-        </ul>
-        <tiles:insertAttribute name="content"/>
+<div class="d-flex" id="wrapper">
+    <tiles:insertAttribute name="left-side"/>
+    <div id="page-content-wrapper">
+        <tiles:insertAttribute name="header"/>
+        <div class="container-fluid">
+            <tiles:insertAttribute name="content"/>
+            <ul>
+                <tiles:importAttribute name="menuList"/>
+                <c:forEach var="list" items="${menuList}">
+                    <li><a href="/board/list?bcd=${list.bcd}">${list.bnm}</a></li>
+                </c:forEach>
+            </ul>
+        </div>
+        <div class="container-fluid">
+            <tiles:insertAttribute name="footer"/>
+        </div>
     </div>
 
-    <div id="footer">
-        Copyright 2021.
-        <div>Icons made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-    </div>
 </div>
+
 </body>
 </html>
