@@ -81,22 +81,19 @@ public class AdminController {
     @ResponseBody
     @PostMapping("/board")
     public Map<String, Object> getBoardList(@RequestBody AdminDTO param) {
+        int listCnt = service.getBoardCount(param);
+        Pagination pagination = new Pagination(listCnt, param.getPage());
         Map<String, Object> data = new HashMap<>();
 
+        param.setStartIdx(pagination.getStartIndex());
+        param.setCntPerPage(pagination.getPageSize());
+        System.out.println(pagination);
+        data.put("paging", pagination);
         data.put("boardList", service.getBoardList(param));
         return data;
     }
 
     //    게시글 선택 삭제
-//    요청 예제
-//   {
-//    "delChk": [
-//        1,
-//        2,
-//        3
-//    ]
-//}
-//
     @ResponseBody
     @DeleteMapping("/board")
     public Map<String, Integer> delBoard(@RequestBody AdminDTO param) {

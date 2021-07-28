@@ -43,10 +43,11 @@
                             </tr>
                             </thead>
                             <tbody>
-
                             </tbody>
                         </table>
-
+                        <div id="pagination">
+                            <button onclick="delBoard()">삭제</button>
+                        </div>
                     </div>
                 </div>
             </div>

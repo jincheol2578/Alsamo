@@ -38,7 +38,7 @@
 </nav>
 <div id="modal" class="displayNone" >
     <div class="modal_content">
-        <a href="#" onclick="closeModal();"><img id="modalBtnClose" clase="X" src="/img/close.png"></a>
+        <a href="#" onclick="closeModal();"><img id="modalBtnClose" class="X" src="/img/close.png"></a>
         <div><h3>${errMsg}</h3></div>
         <idv><h3>${requestScope.msg}</h3></idv>
         <div><h3>${authkeyErr}</h3></div>

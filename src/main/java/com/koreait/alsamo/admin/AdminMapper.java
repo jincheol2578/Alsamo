@@ -1,6 +1,5 @@
 package com.koreait.alsamo.admin;
 
-import com.koreait.alsamo.board.model.BoardDTO;
 import com.koreait.alsamo.board.model.BoardDomain;
 import com.koreait.alsamo.user.UserDTO;
 import com.koreait.alsamo.user.UserEntity;
@@ -12,7 +11,7 @@ public interface AdminMapper {
     UserEntity selAdmin(UserEntity param);
 
     List<BoardDomain> selBoardList(AdminDTO param);
-    int selBoardCount(BoardDTO param);
+    int selBoardCount(AdminDTO param);
     int delBoard(AdminDTO param);
 
     int insTag(BlockTags tags);

@@ -17,8 +17,6 @@
 <script defer src="/res/js/scripts.js"></script>
 <title>${requestScope.btitle}</title>
 <link rel="stylesheet" href="/res/css/common.css">
-<link rel="stylesheet" href="/res/css/<tiles:getAsString name="res"/>.css">
-<script defer src="/res/js/<tiles:getAsString name="res"/>.js"></script>
 
 <%--부트스트랩--%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">

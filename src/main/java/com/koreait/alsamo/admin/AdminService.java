@@ -1,6 +1,5 @@
 package com.koreait.alsamo.admin;
 
-import com.koreait.alsamo.board.model.BoardDTO;
 import com.koreait.alsamo.board.model.BoardDomain;
 import com.koreait.alsamo.user.UserDTO;
 import com.koreait.alsamo.user.UserEntity;
@@ -63,7 +62,7 @@ public class AdminService {
         return mapper.selBoardList(param);
     }
 
-    public int getBoardCount(BoardDTO param) {
+    public int getBoardCount(AdminDTO param) {
         return mapper.selBoardCount(param);
     }
 

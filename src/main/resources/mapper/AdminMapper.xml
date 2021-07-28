@@ -123,6 +123,7 @@
             </foreach>
         </if>
         ORDER BY A.bidx desc, A.bord asc
+        LIMIT #{startIdx}, #{cntPerPage}
     </select>
     <!--    게시글 삭제 -->
     <update id="delBoard">
@@ -137,10 +138,10 @@
     <select id="selBoardCount" resultType="Integer">
         select count(*)
         FROM t_board
-        WHERE bcd = #{bcd}
-        AND bdel = 0
+        WHERE bdel = 0
+        <if test="bcd > 1">AND A.bcd = #{bcd}</if>
         <if test="tags != null">
-            <foreach collection="tags" index="index" item="tags" separator="OR" open="AND">
+            <foreach collection="tags" index="index" item="tags" separator="OR" open="AND (" close=")">
                 btitle like CONCAT('%',#{tags},'%')
                 OR bctnt like CONCAT('%',#{tags},'%')
             </foreach>
