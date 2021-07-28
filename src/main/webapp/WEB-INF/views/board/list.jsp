@@ -17,17 +17,17 @@
             </tbody>
             <tbody class="boardList">
             <c:forEach var="item" items="${requestScope.boardList}" varStatus="status">
-                <tr id="boardClick" class="boardClick">
-                    <td>${item.bno}</td>
-                    <td class="" id="${status.index}"
-                        <c:if test="${item.uno !=0}">onclick="makeUl(${status.index},${item.uno});"</c:if>>${item.writer}
-                    </td>
-                    <td class="bright"
-                        onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">${item.btitle}</td>
-                    <td>${item.brdt}</td>
-                    <td>${item.bhit}</td>
-                    <td>${item.rec}</td>
-                </tr>
+            <tr id="boardClick" class="boardClick">
+                <td>${item.bno}</td>
+                <td class="" id="${status.index}"
+                <c:if test="${item.uno !=0}">onclick="makeUl(${status.index},${item.uno});"</c:if>>${item.writer}
+                </td>
+                <td class="bright"
+                    onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">${item.btitle}</td>
+                <td>${item.brdt}</td>
+                <td>${item.bhit}</td>
+                <td>${item.rec}</td>
+            </tr>
             </c:forEach>
             </tbody>
         </table>
