@@ -26,7 +26,7 @@
             <li class="paggingLi">
                     <span onclick="active(${requestScope.infoUser.uno},${Page})">
         <font color="#000000">
-            <c:if test="${requestScope.infoUser.page == Page}">font color="#bbbbbb"></c:if>
+            <c:if test="${requestScope.infoUser.page == Page}"><font color="#bbbbbb"></c:if>
         ${Page}</font>
                     </span>
             </li>
