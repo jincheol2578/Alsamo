@@ -32,7 +32,6 @@
             </tbody>
         </table>
     </div>
-
 </div>
     <div class="boardBtn">
         <div class="float-left"></div>
@@ -43,7 +42,7 @@
         </div>
     </div>
 
-    <div id="paggingBox">
+    <div id="pagingBox">
         <ul class="pagination">
             <c:if test="${paging.curRange ne 1}">
                 <li class="firstPage" onclick="moveToPage(${param.bcd},1)">&#171;</li>
@@ -69,7 +68,6 @@
             <c:if test="${paging.curRange ne paging.rangeCnt && paging.rangeCnt > 0}">
                 <li href="#" onclick="moveToPage(${param.bcd},${paging.pageCnt })">&#187;</li>
             </c:if>
-
         </ul>
     </div>
 
