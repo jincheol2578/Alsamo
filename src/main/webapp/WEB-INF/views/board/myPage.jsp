@@ -27,9 +27,13 @@
         <div class="button_container"><input class="button" type="submit" value="적용"></div>
 
 
-        <div><a href="/board/list"><button class="button" type="button">취소</button></a></div>
+        <div><a href="/board/list">
+            <button class="button" type="button">취소</button>
+        </a></div>
 
         </form>
 
 
     </div>
+</div>
+<link rel="stylesheet" href="/res/css/user/myPage.css">

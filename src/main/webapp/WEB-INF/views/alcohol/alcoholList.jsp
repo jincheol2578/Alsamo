@@ -31,3 +31,4 @@
     </div>
 
 </div>
+<link href="/res/css/alcohol/alcoholList.css" rel="stylesheet"/>

@@ -56,3 +56,4 @@
 
 </div>
 <script defer src="/res/js/board/view.js"></script>
+<link href="/res/css/board/board.css" rel="stylesheet"/>

@@ -15,5 +15,6 @@ public interface InfoMapper {
 
     int countAllReply(int param);
 
-    int selMaxPageVal(InfoUserDTO perPageCount);
+    int countBoardList(InfoUserDTO param);
+    int countReplyList(InfoUserDTO param);
 }

@@ -86,5 +86,6 @@
 </div>
 
 
-<script src="/res/js/common.js"></script>
+
 <script src="/res/js/board/list.js"></script>
+<link rel="stylesheet" href="/res/css/board/list.css">

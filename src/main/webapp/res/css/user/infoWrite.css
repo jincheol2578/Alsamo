@@ -12,16 +12,15 @@ a{
 #infoWriteContainer{
     margin-top: 12px;
 }
+.pagination{
+    margin: auto;
+}
+.pagination li {
+    margin-left: 9px;
+    font-size: 20px;
 
-#infoPagging li {
-    list-style: none;
-    float: left;
-    margin-right: 9px;
 }
-#infoPagging li a{
-    font-size: 14px;
-}
-#infoPagging li .active {
+
+.pagination .active{
     color: red;
 }
-

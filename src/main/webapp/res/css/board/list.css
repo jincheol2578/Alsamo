@@ -148,9 +148,16 @@
 #boardClick td:nth-child(2){
     cursor: pointer;
 }
+.pagination{
+    text-align: center;
+}
+.pagination li {
+    margin-right: 9px;
+    display: inline-block;
+
+}
 .active{
-    font-size: 20px;
-    margin: auto;
+    color: red;
 }
 .active:hover{
     cursor: pointer;
