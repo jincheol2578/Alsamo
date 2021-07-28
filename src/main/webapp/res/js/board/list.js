@@ -118,7 +118,7 @@ function moveToPage(bcd, page) {
     }
 }
 
-if(searchTypeVal !== null && searchTextVal !== null){
+if (searchTypeVal !== null && searchTextVal !== null) {
     searchType.value = searchTypeVal;
     searchText.value = searchTextVal;
 }

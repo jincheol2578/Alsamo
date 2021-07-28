@@ -14,7 +14,7 @@ function goHome() {
 
 function getWhiskey() {
 
-    const innerHTML = document.getElementById('Whiskey').innerText;
+    const innerHTML =document.getElementById('Whiskey').innerText;
     const name = {
         name: innerHTML
     };
@@ -24,7 +24,7 @@ function getWhiskey() {
 
 function getRum() {
 
-    const innerHTML = document.getElementById('Rum').innerText;
+    const innerHTML =document.getElementById('Rum').innerText;
     const name = {
         name: innerHTML
     };
@@ -43,7 +43,7 @@ function getJim() {
 }
 
 function getTequila() {
-    const innerHTML = document.getElementById('Tequila').innerText;
+    const innerHTML =document.getElementById('Tequila').innerText;
     const name = {
         name: innerHTML
     };
@@ -52,7 +52,7 @@ function getTequila() {
 }
 
 function getVodka() {
-    const innerHTML = document.getElementById('Vodka').innerText;
+    const innerHTML =document.getElementById('Vodka').innerText;
     const name = {
         name: innerHTML
     };
@@ -61,7 +61,7 @@ function getVodka() {
 
 function searchAl(name) {
     location.href = '/alcohol/alcoholList';
-    const al = document.getElementById(name);
+    const al =document.getElementById(name);
     const alData = {
         name: al.dataset.name
     };
@@ -72,7 +72,7 @@ function searchAl(name) {
 function ajaxAl(name) {
     const init = {
         method: 'post',
-        body: JSON.stringify(name),
+        body:JSON.stringify(name),
         headers: {
             'accept': 'application/json',
             'content-type': 'application/json;charset=UTF-8'
@@ -105,7 +105,7 @@ function ajaxAl(name) {
 }
 
 function addSrc() {
-    const container = document.querySelector('.contentContainer');
+    const container =document.querySelector('.contentContainer');
     const a = container.getElementsByTagName('a');
 
     for (var i = 0; i < a.length; i++) {
@@ -118,7 +118,7 @@ function addSrc() {
 }
 
 function searchName() {
-    const value = document.querySelector('.form-control').value;
+    const value =document.querySelector('.form-control').value;
     const name = {
         name: value
     };

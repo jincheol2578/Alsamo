@@ -30,7 +30,6 @@
             </tr>
             </c:forEach>
             </tbody>
-
         </table>
     </div>
 
@@ -43,7 +42,7 @@
         </div>
     </div>
 
-    <div class="boardPage">
+    <div id="pagingBox">
         <ul class="pagination">
             <c:if test="${paging.curRange ne 1}">
                 <li class="firstPage" onclick="moveToPage(${param.bcd},1)">&#171;</li>
