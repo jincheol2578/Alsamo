@@ -4,11 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Setter
 @Getter
+@Setter
 @ToString
-public class BoardDomain extends BoardEntity{
-    private String writer = "익명";
-    private String bnm;
+public class BoardRecDTO {
+    private int bno;
+    private int uno;
     private int rec;
+    private int cnt;
+    private int recChk;
 }

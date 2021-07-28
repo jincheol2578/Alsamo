@@ -2,19 +2,19 @@ const params = new URLSearchParams(location.search);
 const bnoVal = params.get('bno');
 const regBtn = document.getElementById('insBtn');
 let replyListElem = document.getElementById('replyList');
-
+const loginUserPk = replyListElem.dataset.userPk;
 regBtn.addEventListener('click', regReply);
 
-// INSERT
-
-function regReply(){
+// 댓글등록
+function regReply() {
+    const repFrmElem = document.getElementById("repFrm");
     const repnmElem = document.getElementById('repnm');
     const reppwElem = document.getElementById('reppw');
     const repctntElem = document.getElementById('repctnt');
 
     let repnmVal = null;
     let reppwVal = null;
-    if(repnmElem != null){
+    if (repnmElem != null) {
         repnmVal = repnmElem.value;
         reppwVal = reppwElem.value;
     }
@@ -24,142 +24,183 @@ function regReply(){
         reppw: reppwVal,
         repctnt: repctntElem.value
     };
-    regAjax(param);
+    regAjax(param, 0);
+    repFrmElem.reset();
 }
-function regAjax(param){
+
+function regAjax(param, idx) {
+    if (isNaN(parseInt(loginUserPk)) && param.reppw === '') {
+        alert('비밀번호를 입력해주세요.');
+        return;
+    } else if (isNaN(parseInt(loginUserPk)) && param.repnm === '') {
+        alert('아이디를 입력해주세요.');
+        return;
+    } else if (param.repctnt === '') {
+        alert('내용을 입력해주세요.');
+        return;
+    }
+
     const init = {
         method: 'POST',
         body: JSON.stringify(param),
-        headers:{
-            'accept' : 'application/json',
-            'content-type' : 'application/json;charset=UTF-8'
+        headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json;charset=UTF-8'
         }
     };
 
-    fetch('reply/0',init)
-        .then((res) =>{
+    fetch('reply/' + idx, init)
+        .then((res) => {
             return res.json();
         })
-        .then((myJson) =>{
-            console.log(myJson);
-            if(myJson.result == 1){
-                console.log('등록성공');
+        .then((myJson) => {
+            if (myJson.result == 1) {
                 getListAjax();
-            }else{
+            } else {
                 //등록실패
-                alert('에러!');
+                alert('등록 실패.');
             }
         });
 }
 
-// SELECT
-function getListAjax(){
-    fetch('reply/'+bnoVal)
-        .then((res)=>{
+// 댓글리스트
+function getListAjax() {
+    fetch('reply/' + bnoVal)
+        .then((res) => {
             return res.json();
         })
-        .then((myJson)=>{
+        .then((myJson) => {
             makeReplyList(myJson);
-        })
+        });
 }
-function makeReplyList(data){
+
+//리스트 만들기
+function makeReplyList(data) {
     replyListElem.innerHTML = '';
-    let tableElem = document.createElement('table');
-    let trRepTitle = document.createElement('tr');
-    let thRepCtnt = document.createElement('th');
-    let thRepNm = document.createElement('th');
-    let thRepRdt = document.createElement('th');
-    let thRepBigo = document.createElement('th');
+    const ulElem = document.createElement('ul');
+
+    replyListElem.append(ulElem);
 
 
-    thRepCtnt.innerText = '내용';
-    thRepNm.innerText = '작성자';
-    thRepRdt.innerText = '작성일';
-    thRepBigo.innerText = '비고';
-
-    trRepTitle.append(thRepCtnt);
-    trRepTitle.append(thRepNm);
-    trRepTitle.append(thRepRdt);
-    trRepTitle.append(thRepBigo);
-
-    tableElem.append(trRepTitle);
-    replyListElem.append(tableElem);
-
-    const loginUserPk = replyListElem.dataset.userPk;
-
-    data.forEach((item)=>{
-        let trElemCtnt = document.createElement('tr');
-        let tdElem1 = document.createElement('td');
-        let tdElem2 = document.createElement('td');
-        let tdElem3 = document.createElement('td');
-        let tdElem4 = document.createElement('td');
-
-        tdElem1.innerText = item.repctnt;
-        tdElem2.append(item.repnm);
-        tdElem3.append(item.reprdt);
-
-        if(parseInt(loginUserPk) === item.uno || item.uno === 0) {
+    data.forEach((item) => {
+        const liElem = document.createElement('li');
+        const repElem1 = document.createElement('div');
+        const repElem2 = document.createElement('div');
+        const repElem3 = document.createElement('div');
+        const repElem4 = document.createElement('div');
+        repElem1.append(item.repnm);
+        repElem2.append(item.repctnt);
+        repElem3.append(item.reprdt);
+        // 자기 댓글이거나 익명댓글인 경우 삭제 버튼 만들어주기
+        if (parseInt(loginUserPk) === item.uno || item.uno === 0) {
             const delBtn = document.createElement('button');
-            const modBtn = document.createElement('button');
+            let promptPw = null;
 
             //삭제버튼 클릭시
-            delBtn.addEventListener('click', ()=> {
-                if (parseInt(loginUserPk) === item.uno) {
-                    alert(confirm())
-                    var param = {repno: item.repno};
-                    delAjax(param);
-                }else{
-                    let promptPw = parseInt(prompt("비밀번호를 입력하세요"));
-                    var param = {
+            delBtn.addEventListener('click', () => {
+                if (confirm('삭제하시겠습니까?')) {
+                    if (item.uno === 0) {
+                        promptPw = parseInt(prompt("비밀번호를 입력하세요"));
+                    }
+                    const param = {
                         repno: item.repno,
                         reppw: promptPw
                     };
                     delAjax(param);
+                } else {
+                    return;
                 }
             });
-            //수정버튼 클릭시
-            modBtn.addEventListener('click', ()=> {
-                //수정창 띄우기
+
+            // 답글버튼 - 댓글 내용 클릭 시 댓글밑에 생성
+            repElem2.addEventListener('click', () => {
+                liElem.classList.toggle("reReply");
+
+                const formElem = document.createElement('form');
+                const inputRepnm = document.createElement('input');
+                const inputReppw = document.createElement('input');
+                const txtRepctnt = document.createElement('textarea');
+                const inputReBtn = document.createElement('input');
+
+                formElem.onsubmit = 'return false;';
+                formElem.id = 'reReplyFrm' + item.repno;
+                inputRepnm.type = 'text';
+                inputRepnm.classList.add('reRepName');
+                inputReppw.type = 'password';
+                inputReppw.classList.add('reRepPwd');
+                txtRepctnt.classList.add('reRepCtnt');
+                inputReBtn.type = 'button';
+                inputReBtn.value = '작성';
+
+                /*
+                댓글 클릭했을때 liElem에 'reReply'클래스 추가해줌
+                'reReply' 클래스가 있으면 대댓글창 생성 없으면 삭제
+                */
+                if (liElem.className === "reReply") {
+                    if (isNaN(parseInt(loginUserPk))) {
+                        formElem.append(inputRepnm);
+                        formElem.append(inputReppw);
+                    }
+                    formElem.append(txtRepctnt);
+                    formElem.append(inputReBtn);
+                    liElem.append(formElem);
+                } else {
+                    document.getElementById('reReplyFrm' + item.repno).remove();
+                }
+
+                // 답글 전송버튼 눌렀을떄
+                inputReBtn.addEventListener('click', () => {
+                    let reRepFrm = document.getElementById('reReplyFrm' + item.repno);
+                    let reRepName = null;
+                    let reRepPwd = null;
+                    let reRepCtnt = null;
+                    // if (parseInt(loginUserPk) !== 0) {
+                    //     reRepName = reRepFrm.querySelector('.reRepName').value;
+                    //     reRepPwd = reRepFrm.querySelector('.reRepPwd').value;
+                    //     reRepCtnt = reRepFrm.querySelector('.reRepCtnt').value;
+                    // }
+                    const param = {
+                        bno: bnoVal,
+                        repnm: reRepName,
+                        reppw: reRepPwd,
+                        repctnt: reRepCtnt,
+                        repidx: item.repidx,
+                        repord: item.repord,
+                        repdept: item.repdept
+                    }
+                    regAjax(param, 1);
+                    console.log(param);
+                })
             });
-            //TODO:답글창 만들기 table 안에서 form 못만듬 댓글리스트 table 말고 div로 변경필요 프론트 작업이니 미뤄두기
 
             delBtn.innerText = '삭제';
-            modBtn.innerText = '수정';
-
-
-            tdElem4.append(delBtn);
-            tdElem4.append(modBtn);
-
+            repElem4.append(delBtn);
         }
-        const repBtn = document.createElement('button');
-        repBtn.innerText = '답글';
-        tdElem4.append(repBtn);
-
-        trElemCtnt.append(tdElem1);
-        trElemCtnt.append(tdElem2);
-        trElemCtnt.append(tdElem3);
-        trElemCtnt.append(tdElem4);
-
-        tableElem.append(trElemCtnt);
+        ulElem.append(liElem);
+        liElem.append(repElem1);
+        liElem.append(repElem2);
+        liElem.append(repElem3);
+        liElem.append(repElem4);
     });
 }
 
-function delAjax(param){
+// 댓글 삭제
+function delAjax(param) {
     const init = {
         method: 'DELETE',
         body: JSON.stringify(param),
-        headers:{
-            'accept' : 'application/json',
-            'content-type' : 'application/json;charset=UTF-8'
+        headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json;charset=UTF-8'
         }
     };
 
     fetch('reply', init)
-        .then((res)=>{
+        .then((res) => {
             return res.json();
         })
-        .then((myJson)=>{
-            switch(myJson.result) {
+        .then((myJson) => {
+            switch (myJson.result) {
                 case 0:
                     alert('잘못된 비밀번호입니다.');
                     break;
@@ -169,4 +210,109 @@ function delAjax(param){
             }
         });
 }
+
 getListAjax();
+getRec(bnoVal);
+
+//게시글 추천
+const upRecBtn = document.getElementById('upRecBtn');
+const downRecBtn = document.getElementById('downRecBtn');
+
+upRecBtn.addEventListener('click', () => {
+    recClicked(1, upRecBtn.className);
+});
+downRecBtn.addEventListener('click', () => {
+    recClicked(0, downRecBtn.className);
+});
+
+function recClicked(recVal, btnClassName) {
+    if (upRecBtn.className !== 'clicked' && downRecBtn.className !== 'clicked') {
+        regRec(recVal);
+    } else if (btnClassName === 'clicked') {
+        delRec();
+    } else {
+        alert('이미 추천한 게시글입니다.')
+    }
+}
+
+
+// 추천수
+function getRec(bno) {
+    const upCntElem = document.getElementById('cntUp');
+    const downCntElem = document.getElementById('cntDown');
+    fetch('/board/rec/' + bno)
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            upCntElem.innerText = '';
+            downCntElem.innerText = '';
+            for (var i = 0; i < data.result.length; i++) {
+                if (data.result[i].rec === 1) {
+                    upCntElem.innerText = data.result[i].cnt;
+                } else if (data.result[i].rec === 0) {
+                    downCntElem.innerText = data.result[i].cnt;
+                }
+            }
+
+            if (data.recCheck !== null && data.recCheck.recChk === 1) {
+                toggleRec(data.recCheck.rec);
+            } else {
+                toggleRec(2);
+            }
+        });
+}
+
+function toggleRec(toggle) {
+    switch (toggle) {
+        case 0:
+            downRecBtn.classList.add('clicked');
+            break;
+        case 1:
+            upRecBtn.classList.add('clicked');
+            break;
+        case 2:
+            downRecBtn.classList.remove('clicked');
+            upRecBtn.classList.remove('clicked');
+    }
+}
+
+// 추천, 비추천
+function regRec(recVal) {
+    fetch('/board/rec', {
+        method: 'POST',
+        body: JSON.stringify({
+            bno: bnoVal,
+            rec: recVal
+        }),
+        headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json;charset=UTF-8'
+        }
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            if (data.result === 0) {
+                alert('로그인을 해주세요');  //로그인 필요
+            }
+            getRec(bnoVal);
+        });
+}
+
+// 추천,비추천 해제
+function delRec() {
+    fetch('/board/rec/' + bnoVal, {
+        method: 'DELETE'
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            if (data.result === 0) {
+                alert('잘못된 접근입니다.');
+            }
+            getRec(bnoVal);
+        })
+}
