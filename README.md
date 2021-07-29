@@ -6,9 +6,9 @@
 
 ## 팀원
 
-<img src="https://cdn.icon-icons.com/icons2/509/PNG/512/Github_icon-icons.com_49946.png" alt="https://cdn.icon-icons.com/icons2/509/PNG/512/Github_icon-icons.com_49946.png" style="zoom:5%;" /> [김진철](https://github.com/jincheol2578)
+![GitHub-Mark-32px](https://user-images.githubusercontent.com/81733208/127449795-e4a42194-93a0-4060-bdac-8425789cb40a.png) [김진철](https://github.com/jincheol2578)
 
-<img src="https://cdn.icon-icons.com/icons2/509/PNG/512/Github_icon-icons.com_49946.png" alt="https://cdn.icon-icons.com/icons2/509/PNG/512/Github_icon-icons.com_49946.png" style="zoom:5%;" /> [홍준호](https://github.com/heckevil)
+![GitHub-Mark-32px](https://user-images.githubusercontent.com/81733208/127449795-e4a42194-93a0-4060-bdac-8425789cb40a.png) [홍준호](https://github.com/heckevil)
 
 
 
@@ -113,5 +113,4 @@ Java 8, Spring, IntelliJ, Maven, MariaDB, MyBatis, Jsoup, JavaScript, Bootstrap,
 ![DB](https://user-images.githubusercontent.com/81733208/127448738-d52ee3aa-c60a-4e52-9dd1-ee7e33d092dd.png)
 
 > https://dbdiagram.io/
-
 
