@@ -1,6 +1,7 @@
 /*--------------BoardList-----------------*/
-
 // 게시글 가져오기
+const paginationElem = document.getElementById('pagination');
+
 function getBoardList(page) {
 
     fetch('/admin/board', {
@@ -19,7 +20,12 @@ function getBoardList(page) {
         })
         .then((data) => {
             const tableElem = document.getElementById('datatablesSimple');
+
             const tbodyElem = tableElem.querySelector('tbody');
+
+
+            paginationElem.innerText = '';
+            pagination(data.paging);
 
             tbodyElem.innerText = '';
 
@@ -58,24 +64,20 @@ function getBoardList(page) {
                 trElem.append(brdtElem);
                 tbodyElem.append(trElem);
             });
-            pagination(data.paging);
         });
 }
 
 // 페이징
-
 function pagination(data) {
-    const paginationElem = document.getElementById('pagination');
     const pageBoxElem = document.createElement('ul');
 
-    paginationElem.append(pageBoxElem);
     for (let i = data.startPage; i <= data.endPage; i++) {
         const pageNumElem = document.createElement('li');
         pageNumElem.innerText = i;
-        pageNumElem.addEventListener('click',()=>{
-            pageBoxElem.innerText = '';
+        pageNumElem.addEventListener('click', () => {
             getBoardList(i);
-        })
+        });
+        paginationElem.append(pageBoxElem);
         pageBoxElem.append(pageNumElem);
     }
 }
@@ -95,7 +97,6 @@ checkBoxElem.addEventListener('click', () => {
         }
     }
 });
-
 
 function delBoard() {
     const delChkVal = new Array;
@@ -119,10 +120,8 @@ function delBoard() {
                 return res.json();
             })
             .then((data) => {
-                if (data.result === 1) {
+                if (data.result !== 0) {
                     getBoardList();
-                } else {
-
                 }
             });
     }
@@ -181,7 +180,7 @@ function makeTagList(data) {
         delElem.className = 'tagDelBtn';
 
         delElem.addEventListener('click', () => {
-            if (confirm("삭제하시겠습니까")) {
+            if (confirm("삭제 하시겠습니까?")) {
                 delTag(item.tno);
             }
         })
@@ -212,20 +211,38 @@ function getCategoryList() {
             return res.json();
         })
         .then((data) => {
-            for (let i = 0; i < data.length; i++) {
-            }
-        })
+            const categoryList = document.getElementById('categoryList');
+            categoryList.size = data.result.length;
+            categoryList.innerText = '';
+
+            data.result.forEach((item) => {
+                const categoryItem = document.createElement('li');
+                const categoryContent = document.createElement('input');
+                categoryContent.type = 'text';
+                categoryContent.value = item.bnm;
+                categoryContent.readOnly = true;
+                //TODO: 삭제는 아이템옆에 버튼만들어서 처리
+
+                categoryItem.append(categoryContent);
+                categoryList.append(categoryItem);
+            });
+        });
 }
 
 // 카테고리 등록
+const categoryElem = document.getElementById('txtCategory')
+
+categoryElem.addEventListener('keypress',(e)=>{
+    if(e.key === 'Enter'){
+        regCategory();
+    }
+});
 function regCategory() {
-    categoryVal = document.getElementById('category').value;
 
     fetch('/admin/category', {
         method: 'POST',
         body: JSON.stringify({
-            bnm: 'test',
-            cord: '5'
+            bnm: categoryElem.value
         }),
         headers: {
             'accept': 'application/json',
@@ -236,5 +253,11 @@ function regCategory() {
             return res.json();
         })
         .then((data) => {
+            if(data.result === 1) {
+                getCategoryList();
+                categoryElem.value = '';
+            } else {
+                alert('등록 실패');
+            }
         })
 }

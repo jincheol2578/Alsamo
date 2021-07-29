@@ -58,7 +58,6 @@ public class AdminService {
 
     // 게시판 관리
     public List<BoardDomain> getBoardList(AdminDTO param) {
-        param.setTags(mapper.selTags());
         return mapper.selBoardList(param);
     }
 

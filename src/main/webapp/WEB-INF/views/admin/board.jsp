@@ -19,6 +19,23 @@
             <div class="container-fluid px-4">
                 <h1 class="mt-4">게시판 관리</h1>
                 <div class="card mb-4">
+                    <div class="card-header">카테고리</div>
+                </div>
+                <div class="card mb-4">
+                    <div class="category card-body">
+                        <div class="category-list">
+                            <ul id="categoryList"></ul>
+                        </div>
+                        <div class="category-text">
+                            <input type="text" id="txtCategory" class="dataTable-input">
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+<%--                게시글 관리        --%>
+                <div class="card mb-4">
                     <div class="card-header">
                         등록된 태그가 포함된 게시물만 표시합니다. 태그를 등록해 주세요.
                     </div>
@@ -45,8 +62,8 @@
                             <tbody>
                             </tbody>
                         </table>
+                        <button onclick="delBoard()">삭제</button>
                         <div id="pagination">
-                            <button onclick="delBoard()">삭제</button>
                         </div>
                     </div>
                 </div>

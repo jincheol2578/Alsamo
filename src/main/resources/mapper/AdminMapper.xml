@@ -52,7 +52,7 @@
     <insert id="insCategory">-- 카테고리생성
     INSERT INTO t_board_category
         (bnm, cord)
-    VALUES (#{bnm}, #{cord} + 1)
+    VALUES (#{bnm}, (SELECT MAX(B.cord) from t_board_category AS B)+1)
     </insert>
     <select id="selCategoryList" resultType="BoardCategoryDTO">-- 리스트
         SELECT *
@@ -142,8 +142,8 @@
         <if test="bcd > 1">AND A.bcd = #{bcd}</if>
         <if test="tags != null">
             <foreach collection="tags" index="index" item="tags" separator="OR" open="AND (" close=")">
-                btitle like CONCAT('%',#{tags},'%')
-                OR bctnt like CONCAT('%',#{tags},'%')
+                btitle like CONCAT('%',#{tags.tname},'%')
+                OR bctnt like CONCAT('%',#{tags.tname},'%')
             </foreach>
         </if>
     </select>

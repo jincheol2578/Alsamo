@@ -81,13 +81,13 @@ public class AdminController {
     @ResponseBody
     @PostMapping("/board")
     public Map<String, Object> getBoardList(@RequestBody AdminDTO param) {
+        param.setTags(service.getTags());
         int listCnt = service.getBoardCount(param);
         Pagination pagination = new Pagination(listCnt, param.getPage());
         Map<String, Object> data = new HashMap<>();
 
         param.setStartIdx(pagination.getStartIndex());
         param.setCntPerPage(pagination.getPageSize());
-        System.out.println(pagination);
         data.put("paging", pagination);
         data.put("boardList", service.getBoardList(param));
         return data;
