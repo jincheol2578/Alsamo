@@ -6,9 +6,7 @@
 
     <display-name>alsamo</display-name>
     
-    <welcome-file-list>
-        <welcome-file>/WEB-INF/views/main.jsp</welcome-file>
-    </welcome-file-list>
+
 
     <context-param>
         <param-name>contextConfigLocation</param-name>

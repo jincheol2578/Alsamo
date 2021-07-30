@@ -69,13 +69,14 @@ function getBoardList(item, board) {
 }
 
 function makeList(data, menu) {
-    const ulElem = document.createElement('ol');
+    const ulElem = document.createElement('ul');
     const menuHeaderElem = document.createElement('li');
     const headerTitleElem = document.createElement('div');
     const headerRecElem = document.createElement('div');
     const headerCategoryElem = document.createElement('div');
     const headerRegdateElem = document.createElement('div');
 
+    menuHeaderElem.setAttribute('class','rankTable');
     headerTitleElem.innerText = '제목';
     headerRecElem.innerText = '추천';
     headerCategoryElem.innerText = '게시판';

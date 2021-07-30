@@ -1,0 +1,24 @@
+.container{
+    display: grid;
+    margin: 12px 0px 12px 0px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 8px;
+}
+.todayBest, .weekendBest, .notice, .miniBoard{
+    border: 1px solid black;
+
+}
+ul{
+    margin: 0;
+    padding: 0;
+}
+ul li {
+    display: flex;
+    text-align: center;
+
+}
+
+ul li div {
+    flex: 1;
+}
