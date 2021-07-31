@@ -218,25 +218,63 @@ function getCategoryList() {
             data.result.forEach((item) => {
                 const categoryItem = document.createElement('li');
                 const categoryContent = document.createElement('input');
+
                 categoryContent.type = 'text';
                 categoryContent.value = item.bnm;
-                categoryContent.readOnly = true;
-                //TODO: 삭제는 아이템옆에 버튼만들어서 처리
 
                 categoryItem.append(categoryContent);
+                if (item.bcd > 2) {
+                    const categoryDelete = document.createElement('button');
+                    const categoryOrdUp = document.createElement('button');
+                    const categoryOrdDown = document.createElement('button');
+
+                    // TODO: X, 화살표 아이콘으로 바꿔야함
+                    categoryDelete.innerText = 'X';
+                    categoryOrdUp.innerText = '↑';
+                    categoryOrdDown.innerText = '↓';
+
+                    //수정
+                    categoryContent.addEventListener('focusout',() => {
+                        updCategory(item.bcd, categoryContent.value);
+                    });
+
+                    //삭제
+                    categoryDelete.addEventListener('click', () => {
+                        if (confirm('삭제 하시겠습니까?')) {
+                            delCategory(item.bcd, item.cord);
+                        }
+                    });
+
+                    //순서 ↑
+                    categoryOrdUp.addEventListener('click', () => {
+                        updCategoryOrd('up',item.cord);
+                    });
+
+                    //순서 ↓
+                    categoryOrdDown.addEventListener('click', () => {
+                        updCategoryOrd('down',item.cord);
+                    });
+
+                    categoryItem.append(categoryDelete);
+                    categoryItem.append(categoryOrdUp);
+                    categoryItem.append(categoryOrdDown);
+                } else {
+                    categoryContent.readOnly = true;
+                }
                 categoryList.append(categoryItem);
             });
         });
 }
 
 // 카테고리 등록
-const categoryElem = document.getElementById('txtCategory')
+const categoryElem = document.getElementById('txtCategory');
 
-categoryElem.addEventListener('keypress',(e)=>{
-    if(e.key === 'Enter'){
+categoryElem.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
         regCategory();
     }
 });
+
 function regCategory() {
 
     fetch('/admin/category', {
@@ -253,11 +291,87 @@ function regCategory() {
             return res.json();
         })
         .then((data) => {
-            if(data.result === 1) {
-                getCategoryList();
+            if (data.result === 1) {
                 categoryElem.value = '';
+                getCategoryList();
             } else {
                 alert('등록 실패');
             }
+        });
+}
+
+// 카테고리 수정
+function updCategory(bcd, bnm) {
+    fetch('/admin/category', {
+        method: 'PATCH',
+        body: JSON.stringify({
+            bcd: bcd,
+            bnm: bnm
+        }),
+        headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json;charset=UTF-8'
+        }
+    })
+        .then((res) => {
+            return res.json();
         })
+        .then((data) => {
+            if (data.result === 0) {
+                alert('수정 실패')
+            } else {
+                getCategoryList();
+            }
+        });
+}
+
+// 카테고리 삭제
+function delCategory(bcd, cord) {
+
+    fetch('/admin/category', {
+        method: 'DELETE',
+        body: JSON.stringify({
+            bcd: bcd,
+            cord: cord
+        }),
+        headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json;charset=UTF-8'
+        }
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            if (data.result === 0) {
+                alert('삭제 실패');
+            } else {
+                getCategoryList();
+            }
+        });
+}
+
+// 카테고리 순서변경
+function updCategoryOrd(ordType, cord) {
+    fetch('/admin/category/ord', {
+        method: 'PATCH',
+        body: JSON.stringify({
+            cord: cord,
+            ordType: ordType
+        }),
+        headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json;charset=UTF-8'
+        }
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            if (data.result === 0){
+                alert('수정 실패');
+            } else {
+                getCategoryList();
+            }
+        });
 }

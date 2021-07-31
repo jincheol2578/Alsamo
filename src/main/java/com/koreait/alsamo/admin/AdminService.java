@@ -84,12 +84,7 @@ public class AdminService {
 
     // 카테고리 관리
     public int regCategory(BoardCategoryDTO param) {
-        try {
-            mapper.updCategoryUp(param.getCord());
             return mapper.insCategory(param);
-        } catch (Exception e) {
-            return 0;
-        }
     }
 
     public List<BoardCategoryDTO> getCategoryList() {
@@ -109,6 +104,7 @@ public class AdminService {
             mapper.updCategoryDown(param.getCord());
             return mapper.delCategory(param);
         } catch (Exception e) {
+            e.printStackTrace();
             return 0;
         }
     }

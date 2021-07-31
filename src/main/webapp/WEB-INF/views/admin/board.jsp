@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Tables - SB Admin</title>
+    <title>Alsamo - 관리자</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
     <link href="/res/css/admin/styles.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
@@ -20,8 +20,6 @@
                 <h1 class="mt-4">게시판 관리</h1>
                 <div class="card mb-4">
                     <div class="card-header">카테고리</div>
-                </div>
-                <div class="card mb-4">
                     <div class="category card-body">
                         <div class="category-list">
                             <ul id="categoryList"></ul>
@@ -40,12 +38,9 @@
                         등록된 태그가 포함된 게시물만 표시합니다. 태그를 등록해 주세요.
                     </div>
                     <div class="card-body">
+                        <ul id="tagBox" class="tagBox"></ul>
                         <input type="text" id="txtTag" class="dataTable-input">
-                        <ul id="tagBox" class="tagBox">
-                        </ul>
                     </div>
-                </div>
-                <div class="card mb-4">
                     <div class="card-body">
                         <table id="datatablesSimple" class="dataTable-table">
                             <thead>

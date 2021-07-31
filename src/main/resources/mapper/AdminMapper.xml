@@ -12,19 +12,22 @@
     </select>
     <!--    유저관리-->
     <select id="selUserList" resultType="UserEntity">
-        SELECT uno, uemail, uid, unm, urdt
-        FROM t_user
+        SELECT A.uno, A.uemail, A.uid, A.unm, A.urdt,
+        B.authnm
+        FROM t_user AS A
+        LEFT JOIN t_auth AS B
+        ON A.authno = B.authno
         <where>
             <if test="authno != null">
-                authno = #{authno}
+                A.authno = #{authno}
             </if>
             <if test="searchText != null">
-                uid like CONCAT('%',#{searchText},'%')
-                OR ueamil like CONCAT('%',#{searchText},'%')
-                OR unm like CONCAT('%',#{searchText},'%')
+                A.uid like CONCAT('%',#{searchText},'%')
+                OR A.ueamil like CONCAT('%',#{searchText},'%')
+                OR A.unm like CONCAT('%',#{searchText},'%')
             </if>
         </where>
-        ORDER BY uno desc
+        ORDER BY A.uno desc
         LIMIT #{startIdx}, #{cntPerPage}
     </select>
     <update id="updUser">
@@ -52,12 +55,13 @@
     <insert id="insCategory">-- 카테고리생성
     INSERT INTO t_board_category
         (bnm, cord)
-    VALUES (#{bnm}, (SELECT MAX(B.cord) from t_board_category AS B)+1)
+    VALUES (#{bnm}, (SELECT MAX(B.cord) from t_board_category AS B) + 1)
     </insert>
     <select id="selCategoryList" resultType="BoardCategoryDTO">-- 리스트
-        SELECT *
-        FROM t_board_category
-        ORDER BY cord asc
+    SELECT *
+    FROM t_board_category
+    WHERE cdel = 0
+    ORDER BY cord asc
     </select>
     <update id="updCategory"> -- 수정
     UPDATE t_board_category
@@ -75,33 +79,39 @@
         <![CDATA[
         UPDATE t_board_category
         SET cord = cord - 1
-        WHERE cord < #{cord}
+        WHERE cord > #{cord}
         ]]>
     </update>
     <update id="updCategoryOrd">-- 순서 바꾸기
         UPDATE t_board_category
         SET cord =
         case
+
         <if test="ordType == 'up'">
             when cord = #{cord} AND cord > 1 then cord - 1
             when cord = #{cord} - 1 then cord + 1
         </if>
         <if test="ordType == 'down'">
-            when cord = #{cord} then cord + 1
+            <![CDATA[
+            when cord = #{cord}
+                AND cord < (SELECT MAX(sub.cord) FROM t_board_category AS sub)
+                then cord + 1
             when cord = #{cord} + 1 then cord - 1
+            ]]>
         </if>
         <![CDATA[
         ELSE cord
         END
-        WHERE cord > 0
-          AND cord < (SELECT cord FROM t_board_category order by cord desc limit 1) + 1;
+        WHERE cord > 0;
         ]]>
     </update>
-    <delete id="delCategory"> -- 삭제시 트랜잭션 이용해서 밑에 게시글까지 모두삭제
-    DELETE
-    FROM t_board_category
-    WHERE bcd = #{bcd}
-    </delete>
+    <update id="delCategory">
+        UPDATE t_board_category
+        SET cdel = 1,
+            cord = 0
+        WHERE bcd > 0
+          AND bcd = #{bcd}
+    </update>
 
     <!--    게시판 관리-->
     <select id="selBoardList" resultType="BoardDomain">

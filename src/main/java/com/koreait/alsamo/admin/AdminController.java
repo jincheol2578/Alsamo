@@ -56,7 +56,7 @@ public class AdminController {
     }
 
     @ResponseBody
-    @GetMapping("/user/list")
+    @PostMapping("/user/list")
     public Map<String, Object> getUserList(@RequestBody UserDTO param) {
         int listCnt = service.getUserCount(param);
         Pagination pagination = new Pagination(listCnt, param.getPage());
@@ -139,6 +139,7 @@ public class AdminController {
     @DeleteMapping("/category")
     public Map<String, Integer> delCategory(@RequestBody BoardCategoryDTO param) {
         Map<String, Integer> data = new HashMap<>();
+        System.out.println(param);
         data.put("result", service.delCategory(param));
         return data;
     }
