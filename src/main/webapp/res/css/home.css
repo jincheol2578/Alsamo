@@ -1,3 +1,8 @@
+.centerContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .container {
     display: grid;
     margin: 12px 0px 12px 0px;

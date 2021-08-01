@@ -80,7 +80,7 @@
                 <option value="4">작성자</option>
             </select>
             <input type="text" id="searchText">
-            <button id="searchBtn">검색</button>
+            <button class="btn btn-secondary" id="searchBtn">검색</button>
         </form>
     </div>
 </div>

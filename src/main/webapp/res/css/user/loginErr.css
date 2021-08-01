@@ -1,0 +1,25 @@
+.containerMsg{
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8px;
+}
+
+.loginMsg{
+    width: 1000px;
+    height:500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6 ;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.loginMsg div {
+    padding-top: 8px;
+}
+.msg{
+    font-size: 30px;
+}

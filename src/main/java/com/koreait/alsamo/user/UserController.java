@@ -5,11 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
@@ -38,7 +35,7 @@ public class UserController {
                 break;
 
         }
-        return "/user/loginMsg";
+        return "user/loginErr";
     }
 
     @RequestMapping("/join")
@@ -51,7 +48,7 @@ public class UserController {
         System.out.println(param);
         model.addAttribute("Msg", "가입시 사용한 이메일로 인증해 주세요.");
         service.join(param);
-        return "/user/loginMsg";
+        return "loginErr";
     }
 
     @RequestMapping("/logout")
@@ -85,7 +82,7 @@ public class UserController {
                 break;
         }
 
-        return "/user/loginMsg";
+        return "user/loginErr";
     }
 
     @RequestMapping("/bridgeFind")
@@ -109,7 +106,7 @@ public class UserController {
         } catch (MessagingException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return "/user/loginMsg";
+        return "user/loginErr";
     }
 
     // 아이디 찾기
@@ -150,7 +147,7 @@ public class UserController {
     public String updUser(UserEntity param, Model model) {
         model.addAttribute("Msg", "수정된 비밀번호로 로그인 해주세요.");
         service.updUser(param);
-        return "user/loginMsg";
+        return "user/loginErr";
     }
 
     @RequestMapping("/myPage")
