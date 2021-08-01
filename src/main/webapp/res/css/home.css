@@ -1,24 +1,39 @@
-.container{
+.container {
     display: grid;
     margin: 12px 0px 12px 0px;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: repeat(4, auto);
     grid-gap: 8px;
 }
-.todayBest, .weekendBest, .notice, .miniBoard{
-    border: 1px solid black;
+
+.todayBest, .weekendBest, .notice, .miniBoard {
+    border: 1px solid #dee2e6;
 
 }
-ul{
+
+ul {
     margin: 0;
     padding: 0;
 }
+
+ul .rankTable {
+    border-bottom: 1px dashed #dee2e6;
+    margin: 0px 13px 0px 13px;
+}
+
 ul li {
     display: flex;
     text-align: center;
-
+    box-sizing: border-box;
+}
+.tableContent{
+    padding: 13px;
 }
 
 ul li div {
     flex: 1;
+}
+.mainTitle{
+    font-size: 16px;
+
 }

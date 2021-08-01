@@ -98,7 +98,7 @@ function makeList(data, menu) {
 
         let regDate = item.brdt;
         const date = new Date(item.brdt);
-
+        listElem.setAttribute('class','tableContent');
         if (menu.className === 'todayBest' || menu.className === 'board') {
             const hours = ('0' + date.getHours()).slice(-2);
             const minutes = ('0' + date.getMinutes()).slice(-2);
