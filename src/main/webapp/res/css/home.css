@@ -27,16 +27,16 @@ ul .rankTable {
 }
 
 ul li {
-    display: flex;
     text-align: center;
     box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
 }
 .tableContent{
-    padding: 13px;
 }
 
-ul li div {
-    flex: 1;
+.container div{
+    margin: 8px;
 }
 .mainTitle{
     font-size: 16px;

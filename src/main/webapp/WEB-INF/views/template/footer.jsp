@@ -55,7 +55,7 @@
         loopAdditionalSlides: 1,
         pagination: false,
         autoplay: {
-            delay: 2000,
+            delay: 5500,
             disableOnInteraction: false,
         },
         navigation: {

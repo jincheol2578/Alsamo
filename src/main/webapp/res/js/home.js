@@ -37,7 +37,7 @@ function getNoticeList() {
             return res.json();
         })
         .then((data) => {
-            makeList(data, weekendBest);
+            makeList(data,notice);
         });
 }
 
