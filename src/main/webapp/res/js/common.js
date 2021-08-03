@@ -1,3 +1,4 @@
+
 function openModal() {
     document.querySelector('#modal').style.display = 'flex';
 }
@@ -5,6 +6,10 @@ function openModal() {
 function closeModal() {
     document.querySelector('#modal').style.display = 'none';
 }
+const modalElem = document.getElementById('modal');
+modalElem.addEventListener('click',(e)=>{
+    e.target === modalElem ? closeModal() : false;
+})
 
 ajaxAl('위스키');
 
@@ -135,3 +140,4 @@ function enterKey() {
 function hindUselss() {
     document.querySelector('#p-lang-btn').style.display = 'none';
 }
+

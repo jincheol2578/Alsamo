@@ -54,7 +54,7 @@
         (bnm, cord)
     VALUES (#{bnm}, #{cord} + 1)
     </insert>
-    <select id="selCategoryList" resultType="BoardCategoryDTO">-- 리스트
+    <select id="selCategoryList" resultType="BoardCategoryDTO"> -- 리스트
         SELECT *
         FROM t_board_category
         ORDER BY cord asc

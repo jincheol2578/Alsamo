@@ -26,7 +26,7 @@ ul .rankTable {
     margin: 0px 13px 0px 13px;
 }
 
-ul li {
+ul .rankTable {
     text-align: center;
     box-sizing: border-box;
     display: grid;

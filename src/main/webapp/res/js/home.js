@@ -37,7 +37,7 @@ function getNoticeList() {
             return res.json();
         })
         .then((data) => {
-            makeList(data,notice);
+            makeList(data, notice);
         });
 }
 

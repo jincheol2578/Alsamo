@@ -47,7 +47,7 @@
     border: 1px solid #95a5a6;
     padding: 20px;
     width: 400px;
-    height: 500px;
+    height: 300px;
 }
 
 .loginProperty {
@@ -95,4 +95,10 @@ box-sizing: border-box;
    object-fit: contain;
     height: 150px;
 }
-
+.loginForm{
+    margin-top: 8px;
+}
+.loginForm .btn-secondary{
+    width: 358px;
+    margin-top: 18px;
+}

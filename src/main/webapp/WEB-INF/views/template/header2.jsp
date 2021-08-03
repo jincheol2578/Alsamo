@@ -36,19 +36,29 @@
         </div>
     </div>
 </nav>
-<div id="modal" class="displayNone" >
+<div id="modal" class="displayNone">
     <div class="modal_content">
-        <a href="#" onclick="closeModal();"><img id="modalBtnClose" clase="X" src="/img/close.png"></a>
-        <div><h3>${errMsg}</h3></div>
-        <idv><h3>${requestScope.msg}</h3></idv>
-        <div><h3>${authkeyErr}</h3></div>
+       <div class="X"><a href="#" onclick="closeModal();"><i class="fas fa-times"></i></a></div>
         <form class="loginForm" action="/user/login" method="post">
-            <div><input class="loginProperty" type="text" name="uid" placeholder="아이디"></div>
-            <div><input class="loginProperty" type="text" name="upw" placeholder="비밀번호"></div>
-            <div><input class="loginBtn" type="submit" value="로그인"></div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">아이디</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Id" name="uid" aria-label="Id"
+                       aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon4">비밀번호</span>
+                </div>
+                <input type="password" class="form-control" placeholder="Password" name="upw" aria-label="Password"
+                       aria-describedby="basic-addon1">
+            </div>
+            <div class="button_container"><input class="btn btn-secondary" type="submit" value="로그인"></div>
             <div><a href="/user/join">
-                <button class="loginBtn" type="button">회원가입</button>
+                <button class="btn btn-secondary" type="button">회원가입</button>
             </a></div>
         </form>
     </div>
 </div>
+
