@@ -69,7 +69,7 @@ function getBoardList(item, board) {
 }
 
 function makeList(data, menu) {
-    const ulElem = document.createElement('ol');
+    const ulElem = document.createElement('ul');
     const menuHeaderElem = document.createElement('li');
     const headerTitleElem = document.createElement('div');
     const headerRecElem = document.createElement('div');
