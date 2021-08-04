@@ -76,7 +76,7 @@ function makeList(data, menu) {
     const headerCategoryElem = document.createElement('div');
     const headerRegdateElem = document.createElement('div');
 
-    menuHeaderElem.setAttribute('class', 'rankTable');
+    menuHeaderElem.setAttribute('class','rankTable');
     headerTitleElem.innerText = '제목';
     headerRecElem.innerText = '추천';
     headerCategoryElem.innerText = '게시판';
@@ -98,7 +98,7 @@ function makeList(data, menu) {
 
         let regDate = item.brdt;
         const date = new Date(item.brdt);
-
+        listElem.setAttribute('class','tableContent');
         if (menu.className === 'todayBest' || menu.className === 'board') {
             const hours = ('0' + date.getHours()).slice(-2);
             const minutes = ('0' + date.getMinutes()).slice(-2);

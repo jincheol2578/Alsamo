@@ -38,7 +38,7 @@
 </nav>
 <div id="modal" class="displayNone">
     <div class="modal_content">
-        <div class="X"><a href="#" onclick="closeModal();"><i class="fas fa-times fa-2x"></i></a></div>
+       <div class="X"><a href="#" onclick="closeModal();"><i class="fas fa-times fa-2x"></i></a></div>
         <form class="loginForm" action="/user/login" method="post">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">

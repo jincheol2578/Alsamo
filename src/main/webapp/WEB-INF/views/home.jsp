@@ -1,18 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>Alsamo</title>
-</head>
-<body>
-<div class="container">
-    <div class="todayBest"></div>
-    <div class="weekendBest"></div>
-    <div class="notice"></div>
-    <div class="miniBoard">
-    <div class="dummyImg"></div>
+<div class="centerContainer">
+    <div class="container">
+        <div class="mainTitle">하루 인기글</div>
+        <div class="mainTitle">주간 인기글</div>
+        <div class="todayBest"></div>
+        <div class="weekendBest"></div>
+        <div class="mainTitle">공지</div>
+        <div class="mainTitle">미니보드</div>
+        <div class="notice"></div>
+        <div class="miniBoard">
+            <div class="dummyImg"></div>
+        </div>
+
     </div>
 </div>
-</body>
+
+
 <script src="/res/js/home.js"></script>
-</html>
+<link rel="stylesheet" href="/res/css/home.css">
