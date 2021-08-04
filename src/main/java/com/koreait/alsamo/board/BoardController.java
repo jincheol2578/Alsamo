@@ -27,6 +27,7 @@ public class BoardController {
         Pagination pagination = new Pagination(listCnt, param.getPage());
         param.setStartIdx(pagination.getStartIndex());
         param.setCntPerPage(pagination.getPageSize());
+
         model.addAttribute("paging", pagination);
         model.addAttribute("boardList", service.selBoardList(param));
         return "board/list";
@@ -80,7 +81,6 @@ public class BoardController {
 
     @GetMapping("/delete")
     public String delete(Model model, BoardDTO param) {
-        System.out.println(service.selBoard(param));
         model.addAttribute("board", service.selBoard(param));
         return "board/check";
     }
@@ -103,8 +103,6 @@ public class BoardController {
     @PostMapping("/modify")
     public String modify(BoardEntity param) {
         int result = service.updBoard(param);
-        System.out.println(result);
-        System.out.println(param);
         if (result == 0) {
             return "redirect:/errpage?code=" + result;
         }

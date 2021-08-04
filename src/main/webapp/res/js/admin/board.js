@@ -1,34 +1,35 @@
 /*--------------BoardList-----------------*/
-
 // 게시글 가져오기
-function getBoardList() {
-    /*TODO: 07.23 마무리
-     GET 메소드로는 body를 보낼수 없음.
-     그래서 POST로 변경
-     body에 tags 넣어줘야함
-     tags 뿌리고 element값 가져와서 배열 만들고 뿌리기
-     */
+const paginationElem = document.getElementById('pagination');
+
+function getBoardList(page) {
 
     fetch('/admin/board', {
         method: 'POST',
         body: JSON.stringify({
-            bcd: 1
+            bcd: 1,
+            page: page
         }),
         headers: {
             'accept': 'application/json',
             'content-type': 'application/json;charset=UTF-8'
         }
     })
-        .then((res)=>{
+        .then((res) => {
             return res.json();
         })
-        .then((data)=>{
+        .then((data) => {
             const tableElem = document.getElementById('datatablesSimple');
+
             const tbodyElem = tableElem.querySelector('tbody');
+
+
+            paginationElem.innerText = '';
+            pagination(data.paging);
 
             tbodyElem.innerText = '';
 
-            data.boardList.forEach((item)=>{
+            data.boardList.forEach((item) => {
                 const trElem = document.createElement('tr');
                 const chkBoxElem = document.createElement('td');
                 const bnoElem = document.createElement('td');
@@ -62,31 +63,67 @@ function getBoardList() {
                 trElem.append(recElem);
                 trElem.append(brdtElem);
                 tbodyElem.append(trElem);
-            })
-        })
+            });
+        });
 }
 
-getBoardList();
+// 페이징
+function pagination(data) {
+    const pageBoxElem = document.createElement('ul');
+
+    for (let i = data.startPage; i <= data.endPage; i++) {
+        const pageNumElem = document.createElement('li');
+        pageNumElem.innerText = i;
+        pageNumElem.addEventListener('click', () => {
+            getBoardList(i);
+        });
+        pageBoxElem.append(pageNumElem);
+    }
+    paginationElem.append(pageBoxElem);
+}
+
+getTags();
 
 const checkBoxElem = document.getElementById('allChk');
 const delChkElem = document.getElementsByName('delChk');
-checkBoxElem.addEventListener('click',()=>{
-    if(checkBoxElem.checked){
-        for(let i = 0; i < delChkElem.length; i++){
+checkBoxElem.addEventListener('click', () => {
+    if (checkBoxElem.checked) {
+        for (let i = 0; i < delChkElem.length; i++) {
             delChkElem[i].checked = true;
         }
-    }else{
-        for(let i = 0; i < delChkElem.length; i++){
+    } else {
+        for (let i = 0; i < delChkElem.length; i++) {
             delChkElem[i].checked = false;
         }
     }
 });
 
-
-function delBoard(){
+function delBoard() {
     const delChkVal = new Array;
-    for(let i = 0; i < delChkElem.length; i++) {
 
+    if (confirm('삭제 하시겠습니까?')) {
+        for (let i = 0; i < delChkElem.length; i++) {
+            if (delChkElem[i].checked) {
+                delChkVal.push(delChkElem[i].value);
+            }
+        }
+
+        fetch('/admin/board', {
+            method: 'DELETE',
+            body: JSON.stringify({delChk: delChkVal}),
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json;charset=UTF-8'
+            }
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                if (data.result !== 0) {
+                    getBoardList();
+                }
+            });
     }
 }
 
@@ -94,8 +131,8 @@ function delBoard(){
 
 const tnameElem = document.getElementById('txtTag');
 
-tnameElem.addEventListener('keypress', (e)=>{
-    if(e.key === 'Enter'){
+tnameElem.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
         regTag();
     }
 });
@@ -129,21 +166,21 @@ function getTags() { // 태그 가져오기
         })
         .then((data) => {
             makeTagList(data);
-            getBoardList();
+            getBoardList(1);
         });
 }
 
 function makeTagList(data) {
     const tagBoxElem = document.getElementById('tagBox');
     tagBoxElem.innerText = '';
-    data.tags.forEach((item)=>{
+    data.tags.forEach((item) => {
         const tagElem = document.createElement('li');
         const delElem = document.createElement('button')
         tagElem.innerText = item.tname;
         delElem.className = 'tagDelBtn';
 
-        delElem.addEventListener('click',()=>{
-            if (confirm("삭제하시겠습니까")){
+        delElem.addEventListener('click', () => {
+            if (confirm("삭제 하시겠습니까?")) {
                 delTag(item.tno);
             }
         })
@@ -152,8 +189,6 @@ function makeTagList(data) {
     });
 }
 
-getTags();
-
 function delTag(tno) { // 태그삭제
     fetch('/admin/tag/' + tno, {
         method: 'DELETE'
@@ -161,7 +196,7 @@ function delTag(tno) { // 태그삭제
         .then((res) => {
             return res.json();
         })
-        .then((data)=>{
+        .then((data) => {
             getTags();
         })
 }
@@ -169,35 +204,174 @@ function delTag(tno) { // 태그삭제
 /*------------------------Category-------------------------*/
 
 getCategoryList();
-function getCategoryList(){
+
+function getCategoryList() {
     fetch('/admin/category')
-        .then((res)=>{
+        .then((res) => {
             return res.json();
         })
-        .then((data)=>{
-            for (let i=0; i<data.length; i++){
-            }
-        })
+        .then((data) => {
+            const categoryList = document.getElementById('categoryList');
+            categoryList.size = data.result.length;
+            categoryList.innerText = '';
+
+            data.result.forEach((item) => {
+                const categoryItem = document.createElement('li');
+                const categoryContent = document.createElement('input');
+
+                categoryContent.type = 'text';
+                categoryContent.value = item.bnm;
+
+                categoryItem.append(categoryContent);
+                if (item.bcd > 2) {
+                    const categoryDelete = document.createElement('button');
+                    const categoryOrdUp = document.createElement('button');
+                    const categoryOrdDown = document.createElement('button');
+
+                    // TODO: X, 화살표 아이콘으로 바꿔야함
+                    categoryDelete.innerText = 'X';
+                    categoryOrdUp.innerText = '↑';
+                    categoryOrdDown.innerText = '↓';
+
+                    //수정
+                    categoryContent.addEventListener('focusout',() => {
+                        updCategory(item.bcd, categoryContent.value);
+                    });
+
+                    //삭제
+                    categoryDelete.addEventListener('click', () => {
+                        if (confirm('삭제 하시겠습니까?')) {
+                            delCategory(item.bcd, item.cord);
+                        }
+                    });
+
+                    //순서 ↑
+                    categoryOrdUp.addEventListener('click', () => {
+                        updCategoryOrd('up',item.cord);
+                    });
+
+                    //순서 ↓
+                    categoryOrdDown.addEventListener('click', () => {
+                        updCategoryOrd('down',item.cord);
+                    });
+
+                    categoryItem.append(categoryDelete);
+                    categoryItem.append(categoryOrdUp);
+                    categoryItem.append(categoryOrdDown);
+                } else {
+                    categoryContent.readOnly = true;
+                }
+                categoryList.append(categoryItem);
+            });
+        });
 }
 
 // 카테고리 등록
-function regCategory(){
-    categoryVal = document.getElementById('category').value;
+const categoryElem = document.getElementById('txtCategory');
+
+categoryElem.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        regCategory();
+    }
+});
+
+function regCategory() {
 
     fetch('/admin/category', {
         method: 'POST',
         body: JSON.stringify({
-            bnm: 'test',
-            cord: '5'
+            bnm: categoryElem.value
         }),
         headers: {
             'accept': 'application/json',
             'content-type': 'application/json;charset=UTF-8'
         }
     })
-        .then((res)=>{
+        .then((res) => {
             return res.json();
         })
-        .then((data)=>{
+        .then((data) => {
+            if (data.result === 1) {
+                categoryElem.value = '';
+                getCategoryList();
+            } else {
+                alert('등록 실패');
+            }
+        });
+}
+
+// 카테고리 수정
+function updCategory(bcd, bnm) {
+    fetch('/admin/category', {
+        method: 'PATCH',
+        body: JSON.stringify({
+            bcd: bcd,
+            bnm: bnm
+        }),
+        headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json;charset=UTF-8'
+        }
+    })
+        .then((res) => {
+            return res.json();
         })
+        .then((data) => {
+            if (data.result === 0) {
+                alert('수정 실패')
+            } else {
+                getCategoryList();
+            }
+        });
+}
+
+// 카테고리 삭제
+function delCategory(bcd, cord) {
+
+    fetch('/admin/category', {
+        method: 'DELETE',
+        body: JSON.stringify({
+            bcd: bcd,
+            cord: cord
+        }),
+        headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json;charset=UTF-8'
+        }
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            if (data.result === 0) {
+                alert('삭제 실패');
+            } else {
+                getCategoryList();
+            }
+        });
+}
+
+// 카테고리 순서변경
+function updCategoryOrd(ordType, cord) {
+    fetch('/admin/category/ord', {
+        method: 'PATCH',
+        body: JSON.stringify({
+            cord: cord,
+            ordType: ordType
+        }),
+        headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json;charset=UTF-8'
+        }
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            if (data.result === 0){
+                alert('수정 실패');
+            } else {
+                getCategoryList();
+            }
+        });
 }

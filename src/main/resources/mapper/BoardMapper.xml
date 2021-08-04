@@ -103,8 +103,6 @@
     <select id="selBoardCount" resultType="Integer">
         select count(*)
         FROM t_board as A
-        LEFT JOIN t_user as B
-        ON A.uno = B.uno
         WHERE A.bdel = 0
         <if test="bcd > 1">AND bcd = #{bcd}</if>
         <if test="searchType != null">
