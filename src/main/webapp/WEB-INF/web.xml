@@ -7,7 +7,7 @@
     <display-name>alsamo</display-name>
     
     <welcome-file-list>
-        <welcome-file>/WEB-INF/views/home.jsp</welcome-file>
+        <welcome-file>/WEB-INF/views/main.jsp</welcome-file>
     </welcome-file-list>
 
     <context-param>
