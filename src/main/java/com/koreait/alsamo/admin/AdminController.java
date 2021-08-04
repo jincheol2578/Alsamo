@@ -5,7 +5,6 @@ import com.koreait.alsamo.user.UserDTO;
 import com.koreait.alsamo.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -27,7 +27,7 @@ public class AdminController {
 
     //    로그인
     @PostMapping("/login")
-    public String login(UserEntity param, Model model) {
+    public String login(UserEntity param) {
         return "redirect:" + service.login(param);
     }
 
@@ -56,7 +56,7 @@ public class AdminController {
     }
 
     @ResponseBody
-    @GetMapping("/user/list")
+    @PostMapping("/user/list")
     public Map<String, Object> getUserList(@RequestBody UserDTO param) {
         int listCnt = service.getUserCount(param);
         Pagination pagination = new Pagination(listCnt, param.getPage());
@@ -64,6 +64,7 @@ public class AdminController {
 
         param.setStartIdx(pagination.getStartIndex());
         param.setCntPerPage(pagination.getPageSize());
+
         data.put("paging", pagination);
         data.put("userList", service.getUserList(param));
         return data;
@@ -81,22 +82,19 @@ public class AdminController {
     @ResponseBody
     @PostMapping("/board")
     public Map<String, Object> getBoardList(@RequestBody AdminDTO param) {
+        param.setTags(service.getTags());
+        int listCnt = service.getBoardCount(param);
+        Pagination pagination = new Pagination(listCnt, param.getPage());
         Map<String, Object> data = new HashMap<>();
 
+        param.setStartIdx(pagination.getStartIndex());
+        param.setCntPerPage(pagination.getPageSize());
+        data.put("paging", pagination);
         data.put("boardList", service.getBoardList(param));
         return data;
     }
 
     //    게시글 선택 삭제
-//    요청 예제
-//   {
-//    "delChk": [
-//        1,
-//        2,
-//        3
-//    ]
-//}
-//
     @ResponseBody
     @DeleteMapping("/board")
     public Map<String, Integer> delBoard(@RequestBody AdminDTO param) {

@@ -14,4 +14,8 @@ public class AdminDTO {
     private int bcd;
     private String bnm;
     private List<BlockTags> tags;
+
+    private int startIdx;
+    private int cntPerPage;
+    private int page = 1;
 }

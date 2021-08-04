@@ -23,7 +23,6 @@ public class InfoUserController {
         dto.setReplyList(service.selAllReply(dto));
         dto.setCountReplyList(service.selAllReplyCount(param));
         dto.setCountBoardList(service.selAllWriteCount(param));
-        System.out.println(dto.getReplyList());
 
 
         model.addAttribute("infoUser", dto);
