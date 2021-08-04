@@ -6,6 +6,7 @@ import com.koreait.alsamo.user.UserEntity;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -28,7 +29,7 @@ public class AdminService {
             //로그인 성공
             result.setUpw(null);
             session.setAttribute("loginAdmin", result);
-            return "/admin/main";
+            return "/admin/board";
         } else {
             //비밀번호 틀림
             return "/admin?err=2";
@@ -44,9 +45,8 @@ public class AdminService {
     }
 
     public int updUser(UserDTO param) {
-        UserEntity userEntity;
         try {
-            userEntity = (UserEntity) session.getAttribute("loginAdmin");
+            UserEntity userEntity = (UserEntity) session.getAttribute("loginAdmin");
             if (userEntity != null && userEntity.getAuthno() == 1) {
                 return mapper.updUser(param);
             }
@@ -99,6 +99,7 @@ public class AdminService {
         return mapper.updCategoryOrd(param);
     }
 
+    @Transactional
     public int delCategory(BoardCategoryDTO param) {
         try {
             mapper.updCategoryDown(param.getCord());

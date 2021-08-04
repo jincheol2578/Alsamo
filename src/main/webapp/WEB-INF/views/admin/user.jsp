@@ -25,21 +25,34 @@
                     </div>
 
                     <div class="card-body">
+                        <div>
+                            <select id="authorize">
+                                <option value="all">전체보기</option>
+                                <option value="general">일반유저</option>
+                                <option value="unAuthorize">미인증유저</option>
+                                <option value="block">차단유저</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div>아이디, 닉네임, 이메일로 검색할 수 있습니다.</div>
+                            <input type="search" id="searchText" placeholder="Search for ...">
+                        </div>
                         <table id="datatablesSimple" class="dataTable-table">
                             <thead>
                             <tr>
                                 <th>No</th>
                                 <th>아이디</th>
                                 <th>닉네임</th>
-                                <th>권한</th>
                                 <th>이메일</th>
                                 <th>가입일</th>
+                                <th>권한</th>
+                                <th>기타</th>
                             </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
-                        <div id="pagination">
+                        <div id="pagination" class="dataTable-pagination">
                         </div>
                     </div>
                 </div>

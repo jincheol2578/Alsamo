@@ -27,7 +27,7 @@ public class BoardController {
         Pagination pagination = new Pagination(listCnt, param.getPage());
         param.setStartIdx(pagination.getStartIndex());
         param.setCntPerPage(pagination.getPageSize());
-        System.out.println(pagination);
+
         model.addAttribute("paging", pagination);
         model.addAttribute("boardList", service.selBoardList(param));
         return "board/list";

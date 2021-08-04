@@ -77,9 +77,9 @@ function pagination(data) {
         pageNumElem.addEventListener('click', () => {
             getBoardList(i);
         });
-        paginationElem.append(pageBoxElem);
         pageBoxElem.append(pageNumElem);
     }
+    paginationElem.append(pageBoxElem);
 }
 
 getTags();

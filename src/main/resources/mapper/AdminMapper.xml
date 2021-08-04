@@ -5,28 +5,40 @@
 
     <!--    로그인-->
     <select id="selAdmin" resultType="UserEntity">
-        SELECT uid, upw
+        SELECT uid, upw, authno, uno
         FROM t_user
-        WHERE authno = 1
-           or authno = 2
+        WHERE uid = #{uid}
+          AND (authno = 1 OR authno = 2)
     </select>
     <!--    유저관리-->
     <select id="selUserList" resultType="UserEntity">
-        SELECT A.uno, A.uemail, A.uid, A.unm, A.urdt,
+        SELECT A.uno, A.uemail, A.uid, A.unm, A.urdt, A.authno,
         B.authnm
         FROM t_user AS A
         LEFT JOIN t_auth AS B
         ON A.authno = B.authno
-        <where>
-            <if test="authno != null">
-                A.authno = #{authno}
-            </if>
-            <if test="searchText != null">
-                A.uid like CONCAT('%',#{searchText},'%')
-                OR A.ueamil like CONCAT('%',#{searchText},'%')
-                OR A.unm like CONCAT('%',#{searchText},'%')
-            </if>
-        </where>
+        WHERE
+        <choose>
+            <when test="authorize == 'general'">
+                A.authno = 3
+            </when>
+            <when test="authorize == 'unAuthorize'">
+                A.authno = 4
+            </when>
+            <when test="authorize == 'block'">
+                A.authno = 5
+            </when>
+            <otherwise>
+                (A.authno = 3 OR A.authno = 4 OR A.authno = 5)
+            </otherwise>
+        </choose>
+        <if test="searchText != null">
+            AND (
+            A.uid like CONCAT('%',#{searchText},'%')
+            OR A.uemail like CONCAT('%',#{searchText},'%')
+            OR A.unm like CONCAT('%',#{searchText},'%')
+            )
+        </if>
         ORDER BY A.uno desc
         LIMIT #{startIdx}, #{cntPerPage}
     </select>
@@ -90,6 +102,7 @@
         <if test="ordType == 'up'">
             when cord = #{cord} AND cord > 1 then cord - 1
             when cord = #{cord} - 1 then cord + 1
+
         </if>
         <if test="ordType == 'down'">
             <![CDATA[
@@ -159,12 +172,29 @@
     </select>
     <select id="selUserCount" resultType="Integer">
         select count(*)
-        FROM t_user
-        <where>
-            <if test="authno != null">
-                authno = #{authno}
-            </if>
-        </where>
+        FROM t_user AS A
+        WHERE
+        <choose>
+            <when test="authorize == 'general'">
+                A.authno = 3
+            </when>
+            <when test="authorize == 'unAuthorize'">
+                A.authno = 4
+            </when>
+            <when test="authorize == 'block'">
+                A.authno = 5
+            </when>
+            <otherwise>
+                (A.authno = 3 OR A.authno = 4 OR A.authno = 5)
+            </otherwise>
+        </choose>
+        <if test="searchText != null">
+            AND (
+            A.uid like CONCAT('%',#{searchText},'%')
+            OR A.uemail like CONCAT('%',#{searchText},'%')
+            OR A.unm like CONCAT('%',#{searchText},'%')
+            )
+        </if>
     </select>
 
 </mapper>

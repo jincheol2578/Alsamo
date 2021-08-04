@@ -5,7 +5,6 @@ import com.koreait.alsamo.user.UserDTO;
 import com.koreait.alsamo.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -27,7 +27,7 @@ public class AdminController {
 
     //    로그인
     @PostMapping("/login")
-    public String login(UserEntity param, Model model) {
+    public String login(UserEntity param) {
         return "redirect:" + service.login(param);
     }
 
@@ -64,6 +64,7 @@ public class AdminController {
 
         param.setStartIdx(pagination.getStartIndex());
         param.setCntPerPage(pagination.getPageSize());
+
         data.put("paging", pagination);
         data.put("userList", service.getUserList(param));
         return data;
@@ -139,7 +140,6 @@ public class AdminController {
     @DeleteMapping("/category")
     public Map<String, Integer> delCategory(@RequestBody BoardCategoryDTO param) {
         Map<String, Integer> data = new HashMap<>();
-        System.out.println(param);
         data.put("result", service.delCategory(param));
         return data;
     }

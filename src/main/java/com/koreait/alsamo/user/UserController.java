@@ -5,11 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
@@ -167,5 +164,10 @@ public class UserController {
     public String superMark(@RequestParam("profileImg") MultipartFile profileImg,
                             @RequestParam("authNo") int authNo){
         return "redirect:"+service.updUserMark(profileImg, authNo);
+    }
+
+    @GetMapping("/errorMsg")
+    public String blockUserLogin() {
+        return "user/errorMsg";
     }
 }
