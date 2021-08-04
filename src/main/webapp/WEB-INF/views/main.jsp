@@ -14,5 +14,5 @@
     </div>
 </div>
 </body>
-<script src="/res/js/main.js"></script>
+<script src="/res/js/home.js"></script>
 </html>

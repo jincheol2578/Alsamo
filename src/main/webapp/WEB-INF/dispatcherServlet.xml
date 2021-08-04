@@ -73,6 +73,10 @@
             <mvc:exclude-mapping path="/user/errorMsg"/>
             <bean id="commonInterceptor" class="com.koreait.alsamo.common.CommonInterceptor"/>
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/**"/>
+            <bean id="adminInterceptor" class="com.koreait.alsamo.common.AdminInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
 </beans>

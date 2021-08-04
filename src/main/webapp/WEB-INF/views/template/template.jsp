@@ -18,6 +18,10 @@
 <title>${requestScope.btitle}</title>
 <link rel="stylesheet" href="/res/css/common.css">
 
+<%--폰트어썸--%>
+<script src="https://kit.fontawesome.com/b05d09c401.js" crossorigin="anonymous"></script>
+
+
 <%--부트스트랩--%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>

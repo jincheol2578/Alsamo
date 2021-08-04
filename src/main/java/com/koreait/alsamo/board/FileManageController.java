@@ -45,7 +45,6 @@ public class FileManageController {
             e.printStackTrace();
         }
         String a = jsonObject.toString();
-        System.out.println(a);
         return a;
     }
 }

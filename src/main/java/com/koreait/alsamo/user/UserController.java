@@ -45,7 +45,6 @@ public class UserController {
 
     @RequestMapping(value = "/join", method = RequestMethod.POST)
     public String join(UserEntity param, Model model) throws MessagingException, UnsupportedEncodingException {
-        System.out.println(param);
         model.addAttribute("Msg", "가입시 사용한 이메일로 인증해 주세요.");
         service.join(param);
         return "/user/loginMsg";

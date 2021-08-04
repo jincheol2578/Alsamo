@@ -112,7 +112,6 @@ public class AlcoholController {
             vo.setAlTable(table2.html());
             vo.setAlImg(img2.attr("src"));
 
-            System.out.println(vo);
         } catch (IOException e) {
             e.printStackTrace();
         }
