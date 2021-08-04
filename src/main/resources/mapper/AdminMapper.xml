@@ -5,26 +5,41 @@
 
     <!--    로그인-->
     <select id="selAdmin" resultType="UserEntity">
-        SELECT uid, upw
+        SELECT uid, upw, authno, uno
         FROM t_user
-        WHERE authno = 1
-           or authno = 2
+        WHERE uid = #{uid}
+          AND (authno = 1 OR authno = 2)
     </select>
     <!--    유저관리-->
     <select id="selUserList" resultType="UserEntity">
-        SELECT uno, uemail, uid, unm, urdt
-        FROM t_user
-        <where>
-            <if test="authno != null">
-                authno = #{authno}
-            </if>
-            <if test="searchText != null">
-                uid like CONCAT('%',#{searchText},'%')
-                OR ueamil like CONCAT('%',#{searchText},'%')
-                OR unm like CONCAT('%',#{searchText},'%')
-            </if>
-        </where>
-        ORDER BY uno desc
+        SELECT A.uno, A.uemail, A.uid, A.unm, A.urdt, A.authno,
+        B.authnm
+        FROM t_user AS A
+        LEFT JOIN t_auth AS B
+        ON A.authno = B.authno
+        WHERE
+        <choose>
+            <when test="authorize == 'general'">
+                A.authno = 3
+            </when>
+            <when test="authorize == 'unAuthorize'">
+                A.authno = 4
+            </when>
+            <when test="authorize == 'block'">
+                A.authno = 5
+            </when>
+            <otherwise>
+                (A.authno = 3 OR A.authno = 4 OR A.authno = 5)
+            </otherwise>
+        </choose>
+        <if test="searchText != null">
+            AND (
+            A.uid like CONCAT('%',#{searchText},'%')
+            OR A.uemail like CONCAT('%',#{searchText},'%')
+            OR A.unm like CONCAT('%',#{searchText},'%')
+            )
+        </if>
+        ORDER BY A.uno desc
         LIMIT #{startIdx}, #{cntPerPage}
     </select>
     <update id="updUser">
@@ -52,12 +67,13 @@
     <insert id="insCategory">-- 카테고리생성
     INSERT INTO t_board_category
         (bnm, cord)
-    VALUES (#{bnm}, #{cord} + 1)
+    VALUES (#{bnm}, (SELECT MAX(B.cord) from t_board_category AS B) + 1)
     </insert>
-    <select id="selCategoryList" resultType="BoardCategoryDTO"> -- 리스트
-        SELECT *
-        FROM t_board_category
-        ORDER BY cord asc
+    <select id="selCategoryList" resultType="BoardCategoryDTO">-- 리스트
+    SELECT *
+    FROM t_board_category
+    WHERE cdel = 0
+    ORDER BY cord asc
     </select>
     <update id="updCategory"> -- 수정
     UPDATE t_board_category
@@ -75,33 +91,40 @@
         <![CDATA[
         UPDATE t_board_category
         SET cord = cord - 1
-        WHERE cord < #{cord}
+        WHERE cord > #{cord}
         ]]>
     </update>
     <update id="updCategoryOrd">-- 순서 바꾸기
         UPDATE t_board_category
         SET cord =
         case
+
         <if test="ordType == 'up'">
             when cord = #{cord} AND cord > 1 then cord - 1
             when cord = #{cord} - 1 then cord + 1
+
         </if>
         <if test="ordType == 'down'">
-            when cord = #{cord} then cord + 1
+            <![CDATA[
+            when cord = #{cord}
+                AND cord < (SELECT MAX(sub.cord) FROM t_board_category AS sub)
+                then cord + 1
             when cord = #{cord} + 1 then cord - 1
+            ]]>
         </if>
         <![CDATA[
         ELSE cord
         END
-        WHERE cord > 0
-          AND cord < (SELECT cord FROM t_board_category order by cord desc limit 1) + 1;
+        WHERE cord > 0;
         ]]>
     </update>
-    <delete id="delCategory"> -- 삭제시 트랜잭션 이용해서 밑에 게시글까지 모두삭제
-    DELETE
-    FROM t_board_category
-    WHERE bcd = #{bcd}
-    </delete>
+    <update id="delCategory">
+        UPDATE t_board_category
+        SET cdel = 1,
+            cord = 0
+        WHERE bcd > 0
+          AND bcd = #{bcd}
+    </update>
 
     <!--    게시판 관리-->
     <select id="selBoardList" resultType="BoardDomain">
@@ -123,6 +146,7 @@
             </foreach>
         </if>
         ORDER BY A.bidx desc, A.bord asc
+        LIMIT #{startIdx}, #{cntPerPage}
     </select>
     <!--    게시글 삭제 -->
     <update id="delBoard">
@@ -137,23 +161,40 @@
     <select id="selBoardCount" resultType="Integer">
         select count(*)
         FROM t_board
-        WHERE bcd = #{bcd}
-        AND bdel = 0
+        WHERE bdel = 0
+        <if test="bcd > 1">AND A.bcd = #{bcd}</if>
         <if test="tags != null">
-            <foreach collection="tags" index="index" item="tags" separator="OR" open="AND">
-                btitle like CONCAT('%',#{tags},'%')
-                OR bctnt like CONCAT('%',#{tags},'%')
+            <foreach collection="tags" index="index" item="tags" separator="OR" open="AND (" close=")">
+                btitle like CONCAT('%',#{tags.tname},'%')
+                OR bctnt like CONCAT('%',#{tags.tname},'%')
             </foreach>
         </if>
     </select>
     <select id="selUserCount" resultType="Integer">
         select count(*)
-        FROM t_user
-        <where>
-            <if test="authno != null">
-                authno = #{authno}
-            </if>
-        </where>
+        FROM t_user AS A
+        WHERE
+        <choose>
+            <when test="authorize == 'general'">
+                A.authno = 3
+            </when>
+            <when test="authorize == 'unAuthorize'">
+                A.authno = 4
+            </when>
+            <when test="authorize == 'block'">
+                A.authno = 5
+            </when>
+            <otherwise>
+                (A.authno = 3 OR A.authno = 4 OR A.authno = 5)
+            </otherwise>
+        </choose>
+        <if test="searchText != null">
+            AND (
+            A.uid like CONCAT('%',#{searchText},'%')
+            OR A.uemail like CONCAT('%',#{searchText},'%')
+            OR A.unm like CONCAT('%',#{searchText},'%')
+            )
+        </if>
     </select>
 
 </mapper>
