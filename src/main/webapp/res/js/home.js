@@ -37,7 +37,7 @@ function getNoticeList() {
             return res.json();
         })
         .then((data) => {
-            makeList(data, weekendBest);
+            makeList(data, notice);
         });
 }
 
@@ -69,13 +69,14 @@ function getBoardList(item, board) {
 }
 
 function makeList(data, menu) {
-    const ulElem = document.createElement('ol');
+    const ulElem = document.createElement('ul');
     const menuHeaderElem = document.createElement('li');
     const headerTitleElem = document.createElement('div');
     const headerRecElem = document.createElement('div');
     const headerCategoryElem = document.createElement('div');
     const headerRegdateElem = document.createElement('div');
 
+    menuHeaderElem.setAttribute('class','rankTable');
     headerTitleElem.innerText = '제목';
     headerRecElem.innerText = '추천';
     headerCategoryElem.innerText = '게시판';
@@ -97,7 +98,7 @@ function makeList(data, menu) {
 
         let regDate = item.brdt;
         const date = new Date(item.brdt);
-
+        listElem.setAttribute('class','tableContent');
         if (menu.className === 'todayBest' || menu.className === 'board') {
             const hours = ('0' + date.getHours()).slice(-2);
             const minutes = ('0' + date.getMinutes()).slice(-2);

@@ -50,8 +50,6 @@ public class UserService {
 
             mapper.insUser(param);
 
-        } else {
-            mapper.insGoogleUser(param);
         }
     }
 
@@ -107,7 +105,7 @@ public class UserService {
         return user;
     }
 
-    public String updUser(UserEntity param) {
+    public String updUser(UserDTO param) {
         String hashPw = BCrypt.hashpw(param.getUpw(), BCrypt.gensalt());
         param.setUpw(hashPw);
         mapper.updUser(param);
@@ -115,11 +113,9 @@ public class UserService {
     }
 
 
-
-
     public String updUserMark(MultipartFile img, int authNo) {
-       UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
-        final String PATH = "D:/springImg/"+authNo;
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        final String PATH = "D:/springImg/" + authNo;
         String nowMark = mapper.selNowMark(authNo);
 
         File folder1 = new File(PATH);
@@ -132,7 +128,7 @@ public class UserService {
         try {
             img.transferTo(target);
 
-            File defile = new File(PATH+ "/" + nowMark);
+            File defile = new File(PATH + "/" + nowMark);
             if (defile.exists()) {
                 defile.delete();
             }
@@ -148,6 +144,5 @@ public class UserService {
         mapper.updMark(param);
         return "/user/adminpage";
     }
-
 
 }

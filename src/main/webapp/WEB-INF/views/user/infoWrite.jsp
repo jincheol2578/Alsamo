@@ -21,17 +21,47 @@
         </c:forEach>
     </table>
 
-    <ul id="infoPagging">
-        <c:forEach var="Page" begin="1" end="${requestScope.maxPage}">
-            <li class="paggingLi">
-                    <span onclick="active(${requestScope.infoUser.uno},${Page})">
-        <font color="#000000">
-            <c:if test="${requestScope.infoUser.page == Page}"><font color="#bbbbbb"></c:if>
-        ${Page}</font>
-                    </span>
-            </li>
-        </c:forEach>
-    </ul>
+<%--    <ul id="infoPagging">--%>
+<%--        <c:forEach var="Page" begin="1" end="${requestScope.maxPage}">--%>
+<%--            <li class="paggingLi">--%>
+<%--                    <span onclick="active(${requestScope.infoUser.uno},${Page})">--%>
+<%--        <font color="#000000">--%>
+<%--            <c:if test="${requestScope.infoUser.page == Page}"><font color="#bbbbbb"></c:if>--%>
+<%--        ${Page}</font>--%>
+<%--                    </span>--%>
+<%--            </li>--%>
+<%--        </c:forEach>--%>
+<%--    </ul>--%>
+    <div id="pagingBox">
+        <ul class="pagination">
+            <c:if test="${paging.curRange ne 1}">
+                <li class="firstPage" onclick="moveToPage(${param.uno},1)">&#171;</li>
+            </c:if>
+            <c:if test="${paging.curRange ne 1}">
+                <li class="firstPage" onclick="moveToPage(${param.uno},${paging.prevPage})">&#60;</li>
+            </c:if>
+
+            <c:forEach var="pageNum" begin="${paging.startPage}" end="${paging.endPage}">
+                <c:choose>
+                    <c:when test="${pageNum eq paging.curPage}">
+                        <li class="active" onclick="moveToPage(${param.uno},${pageNum})">${pageNum}</li>
+                    </c:when>
+                    <c:otherwise>
+                        <li onclick="moveToPage(${param.uno},${pageNum})">${pageNum}</li>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+
+            <c:if test="${paging.curPage ne paging.pageCnt && paging.pageCnt > 0}">
+                <li onclick="moveToPage(${param.uno},${paging.nextPage })">&#62;</li>
+            </c:if>
+            <c:if test="${paging.curRange ne paging.rangeCnt && paging.rangeCnt > 0}">
+                <li href="#" onclick="moveToPage(${param.uno},${paging.pageCnt })">&#187;</li>
+            </c:if>
+        </ul>
+    </div>
 
 </div>
 
+<script defer src="/res/js/user/infoWrite.js"></script>
+<link rel="stylesheet" href="/res/css/user/infoWrite.css">

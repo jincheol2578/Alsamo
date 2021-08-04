@@ -19,5 +19,7 @@
     <definition name="alcohol/*" extends="main_template">
         <put-attribute name="content" value="/WEB-INF/views/alcohol/{1}.jsp" />
     </definition>
-
+    <definition name="/*" extends="main_template">
+        <put-attribute name="content" value="/WEB-INF/views/{1}.jsp"/>
+    </definition>
 </tiles-definitions>

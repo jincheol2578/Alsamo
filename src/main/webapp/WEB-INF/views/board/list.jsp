@@ -80,11 +80,12 @@
                 <option value="4">작성자</option>
             </select>
             <input type="text" id="searchText">
-            <button id="searchBtn">검색</button>
+            <button class="btn btn-secondary" id="searchBtn">검색</button>
         </form>
     </div>
 </div>
 
 
-<script src="/res/js/common.js"></script>
+
 <script src="/res/js/board/list.js"></script>
+<link rel="stylesheet" href="/res/css/board/list.css">

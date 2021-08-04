@@ -63,3 +63,6 @@
         </table>
     </div>
 </div>
+
+
+<link rel="stylesheet" href="/res/css/user/info.css">

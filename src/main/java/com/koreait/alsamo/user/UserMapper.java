@@ -10,17 +10,16 @@ public interface UserMapper {
 
     int insGoogleUser(UserEntity param);
 
-    UserEntity checkSocialUserExsist(UserEntity param);
-
     UserEntity chckAuthkey(UserEntity param);
 
     int upAuth_no(UserEntity param);
 
-    int updUser(UserEntity param);
+    int updUser(UserDTO param);
 
     UserEntity selId(UserEntity param);
 
     int updMark(UserEntity param);
 
     String  selNowMark(int authNo);
+
 }

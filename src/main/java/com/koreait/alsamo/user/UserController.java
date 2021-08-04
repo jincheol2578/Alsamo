@@ -5,11 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
@@ -38,7 +35,7 @@ public class UserController {
                 break;
 
         }
-        return "/user/loginMsg";
+        return "user/loginErr";
     }
 
     @RequestMapping("/join")
@@ -51,7 +48,7 @@ public class UserController {
         System.out.println(param);
         model.addAttribute("Msg", "가입시 사용한 이메일로 인증해 주세요.");
         service.join(param);
-        return "/user/loginMsg";
+        return "user/loginErr";
     }
 
     @RequestMapping("/logout")
@@ -60,7 +57,6 @@ public class UserController {
 
         return "redirect:/board/list";
     }
-
 
 
     //    회원가입시 이메일 인증
@@ -85,7 +81,7 @@ public class UserController {
                 break;
         }
 
-        return "/user/loginMsg";
+        return "user/loginErr";
     }
 
     @RequestMapping("/bridgeFind")
@@ -109,7 +105,7 @@ public class UserController {
         } catch (MessagingException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return "/user/loginMsg";
+        return "user/loginErr";
     }
 
     // 아이디 찾기
@@ -147,25 +143,33 @@ public class UserController {
     }
 
     @PostMapping("/updUser")
-    public String updUser(UserEntity param, Model model) {
+    public String updUser(UserDTO param, Model model) {
         model.addAttribute("Msg", "수정된 비밀번호로 로그인 해주세요.");
         service.updUser(param);
-        return "user/loginMsg";
+        return "user/loginErr";
     }
 
     @RequestMapping("/myPage")
     public String myPage() {
-        return "board/myPage";
+        return "user/myPage";
     }
 
-    @RequestMapping("/adminpage")
-    public String adminPage(){
-        return "/user/adminPage";
+    @RequestMapping(value = "/myPage", method = RequestMethod.POST)
+    public String myPageMod(UserDTO param, Model model) {
+        if (param.getUpw().equals(param.getUpwChck())) {
+            service.updUser(param);
+            model.addAttribute("Msg", "변경 성공!!");
+            return "user/myPage";
+        } else {
+            model.addAttribute("Msg", "비밀번호가 같지 않습니다.");
+            return "user/myPage";
+        }
     }
 
-    @RequestMapping(value = "/updUserMark" ,method = RequestMethod.POST)
+
+    @RequestMapping(value = "/updUserMark", method = RequestMethod.POST)
     public String superMark(@RequestParam("profileImg") MultipartFile profileImg,
-                            @RequestParam("authNo") int authNo){
-        return "redirect:"+service.updUserMark(profileImg, authNo);
+                            @RequestParam("authNo") int authNo) {
+        return "redirect:" + service.updUserMark(profileImg, authNo);
     }
 }

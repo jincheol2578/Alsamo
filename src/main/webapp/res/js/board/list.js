@@ -122,3 +122,5 @@ if (searchTypeVal !== null && searchTextVal !== null) {
     searchType.value = searchTypeVal;
     searchText.value = searchTextVal;
 }
+
+

@@ -45,9 +45,9 @@
 .modal_content {
     background-color: white;
     border: 1px solid #95a5a6;
-    padding: 20px;
+    padding: 10px;
     width: 400px;
-    height: 500px;
+    height: 300px;
 }
 
 .loginProperty {
@@ -80,14 +80,6 @@
     width: 100%;
 }
 
-.loginMsg {
-    display: flex;
-    justify-content: center;
-    border: 1px solid #00a3df;
-    width: 500px;
-    box-sizing: border-box;
-
-}
 
 .swiper-container {
     position: absolute;
@@ -103,4 +95,19 @@ box-sizing: border-box;
    object-fit: contain;
     height: 150px;
 }
-
+.loginForm{
+    padding: 8px;
+}
+.loginForm .btn-secondary{
+    width: 358px;
+    margin-top: 18px;
+}
+.fas {
+    color: #6c757d;
+}
+.input-group{
+    width: 358px;
+}
+.fa-times{
+    margin-right: 11px;
+}
