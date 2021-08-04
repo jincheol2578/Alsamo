@@ -45,7 +45,7 @@
 .modal_content {
     background-color: white;
     border: 1px solid #95a5a6;
-    padding: 20px;
+    padding: 10px;
     width: 400px;
     height: 300px;
 }
@@ -96,9 +96,18 @@ box-sizing: border-box;
     height: 150px;
 }
 .loginForm{
-    margin-top: 8px;
+    padding: 8px;
 }
 .loginForm .btn-secondary{
     width: 358px;
     margin-top: 18px;
+}
+.fas {
+    color: #6c757d;
+}
+.input-group{
+    width: 358px;
+}
+.fa-times{
+    margin-right: 11px;
 }

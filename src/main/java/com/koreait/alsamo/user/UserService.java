@@ -50,8 +50,6 @@ public class UserService {
 
             mapper.insUser(param);
 
-        } else {
-            mapper.insGoogleUser(param);
         }
     }
 

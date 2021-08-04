@@ -38,7 +38,7 @@
 </nav>
 <div id="modal" class="displayNone">
     <div class="modal_content">
-       <div class="X"><a href="#" onclick="closeModal();"><i class="fas fa-times"></i></a></div>
+       <div class="X"><a href="#" onclick="closeModal();"><i class="fas fa-times fa-2x"></i></a></div>
         <form class="loginForm" action="/user/login" method="post">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -54,6 +54,7 @@
                 <input type="password" class="form-control" placeholder="Password" name="upw" aria-label="Password"
                        aria-describedby="basic-addon1">
             </div>
+            <div><a href="/user/bridgeFind">Forgot Id-Pw?</a></div>
             <div class="button_container"><input class="btn btn-secondary" type="submit" value="로그인"></div>
             <div><a href="/user/join">
                 <button class="btn btn-secondary" type="button">회원가입</button>

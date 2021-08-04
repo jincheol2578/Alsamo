@@ -166,10 +166,6 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/adminpage")
-    public String adminPage() {
-        return "/user/adminPage";
-    }
 
     @RequestMapping(value = "/updUserMark", method = RequestMethod.POST)
     public String superMark(@RequestParam("profileImg") MultipartFile profileImg,
