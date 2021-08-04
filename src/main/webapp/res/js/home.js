@@ -76,7 +76,7 @@ function makeList(data, menu) {
     const headerCategoryElem = document.createElement('div');
     const headerRegdateElem = document.createElement('div');
 
-    menuHeaderElem.setAttribute('class','rankTable');
+    menuHeaderElem.setAttribute('class', 'rankTable');
     headerTitleElem.innerText = '제목';
     headerRecElem.innerText = '추천';
     headerCategoryElem.innerText = '게시판';
