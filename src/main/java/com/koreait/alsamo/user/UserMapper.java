@@ -14,7 +14,7 @@ public interface UserMapper {
 
     int upAuth_no(UserEntity param);
 
-    int updUser(UserDTO param);
+    int updUser(UserEntity param);
 
     UserEntity selId(UserEntity param);
 

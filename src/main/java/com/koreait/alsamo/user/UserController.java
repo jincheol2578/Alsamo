@@ -142,7 +142,7 @@ public class UserController {
     }
 
     @PostMapping("/updUser")
-    public String updUser(UserDTO param, Model model) {
+    public String updUser(UserEntity param, Model model) {
         model.addAttribute("Msg", "수정된 비밀번호로 로그인 해주세요.");
         service.updUser(param);
         return "user/loginErr";
@@ -154,15 +154,18 @@ public class UserController {
     }
 
     @RequestMapping(value = "/myPage", method = RequestMethod.POST)
-    public String myPageMod(UserDTO param, Model model) {
-        if (param.getUpw().equals(param.getUpwChck())) {
-            service.updUser(param);
-            model.addAttribute("Msg", "변경 성공!!");
-            return "user/myPage";
-        } else {
-            model.addAttribute("Msg", "비밀번호가 같지 않습니다.");
-            return "user/myPage";
-        }
+    public String myPageMod(UserEntity param, Model model) {
+//        if (param.getUpw().equals(param.getUpwChck())) {
+//
+//            model.addAttribute("Msg", "변경 성공!!");
+//
+//            return "user/myPage";
+//        } else {
+//            model.addAttribute("Msg", "비밀번호가 같지 않습니다.");
+//            return "user/myPage";
+//        }
+         service.updUser(param);
+         return "user/myPage";
     }
 
 

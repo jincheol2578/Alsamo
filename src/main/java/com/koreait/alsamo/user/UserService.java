@@ -105,7 +105,7 @@ public class UserService {
         return user;
     }
 
-    public String updUser(UserDTO param) {
+    public String updUser(UserEntity param) {
         String hashPw = BCrypt.hashpw(param.getUpw(), BCrypt.gensalt());
         param.setUpw(hashPw);
         mapper.updUser(param);
