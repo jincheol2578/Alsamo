@@ -37,4 +37,3 @@
 </div>
 
 <script src="/res/js/user/join.js/"></script>
-<link rel="stylesheet" href="/res/css/user/join.css">

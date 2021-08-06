@@ -26,4 +26,3 @@
         </form>
     </div>
 </div>
-<link rel="stylesheet" href="/res/css/user/findId.css">

@@ -33,4 +33,3 @@
 </div>
 </div>
 <script src="/res/js/user/updUser.js/"></script>
-<link rel="stylesheet" href="/res/css/user/updUser.css">

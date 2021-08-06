@@ -21,17 +21,6 @@
         </c:forEach>
     </table>
 
-<%--    <ul id="infoPagging">--%>
-<%--        <c:forEach var="Page" begin="1" end="${requestScope.maxPage}">--%>
-<%--            <li class="paggingLi">--%>
-<%--                    <span onclick="active(${requestScope.infoUser.uno},${Page})">--%>
-<%--        <font color="#000000">--%>
-<%--            <c:if test="${requestScope.infoUser.page == Page}"><font color="#bbbbbb"></c:if>--%>
-<%--        ${Page}</font>--%>
-<%--                    </span>--%>
-<%--            </li>--%>
-<%--        </c:forEach>--%>
-<%--    </ul>--%>
     <div id="pagingBox">
         <ul class="pagination">
             <c:if test="${paging.curRange ne 1}">

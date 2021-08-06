@@ -46,5 +46,5 @@
         </form>
     </div>
 </div>
-<link rel="stylesheet" href="/res/css/user/myPage.css">
+
 <script src="/res/js/user/myPage.js/"></script>

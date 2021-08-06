@@ -15,6 +15,3 @@
         </a></div>
     </div>
 </div>
-
-
-<link rel="stylesheet" href="/res/css/user/bridgeFind.css">

@@ -52,4 +52,3 @@
 </div>
 
 <script defer src="/res/js/user/infoReply.js"></script>
-<link rel="stylesheet" href="/res/css/user/infoReply.css">
