@@ -3,7 +3,7 @@
 <div class="myPageontainer">
     <div id="myPageontainer">
         <H3>${requestScope.Msg}</H3>
-        <form action="/user/myPage" method="post">
+        <form action="/user/myPage" method="post" onsubmit="return  chckPw();">
             <div class="myPageContent" action="/user/modUser">
                 <div><h3>${sessionScope.loginUser.uid} 님</h3></div>
                 <div class="input-group mb-3">
@@ -25,18 +25,19 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon3">비밀번호</span>
                     </div>
-                    <input type="password" class="form-control" name="upw" placeholder="Password" aria-label="Username"
+                    <input type="password" class="form-control inputPassword" name="upw" placeholder="Password" aria-label="Password"
                            aria-describedby="basic-addon1" value="">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon4">비밀번호 확인</span>
                     </div>
-                    <input type="password" class="form-control" name="upwChck" placeholder="Password"
+                    <input type="password" class="form-control inputPasswordChck" name="upwChck" placeholder="Password Check"
                            aria-label="Username"
                            aria-describedby="basic-addon1" value="">
                     <input type="hidden" name="uid" value="${sessionScope.loginUser.uid}">
                 </div>
+                <div class="myPageMsg"></div>
                 <div class="button_container"><input class="btn btn-secondary" type="submit" value="적용">
                     <a href="/board/list">
                         <button class="btn btn-secondary" type="button">취소</button>
@@ -46,3 +47,4 @@
     </div>
 </div>
 <link rel="stylesheet" href="/res/css/user/myPage.css">
+<script src="/res/js/user/myPage.js/"></script>

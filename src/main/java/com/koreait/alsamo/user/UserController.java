@@ -141,7 +141,7 @@ public class UserController {
 
     }
 
-    @PostMapping("/updUser")
+    @RequestMapping("/updUser")
     public String updUser(UserEntity param, Model model) {
         model.addAttribute("Msg", "수정된 비밀번호로 로그인 해주세요.");
         service.updUser(param);
