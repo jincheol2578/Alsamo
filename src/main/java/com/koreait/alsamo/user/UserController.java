@@ -134,14 +134,14 @@ public class UserController {
         if (result == 1) {
 
             model.addAttribute("uemail", param.getUemail());
-            return "/user/updUser";
+            return "user/updUser";
         } else {
-            return "/user/login";
+            return "user/login";
         }
 
     }
 
-    @RequestMapping("/updUser")
+    @PostMapping("/updUser")
     public String updUser(UserEntity param, Model model) {
         model.addAttribute("Msg", "수정된 비밀번호로 로그인 해주세요.");
         service.updUser(param);

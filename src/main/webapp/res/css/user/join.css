@@ -1,8 +1,4 @@
-.cenContainer{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 .joinContainer{
     display: grid;
     grid-template-columns: 1fr;
@@ -15,7 +11,7 @@
     text-decoration: none;
     color: white;
 }
-.form-group{
+.joinContainer .form-group{
     margin-top: 8px;
 }
 .joinContainer form{

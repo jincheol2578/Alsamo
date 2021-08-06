@@ -13,8 +13,7 @@ public class InfoService {
 
     // 글쓴 리스트
     public List<BoardDomain> selAllWrite(InfoUserDTO param) {
-
-
+        System.out.println(mapper.selAllBoardWho(param));
         return mapper.selAllBoardWho(param);
     }
 

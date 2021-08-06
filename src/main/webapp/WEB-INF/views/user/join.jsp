@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="cenContainer">
+<div class="containerCenter">
     <div class="joinContainer">
         <form action="/user/join" method="post" onsubmit="return chckPw();">
             <div class="form-group">
