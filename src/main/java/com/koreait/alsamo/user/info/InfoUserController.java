@@ -17,6 +17,7 @@ public class InfoUserController {
 
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public String infoUser(@RequestParam("uno") int param, Model model) {
+
         InfoUserDTO dto = new InfoUserDTO();
         dto.setUno(param);
         dto.setBoardList(service.selAllWrite(dto));
@@ -26,6 +27,7 @@ public class InfoUserController {
 
 
         model.addAttribute("infoUser", dto);
+
         return "user/info";
     }
 
@@ -45,6 +47,7 @@ public class InfoUserController {
 
         model.addAttribute("paging", pagination);
         model.addAttribute("infoUser", dto);
+        System.out.println(dto);
         return "user/infoWrite";
     }
 
@@ -63,6 +66,7 @@ public class InfoUserController {
         dto.setCountReplyList(service.selAllReplyCount(param));
         model.addAttribute("paging", pagination);
         model.addAttribute("infoUser", dto);
+
         return "user/infoReply";
     }
 

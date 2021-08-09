@@ -18,7 +18,9 @@
                            ON A.uno = B.uno
         where A.uno = #{uno} and A.bdel = 0
         ORDER BY A.bno DESC
+        <if test='startIdx != null and startIdx!="" and cntPerPage != null and cntPerPage != "" '>
             limit #{startIdx}, #{cntPerPage}
+        </if>
     </select>
     <select id="selAllRepWho" resultType="InfoReplyDTO">
         SELECT A.repctnt,
@@ -45,11 +47,7 @@
         SELECT COUNT(case when uno = #{param} then 1 end)
         FROM t_board_reply;
     </select>
-<!--    <select id="selMaxPageVal" resultType="int">-->
-<!--        select Ceil(count(bno) / #{perPageCount})-->
-<!--        from t_board-->
-<!--        where uno = #{uno}-->
-<!--    </select>-->
+
     <select id="countBoardList" resultType="Integer">
         select count(*)
         FROM t_board WHERE uno = #{uno} and bdel = 0

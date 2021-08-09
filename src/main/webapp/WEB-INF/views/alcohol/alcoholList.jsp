@@ -3,7 +3,7 @@
 <div class="alContainer">
     <div id="upContent">
         <div id="searchWiki">
-            <input class="form-control input-lg" onkeyup="enterKey();" type="text" value="" placeholder="검색 입력.">
+            <input class="form-control input-lg" id="searchWhat" onkeyup="enterKey();" type="text" value="" placeholder="검색 입력.">
             <button onclick="searchName();" class="btn btn-default">검색</button>
         </div>
 
@@ -21,7 +21,6 @@
     </div>
 
     <div id="downContent">
-        <div><h2 id="alcoholName">${requestScope.alcohol.name}</h2></div>
         <c:if test="${not empty requestScope.alcohol.alImg}">
             <div><img id="alImg" src="${requestScope.alcohol.alImg}"></div>
         </c:if>
@@ -32,3 +31,4 @@
 
 </div>
 <link href="/res/css/alcohol/alcoholList.css" rel="stylesheet"/>
+<script src="/res/js/alchohol/alcoholList.js"></script>

@@ -134,9 +134,9 @@ public class UserController {
         if (result == 1) {
 
             model.addAttribute("uemail", param.getUemail());
-            return "/user/updUser";
+            return "user/updUser";
         } else {
-            return "/user/login";
+            return "user/login";
         }
 
     }

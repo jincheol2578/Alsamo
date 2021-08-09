@@ -6,20 +6,23 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>아이디 찾기</title>
-</head>
-<body>
-<div><h3>ID : ${requestScope.user.uid}</h3></div>
-<form action="/user/findId" method="post">
-    <input type="text" name="uemail" placeholder="이메일 입력">
-    <input type="text" name="uid" placeholder="이름 입력">
-    <input type="submit" value="찾기">
-</form>
-<div><a href="/user/login">
-    <button>로그인</button>
-</a></div>
 
-</body>
-</html>
+<div class="containerCenter">
+
+    <div class="findIdContainer">
+        <h2>아이디 찾기</h2>
+        <form action="/user/findId" method="post">
+            <div class="form-group">
+                <label for="exampleInputEmail1">이메일 주소</label>
+                <input type="email" name="uemail" class="form-control" id="exampleInputEmail1" placeholder="이메일을 입력하세요"
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputName">이름</label>
+                <input type="text" name="unm" class="form-control" id="exampleInputName" placeholder="이름을 입력하세요"
+                       required>
+            </div>
+            <button type="submit" class="btn btn-secondary">찾기</button>
+        </form>
+    </div>
+</div>

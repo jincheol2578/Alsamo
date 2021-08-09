@@ -111,3 +111,259 @@ box-sizing: border-box;
 .fa-times{
     margin-right: 11px;
 }
+
+/* 공용 속성 */
+.containerCenter{
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8px;
+}
+/* 아이디 찾기 */
+.findIdContainer{
+    width: 1000px;
+    height:500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6 ;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/*비밀번호 찾기*/
+.findPwContainer{
+    width: 1000px;
+    height:500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6 ;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+/* 회원 가입 */
+
+.joinContainer{
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid #dee2e6 ;
+    width: 1000px;
+    height:500px;
+    margin: 8px;
+}
+.btn .joinAtag{
+    text-decoration: none;
+    color: white;
+}
+.joinContainer .form-group{
+    margin-top: 8px;
+}
+.joinContainer form{
+    margin: 12px;
+}
+/* 에러 메시지 */
+.containerMsg{
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8px;
+}
+
+.loginMsg{
+    width: 1000px;
+    height:500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6 ;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.loginMsg div {
+    padding-top: 8px;
+}
+.msg{
+    font-size: 30px;
+}
+/* 마이페이지 */
+.myPageontainer{
+    display: flex;
+    justify-content: center;
+}
+#myPageontainer{
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid #dee2e6 ;
+    margin-top: 8px;
+    padding: 12px;
+    width: 1000px;
+    height:500px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* updUser */
+.updUserContainer{
+    width: 1000px;
+    height:500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6 ;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.updUserContainer .form-control{
+    width: 400px;
+}
+.updUserContainer .btn{
+    margin-top: 8px;
+}
+/* 아이디 비번 찾기 분기점 brige*/
+.bridgeContainer{
+    width: 1000px;
+    height:500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6 ;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.bridgeContainer a {
+    text-decoration: none;
+}
+.bridgeContainer .findUp .btn{
+    margin-right: 7px;
+}
+.bridgeContainer .findDown .btn{
+    margin-bottom: 7px;
+}
+/* 댓글info */
+#infoReplyContainer .table td, #infoReplyContainer .table  th{
+    min-width: 10rem;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+}
+#infoReplyContainer .table tr a{
+    vertical-align: middle;
+    text-decoration: none;
+    color: black;
+}
+#infoReplyContainer{
+    margin-top: 12px;
+}
+
+/* 쓴글 info*/
+#infoWriteContainer .table td,#infoWriteContainer .table  th{
+    min-width: 10rem;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+}
+#infoWriteContainer a{
+    vertical-align: middle;
+    text-decoration: none;
+    color: black;
+}
+#infoWriteContainer{
+    margin-top: 12px;
+}
+#infoWriteContainer .pagination{
+    margin: auto;
+}
+#infoWriteContainer .pagination li {
+    margin-left: 9px;
+    font-size: 20px;
+
+}
+
+#infoWriteContainer .pagination .active{
+    color: red;
+}
+/* 회원 가입 */
+
+.joinContainer{
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid #dee2e6 ;
+    width: 1000px;
+    height:500px;
+    margin: 8px;
+}
+.joinContainer .btn .joinAtag{
+    text-decoration: none;
+    color: white;
+}
+.joinContainer .form-group{
+    margin-top: 8px;
+}
+.joinContainer form{
+    margin: 12px;
+}
+/* 에러 메시지 */
+.containerMsg{
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8px;
+}
+
+.loginMsgContainer{
+    width: 1000px;
+    height:500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6 ;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.loginMsgContainer div {
+    padding-top: 8px;
+}
+.loginMsgContainer .msg{
+    font-size: 30px;
+}
+/* 마이 페이지 */
+.myPageontainer{
+    display: flex;
+    justify-content: center;
+}
+#myPageontainer{
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid #dee2e6 ;
+    margin-top: 8px;
+    padding: 12px;
+    width: 1000px;
+    height:500px;
+    align-items: center;
+    justify-content: center;
+}
+/* 비밀번호 찾기- 수정*/
+.updUserContainer{
+    width: 1000px;
+    height:500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6 ;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.updUserContainer .form-control{
+    width: 400px;
+}
+.updUserContainer .btn{
+    margin-top: 8px;
+}

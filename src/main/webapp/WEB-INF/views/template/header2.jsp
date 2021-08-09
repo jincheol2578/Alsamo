@@ -45,14 +45,14 @@
                     <span class="input-group-text" id="basic-addon3">아이디</span>
                 </div>
                 <input type="text" class="form-control" placeholder="Id" name="uid" aria-label="Id"
-                       aria-describedby="basic-addon1">
+                       aria-describedby="basic-addon1" required>
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon4">비밀번호</span>
                 </div>
                 <input type="password" class="form-control" placeholder="Password" name="upw" aria-label="Password"
-                       aria-describedby="basic-addon1">
+                       aria-describedby="basic-addon1" required>
             </div>
             <div><a href="/user/bridgeFind">Forgot Id-Pw?</a></div>
             <div class="button_container"><input class="btn btn-secondary" type="submit" value="로그인"></div>
