@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -41,6 +42,13 @@ public class BoardController {
         return data;
     }
 
+    @ResponseBody
+    @GetMapping("/category")
+    public Map<String, List<BoardDTO>> getCategoryList() {
+        Map<String, List<BoardDTO>> data = new HashMap<>();
+        data.put("result", service.selBoardCategory());
+        return data;
+    }
 
     @GetMapping("/write")
     public String write(Model model, BoardDTO param) {
@@ -88,7 +96,7 @@ public class BoardController {
     public String delete(BoardEntity param) {
         int result = service.delBoard(param);
         if (result == 0) {
-            return "redirect:/errpage?code=" + result;
+            return "redirect:/board/errpage?code=" + result;
         }
         return "redirect:list?bcd=" + param.getBcd();
     }
@@ -103,9 +111,14 @@ public class BoardController {
     public String modify(BoardEntity param) {
         int result = service.updBoard(param);
         if (result == 0) {
-            return "redirect:/errpage?code=" + result;
+            return "redirect:/board/errpage?code=" + result;
         }
         return "redirect:view?bcd=" + param.getBcd() + "&bno=" + param.getBno();
+    }
+
+    @GetMapping("/errpage")
+    public String errPage() {
+        return "board/errpage";
     }
 
 

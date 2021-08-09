@@ -19,7 +19,7 @@
         VALUES ( (SELECT NEXTVAL(iboard_seq))
                , #{bcd}
                , #{uno}
-               , #{btitle}
+               , '└Re:'+#{btitle}
                , #{bctnt}
                , #{bidx}
                , #{bord} + 1

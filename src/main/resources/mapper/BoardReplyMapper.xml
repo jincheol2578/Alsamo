@@ -72,6 +72,6 @@
         WHERE repno = #{repno}
           AND (<if test="uno != 0"> uno = #{uno} OR </if>
               reppw = #{reppw}
-              OR (SELECT authno FROM t_user WHERE uno = #{uno} = 1))
+              OR ((SELECT authno FROM t_user WHERE uno = #{uno}) = 1))
     </update>
 </mapper>

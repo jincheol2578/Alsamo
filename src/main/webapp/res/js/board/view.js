@@ -111,71 +111,73 @@ function makeReplyList(data) {
                     return;
                 }
             });
-
-            // 답글버튼 - 댓글 내용 클릭 시 댓글밑에 생성
-            repElem2.addEventListener('click', () => {
-                liElem.classList.toggle("reReply");
-
-                const formElem = document.createElement('form');
-                const inputRepnm = document.createElement('input');
-                const inputReppw = document.createElement('input');
-                const txtRepctnt = document.createElement('textarea');
-                const inputReBtn = document.createElement('input');
-
-                formElem.onsubmit = 'return false;';
-                formElem.id = 'reReplyFrm' + item.repno;
-                inputRepnm.type = 'text';
-                inputRepnm.classList.add('reRepName');
-                inputReppw.type = 'password';
-                inputReppw.classList.add('reRepPwd');
-                txtRepctnt.classList.add('reRepCtnt');
-                inputReBtn.type = 'button';
-                inputReBtn.value = '작성';
-
-                /*
-                댓글 클릭했을때 liElem에 'reReply'클래스 추가해줌
-                'reReply' 클래스가 있으면 대댓글창 생성 없으면 삭제
-                */
-                if (liElem.className === "reReply") {
-                    if (isNaN(parseInt(loginUserPk))) {
-                        formElem.append(inputRepnm);
-                        formElem.append(inputReppw);
-                    }
-                    formElem.append(txtRepctnt);
-                    formElem.append(inputReBtn);
-                    liElem.append(formElem);
-                } else {
-                    document.getElementById('reReplyFrm' + item.repno).remove();
-                }
-
-                // 답글 전송버튼 눌렀을떄
-                inputReBtn.addEventListener('click', () => {
-                    let reRepFrm = document.getElementById('reReplyFrm' + item.repno);
-                    let reRepName = null;
-                    let reRepPwd = null;
-                    let reRepCtnt = null;
-                    // if (parseInt(loginUserPk) !== 0) {
-                    //     reRepName = reRepFrm.querySelector('.reRepName').value;
-                    //     reRepPwd = reRepFrm.querySelector('.reRepPwd').value;
-                    //     reRepCtnt = reRepFrm.querySelector('.reRepCtnt').value;
-                    // }
-                    const param = {
-                        bno: bnoVal,
-                        repnm: reRepName,
-                        reppw: reRepPwd,
-                        repctnt: reRepCtnt,
-                        repidx: item.repidx,
-                        repord: item.repord,
-                        repdept: item.repdept
-                    }
-                    regAjax(param, 1);
-
-                })
-            });
-
             delBtn.innerText = '삭제';
             repElem4.append(delBtn);
         }
+        // 답글버튼 - 댓글 내용 클릭 시 댓글밑에 생성
+        repElem2.addEventListener('click', () => {
+            liElem.classList.toggle("reReply");
+
+            const formElem = document.createElement('form');
+            const inputRepnm = document.createElement('input');
+            const inputReppw = document.createElement('input');
+            const txtRepctnt = document.createElement('textarea');
+            const inputReBtn = document.createElement('input');
+
+            formElem.onsubmit = 'return false;';
+            formElem.id = 'reReplyFrm' + item.repno;
+            inputRepnm.type = 'text';
+            inputRepnm.classList.add('reRepName');
+            inputReppw.type = 'password';
+            inputReppw.classList.add('reRepPwd');
+            txtRepctnt.classList.add('reRepCtnt');
+            inputReBtn.type = 'button';
+            inputReBtn.value = '작성';
+
+            /*
+            댓글 클릭했을때 liElem에 'reReply'클래스 추가해줌
+            'reReply' 클래스가 있으면 대댓글창 생성 없으면 삭제
+            */
+            if (liElem.className === "reReply") {
+                if (isNaN(parseInt(loginUserPk))) {
+                    formElem.append(inputRepnm);
+                    formElem.append(inputReppw);
+                }
+                formElem.append(txtRepctnt);
+                formElem.append(inputReBtn);
+                liElem.append(formElem);
+            } else {
+                document.getElementById('reReplyFrm' + item.repno).remove();
+            }
+
+            // 답글 전송버튼 눌렀을떄
+            inputReBtn.addEventListener('click', () => {
+                let reRepFrm = document.getElementById('reReplyFrm' + item.repno);
+                let reRepName = null;
+                let reRepPwd = null;
+                if (isNaN(parseInt(loginUserPk))) {
+                    reRepName = reRepFrm.querySelector('.reRepName').value;
+                    reRepPwd = reRepFrm.querySelector('.reRepPwd').value;
+                }
+
+                console.log(parseInt(loginUserPk));
+                reRepCtnt = reRepFrm.querySelector('.reRepCtnt').value;
+                const param = {
+                    bno: bnoVal,
+                    repnm: reRepName,
+                    reppw: reRepPwd,
+                    repctnt: reRepCtnt,
+                    repidx: item.repidx,
+                    repord: item.repord,
+                    repdept: item.repdept
+                }
+                console.log(param)
+                regAjax(param, 1);
+
+            })
+        });
+
+
         ulElem.append(liElem);
         liElem.append(repElem1);
         liElem.append(repElem2);
