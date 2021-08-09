@@ -43,7 +43,7 @@ function getNoticeList() {
 
 // 카테고리 리스트
 function getCategoryList() {
-    fetch('/admin/category')
+    fetch('/board/category')
         .then((res) => {
             return res.json();
         })
@@ -53,6 +53,7 @@ function getCategoryList() {
                 board.classList.add('board');
                 board.innerText = item.bnm;
                 miniBoard.append(board);
+                console.log(item);
                 getBoardList(item, board);
             })
         });
