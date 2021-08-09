@@ -10,6 +10,9 @@
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
 
+
+                <%--                <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>--%>
+
                 <c:choose>
                     <c:when test="${empty sessionScope.loginUser}">
                         <li class="nav-item"><a class="nav-link" onclick="openModal();" href="#!">Login</a></li>
