@@ -4857,10 +4857,11 @@ textarea.form-control-lg {
   position: relative;
   display: block;
   padding: 0.5rem 1rem;
-  color: #212529;
+  color: #636464 !important;
   text-decoration: none;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.125);
+
 }
 .list-group-item:first-child {
   border-top-left-radius: inherit;
@@ -10863,6 +10864,7 @@ textarea.form-control-lg {
 #sidebar-wrapper .sidebar-heading {
   padding: 0.875rem 1.25rem;
   font-size: 1.2rem;
+  cursor: pointer;
 }
 
 #sidebar-wrapper .list-group {
@@ -10890,4 +10892,10 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     margin-left: -15rem;
   }
+}
+/**/
+.border-end .list-group a {
+  text-decoration: none;
+  color: #636464 !important;
+  cursor: pointer;
 }

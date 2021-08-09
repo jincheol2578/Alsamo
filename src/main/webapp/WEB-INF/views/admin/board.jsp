@@ -2,10 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="layoutSidenav">
+    <div class="chooseContainer">
+        <ul class="chooseUl">
+            <li class="chooseLi adminNow">
+                <div><a href="/admin/board">게시판관리</a></div>
+            </li>
+            <li class="chooseLi">
+                <div><a href="/admin/user">유저관리</a></div>
+            </li>
+
+        </ul>
+    </div>
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">게시판 관리</h1>
                 <div class="card mb-4">
                     <div class="card-header">카테고리</div>
                     <div class="category card-body">
@@ -20,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-<%--                게시글 관리        --%>
+                <%--                게시글 관리        --%>
                 <div class="card mb-4">
                     <div class="card-header">
                         등록된 태그가 포함된 게시물만 표시합니다. 태그를 등록해 주세요.
@@ -29,8 +39,8 @@
                         <ul id="tagBox" class="tagBox"></ul>
                         <input type="text" id="txtTag" class="dataTable-input">
                     </div>
-                    <div class="card-body">
-                        <table id="datatablesSimple" class="dataTable-table">
+                    <div class="card-body table-responsive">
+                        <table id="datatablesSimple" class="dataTable-table ">
                             <thead>
                             <tr>
                                 <th><input type="checkbox" id="allChk"></th>
@@ -45,7 +55,7 @@
                             <tbody>
                             </tbody>
                         </table>
-                        <button onclick="delBoard()">삭제</button>
+                        <button class="btn btn-secondary" onclick="delBoard()">삭제</button>
                         <div id="pagination">
                         </div>
                     </div>
@@ -66,9 +76,4 @@
         </footer>
     </div>
 </div>
-<script src="/res/js/admin/board.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
-<script src="/res/js/admin/scripts.js"></script>
-</body>
-</html>
+<link href="/res/css/admin/styles.css" rel="stylesheet"/>

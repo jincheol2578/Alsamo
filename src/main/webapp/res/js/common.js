@@ -1,4 +1,6 @@
-
+function goHome() {
+    location.href = "/";
+}
 function openModal() {
     document.querySelector('#modal').style.display = 'flex';
 }

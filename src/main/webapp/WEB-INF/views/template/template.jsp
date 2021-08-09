@@ -43,12 +43,6 @@
         <tiles:insertAttribute name="header"/>
         <div class="container-fluid">
             <tiles:insertAttribute name="content"/>
-<%--            <ul>--%>
-<%--                <tiles:importAttribute name="menuList"/>--%>
-<%--                <c:forEach var="list" items="${menuList}">--%>
-<%--                    <li><a href="/board/list?bcd=${list.bcd}">${list.bnm}</a></li>--%>
-<%--                </c:forEach>--%>
-<%--            </ul>--%>
         </div>
         <div class="container-fluid">
             <tiles:insertAttribute name="footer"/>

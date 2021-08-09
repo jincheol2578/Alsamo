@@ -63,6 +63,7 @@ public class UserService {
             //로그인 성공
             result.setUpw(null);
             session.setAttribute("loginUser", result);
+            System.out.println(result);
             return "/board/list";
         } else {
             //비밀번호 틀림

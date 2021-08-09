@@ -23,10 +23,12 @@
                                aria-expanded="false">${sessionScope.loginUser.uid}</a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/user/logout">Logout</a>
-                                <a class="dropdown-item" href="/user/myPage">MyPage</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#!">Something else here</a>
+                                <a class="dropdown-item" href="/user/logout">로그아웃</a>
+                                <a class="dropdown-item" href="/user/myPage">마이페이지</a>
+                                <c:if test="${sessionScope.loginUser.authno eq 1}">
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/admin/login">관리자 페이지</a>
+                                </c:if>
                             </div>
                         </li>
                     </c:otherwise>
@@ -38,7 +40,7 @@
 </nav>
 <div id="modal" class="displayNone">
     <div class="modal_content">
-       <div class="X"><a href="#" onclick="closeModal();"><i class="fas fa-times fa-2x"></i></a></div>
+        <div class="X"><a href="#" onclick="closeModal();"><i class="fas fa-times fa-2x"></i></a></div>
         <form class="loginForm" action="/user/login" method="post">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
