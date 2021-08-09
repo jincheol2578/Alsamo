@@ -14,7 +14,7 @@ modalElem.addEventListener('click',(e)=>{
 ajaxAl('위스키');
 
 function goHome() {
-    location.href = "/board/list";
+    location.href = "/";
 }
 
 function getWhiskey() {

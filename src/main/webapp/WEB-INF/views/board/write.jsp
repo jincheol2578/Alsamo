@@ -16,9 +16,9 @@
 " method="post">
     <c:if test="${empty param.modify}">
         <c:choose>
-            <c:when test="${empty requestScope.board}">
+            <c:when test="${empty requestScope.board && empty requestScope.reBoard}">
                 <select name="bcd">
-                    <c:forEach var="category" items="${requestScope.categoryList}" begin="1">
+                    <c:forEach var="category" items="${requestScope.categoryList}" begin="2">
                         <c:choose>
                             <c:when test="${category.bcd eq param.bcd}">
                                 <option value="${category.bcd}" selected="selected">${category.bnm}</option>
@@ -31,21 +31,21 @@
                 </select>
             </c:when>
             <c:otherwise>
-                <input type="hidden" name="bcd" value="${requestScope.board.bcd}">
-                <input type="hidden" name="bidx" value="${requestScope.board.bidx}">
-                <input type="hidden" name="bord" value="${requestScope.board.bord}">
-                <input type="hidden" name="bdept" value="${requestScope.board.bdept}">
+                <input type="hidden" name="bcd" value="${param.bcd}">
+                <input type="hidden" name="bidx" value="${requestScope.reBoard.bidx}">
+                <input type="hidden" name="bord" value="${requestScope.reBoard.bord}">
+                <input type="hidden" name="bdept" value="${requestScope.reBoard.bdept}">
             </c:otherwise>
         </c:choose>
     </c:if>
+    <input type="hidden" name="bno" value="${param.bno}">
     <c:if test="${not empty param.modify}">
         <input type="hidden" name="uno" value="${requestScope.board.uno}">
-        <input type="hidden" name="bno" value="${param.bno}">
         <input type="hidden" name="bpw" value="${requestScope.board.bpw}">
     </c:if>
     <input type="text" name="btitle" placeholder="제목" value="${requestScope.board.btitle}">
     <c:if test="${empty sessionScope.loginUser && param.modify ne 1}">
-    <input type="password" name="bpw" placeholder="비밀번호" value="${requestScope.board.bpw}">
+    <input type="password" name="bpw" placeholder="비밀번호" value="${param.bpw}">
     </c:if>
     <textarea id="summernote" name="bctnt">${requestScope.board.bctnt}</textarea>
     <input type="submit" value="글쓰기">

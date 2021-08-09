@@ -8,7 +8,7 @@
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                <li class="nav-item"><a class="nav-link" href="http://localhost:8080/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
 
                 <%-- Todo list link 활용 방안 생각 --%>
                 <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
