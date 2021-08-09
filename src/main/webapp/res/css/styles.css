@@ -10899,3 +10899,6 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
   color: #636464 !important;
   cursor: pointer;
 }
+#sidebarToggle{
+  cursor: pointer;
+}
