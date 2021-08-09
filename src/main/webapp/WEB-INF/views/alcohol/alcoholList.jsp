@@ -10,11 +10,11 @@
         <div id="ulContainer">
             <ul>
                 <li>추천 검색어 : </li>
-                <li id="Whiskey" onclick="getWhiskey();">위스키</li>
-                <li id="Rum" onclick="getRum();">럼</li>
-                <li id="Jim" onclick="getJim();">진</li>
-                <li id="Tequila" onclick="getTequila();">데킬라</li>
-                <li id="Vodka" onclick="getVodka();">보드카</li>
+                <li id="Whiskey" onclick="searchWhat('위스키');">위스키</li>
+                <li id="Rum" onclick="searchWhat('럼');">럼</li>
+                <li id="Jim" onclick="searchWhat('진');">진</li>
+                <li id="Tequila" onclick="searchWhat('데킬라');">데킬라</li>
+                <li id="Vodka" onclick="searchWhat('보드카');">보드카</li>
             </ul>
         </div>
 
