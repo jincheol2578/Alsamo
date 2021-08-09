@@ -47,7 +47,6 @@ public class InfoUserController {
 
         model.addAttribute("paging", pagination);
         model.addAttribute("infoUser", dto);
-        System.out.println(dto);
         return "user/infoWrite";
     }
 

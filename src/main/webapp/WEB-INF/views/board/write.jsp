@@ -13,7 +13,7 @@
     <c:when test="${empty param.modify}">write</c:when>
     <c:otherwise>modify</c:otherwise>
 </c:choose>
-" method="post">
+" method="POST">
     <c:if test="${empty param.modify}">
         <c:choose>
             <c:when test="${empty requestScope.board && empty requestScope.reBoard}">
@@ -31,6 +31,7 @@
                 </select>
             </c:when>
             <c:otherwise>
+                <input type="hidden" name="bno" value="${param.bno}">
                 <input type="hidden" name="bcd" value="${param.bcd}">
                 <input type="hidden" name="bidx" value="${requestScope.reBoard.bidx}">
                 <input type="hidden" name="bord" value="${requestScope.reBoard.bord}">
@@ -38,8 +39,8 @@
             </c:otherwise>
         </c:choose>
     </c:if>
-    <input type="hidden" name="bno" value="${param.bno}">
     <c:if test="${not empty param.modify}">
+        <input type="hidden" name="bno" value="${param.bno}">
         <input type="hidden" name="uno" value="${requestScope.board.uno}">
         <input type="hidden" name="bpw" value="${requestScope.board.bpw}">
     </c:if>
@@ -48,7 +49,7 @@
     <input type="password" name="bpw" placeholder="비밀번호" value="${param.bpw}">
     </c:if>
     <textarea id="summernote" name="bctnt">${requestScope.board.bctnt}</textarea>
-    <input type="submit" value="글쓰기">
+    <input class="btn btn-secondary" type="submit" value="작성">
 </form>
 
 <script src="/res/summernote/summernote.js"></script>

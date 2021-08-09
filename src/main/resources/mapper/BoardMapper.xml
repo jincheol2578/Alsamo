@@ -31,6 +31,8 @@
     <select id="selBoardCategory" resultType="BoardDTO">
         SELECT bcd, bnm
         FROM t_board_category
+        WHERE cdel = 0
+        ORDER BY cord
     </select>
 
     <!--    게시판 리스트 SELECT -->

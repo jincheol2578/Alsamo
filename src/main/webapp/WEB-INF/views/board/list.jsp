@@ -36,9 +36,11 @@
     <div class="boardBtn">
         <div class="float-left"></div>
         <div class="float-right">
-            <a href="write?bcd=${param.bcd}">
-                <button type="button" class="btn btn-secondary">글쓰기</button>
-            </a>
+            <c:if test="${param.bcd > 2}">
+                <a href="write?bcd=${param.bcd}">
+                    <button type="button" class="btn btn-secondary"><i class="fas fa-pencil-alt" style="color: white"></i> 글쓰기</button>
+                </a>
+            </c:if>
         </div>
     </div>
 
@@ -80,7 +82,7 @@
                 <option value="4">작성자</option>
             </select>
             <input type="text" id="searchText">
-            <button class="btn btn-secondary" id="searchBtn">검색</button>
+            <button class="btn btn-secondary" id="searchBtn"><i class="fas fa-search" style="color: white"> 검색</i></button>
         </form>
     </div>
 </div>

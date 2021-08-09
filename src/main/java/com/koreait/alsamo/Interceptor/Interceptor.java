@@ -20,7 +20,6 @@ public class Interceptor implements HandlerInterceptor {
             session.removeAttribute("loginUser");
         }
 
-        System.out.println("preeeee");
         return true;
     }
 
@@ -28,7 +27,6 @@ public class Interceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         HttpSession session = request.getSession();
         Object user = modelAndView.getModelMap().get("loginUser");
-        System.out.println(user);
         if (user != null) {
             session.setAttribute("loginUser",user);
 
@@ -40,6 +38,5 @@ public class Interceptor implements HandlerInterceptor {
         } else {
             response.sendRedirect("/loginErr?err=0");
         }
-        System.out.println("posstttttt");
     }
 }

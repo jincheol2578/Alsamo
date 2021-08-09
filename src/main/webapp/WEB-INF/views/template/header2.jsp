@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <div class="container-fluid">
-        <button class="btn btn-primary" id="sidebarToggle">사이드바</button>
+        <i id="sidebarToggle" class="fas fa-bars"></i>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
@@ -10,8 +10,6 @@
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
 
-                <%-- Todo list link 활용 방안 생각 --%>
-                <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
                 <c:choose>
                     <c:when test="${empty sessionScope.loginUser}">
                         <li class="nav-item"><a class="nav-link" onclick="openModal();" href="#!">Login</a></li>
