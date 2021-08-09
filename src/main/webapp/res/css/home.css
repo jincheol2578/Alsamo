@@ -33,6 +33,10 @@ ul .rankTable {
     grid-template-columns: repeat(4,1fr);
 }
 .tableContent{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    place-items: center;
+    margin: 0 12px 0 12px;
 }
 
 .container div{
