@@ -20,7 +20,7 @@ public class AdminController {
     @Autowired
     AdminService service;
 
-    @GetMapping()
+    @GetMapping("/login")
     public String login() {
         return "/admin/login";
     }

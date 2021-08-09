@@ -109,6 +109,10 @@ function makeList(data, menu) {
             regDate = month + '.' + day;
         }
 
+        listElem.addEventListener('click', () => {
+            location.href = '/board/view?bcd='+item.bcd+"&bno="+item.bno;
+        })
+
         titleElem.innerText = item.btitle;
         recElem.innerText = item.rec;
         categoryElem.innerText = item.bnm;

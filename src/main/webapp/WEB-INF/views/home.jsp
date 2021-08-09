@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="centerContainer">
     <div class="container">
-        <div class="mainTitle">하루 인기글</div>
+        <div class="mainTitle">일일 인기글</div>
         <div class="mainTitle">주간 인기글</div>
         <div class="todayBest"></div>
         <div class="weekendBest"></div>

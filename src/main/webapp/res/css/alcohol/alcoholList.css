@@ -4,13 +4,16 @@
     border: 0;
     width: 100%;
 }
-#searchWiki{
+
+#searchWiki {
     display: flex;
 }
-#upContent{
+
+#upContent {
     margin: 10px;
 }
-#downContent{
+
+#downContent {
     margin: 30px 10px 20px 10px;
 
 }
@@ -22,7 +25,8 @@
 
 
 }
-#ulContainer ul{
+
+#ulContainer ul {
     width: 100%;
     height: 36px;
     border-bottom: 1px solid black;

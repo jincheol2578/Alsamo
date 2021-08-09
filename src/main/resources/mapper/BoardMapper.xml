@@ -23,8 +23,8 @@
                , #{bctnt}
                , #{bidx}
                , #{bord} + 1
-               , #{bdept} + 1)
-             , #{bpw}
+               , #{bdept} + 1
+             , #{bpw} )
     </insert>
 
     <!--    게시판 카테고리 SELECT -->
@@ -45,7 +45,7 @@
         LEFT JOIN t_user as B
         ON A.uno = B.uno
         where A.bdel = 0
-        <if test="bcd > 1">AND A.bcd = #{bcd}</if>
+        <if test="bcd > 2">AND A.bcd = #{bcd}</if>
         <if test="searchType != 0">
             <if test="searchType == 1">
                 AND (A.btitle like CONCAT('%',#{searchText},'%')

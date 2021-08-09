@@ -46,17 +46,15 @@ public class BoardController {
     public String write(Model model, BoardDTO param) {
         BoardDomain board = service.selBoard(param);
         if (param.getBno() == 0) { //원글 작성시
-            param.setBcd(1);
             model.addAttribute("categoryList", service.selBoardCategory());
         } else if (param.getModify() == 1) { //수정버튼 클릭시
             if (board.getBpw().equals(param.getBpw())) {
-                board.setBpw(null);
                 model.addAttribute("board", board);
             } else {
                 return "board/errpage";
             }
         } else {// 답글 작성시
-            model.addAttribute("board", service.selBoard(param));
+            model.addAttribute("reBoard", service.selBoard(param));
         }
         return "board/write";
     }
@@ -66,6 +64,7 @@ public class BoardController {
         if (param.getBidx() == 0) {
             service.insBoard(param);
         } else {
+            System.out.println(param);
             service.updReBoard(param);
             service.insReBoard(param);
         }
