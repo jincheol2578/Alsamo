@@ -10,3 +10,5 @@ const modalElem = document.getElementById('modal');
 modalElem.addEventListener('click',(e)=>{
     e.target === modalElem ? closeModal() : false;
 })
+
+
