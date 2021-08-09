@@ -169,7 +169,7 @@ function makeReplyList(data) {
                         repdept: item.repdept
                     }
                     regAjax(param, 1);
-                    console.log(param);
+
                 })
             });
 

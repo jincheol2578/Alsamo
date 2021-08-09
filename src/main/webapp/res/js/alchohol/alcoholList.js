@@ -1,54 +1,5 @@
-ajaxAl('위스키');
-
 function goHome() {
     location.href = "/board/list";
-}
-
-function getWhiskey() {
-
-    const innerHTML = document.getElementById('Whiskey').innerText;
-    const name = {
-        name: innerHTML
-    };
-
-    ajaxAl(name);
-}
-
-function getRum() {
-
-    const innerHTML = document.getElementById('Rum').innerText;
-    const name = {
-        name: innerHTML
-    };
-
-    ajaxAl(name);
-}
-
-function getJim() {
-    const innerHTML = '진_(술)';
-    const name = {
-        name: innerHTML
-    };
-
-    ajaxAl(name);
-
-}
-
-function getTequila() {
-    const innerHTML = document.getElementById('Tequila').innerText;
-    const name = {
-        name: innerHTML
-    };
-
-    ajaxAl(name);
-}
-
-function getVodka() {
-    const innerHTML = document.getElementById('Vodka').innerText;
-    const name = {
-        name: innerHTML
-    };
-    ajaxAl(name);
 }
 
 function searchAl(name) {
@@ -57,7 +8,6 @@ function searchAl(name) {
     const alData = {
         name: al.dataset.name
     };
-    console.log(alData);
     ajaxAl(alData);
 }
 
@@ -77,12 +27,6 @@ function ajaxAl(name) {
         })
         .then((myJson) => {
             document.getElementById('alcoholContent').innerHTML = myJson.content;
-            // if (myJson.alImg == null) {
-            //     alert('구체적인 검색어를 입력해 주세요.')
-            // } else {
-            //     document.getElementById('alImg').src = myJson.alImg;
-            //     console.log( document.getElementById('alImg'));
-            // }
 
             document.getElementById('alcoholTable').innerHTML = myJson.alTable;
 
@@ -102,6 +46,12 @@ function addSrc() {
         a[i].href = sufix + origin;
     }
 }
+function searchWhat(name){
+    const what ={
+        name:name
+    };
+    ajaxAl(what)
+}
 
 function searchName() {
     let value = document.getElementById('searchWhat');
@@ -109,7 +59,6 @@ function searchName() {
     const name = {
         name: searchWhat,
     };
-    console.log(value);
     ajaxAl(name);
 }
 

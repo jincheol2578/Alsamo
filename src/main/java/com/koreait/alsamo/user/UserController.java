@@ -155,15 +155,7 @@ public class UserController {
 
     @RequestMapping(value = "/myPage", method = RequestMethod.POST)
     public String myPageMod(UserEntity param, Model model) {
-//        if (param.getUpw().equals(param.getUpwChck())) {
-//
-//            model.addAttribute("Msg", "변경 성공!!");
-//
-//            return "user/myPage";
-//        } else {
-//            model.addAttribute("Msg", "비밀번호가 같지 않습니다.");
-//            return "user/myPage";
-//        }
+
          service.updUser(param);
          return "user/myPage";
     }

@@ -16,5 +16,4 @@ public interface InfoMapper {
     int countAllReply(int param);
 
     int countBoardList(InfoUserDTO param);
-    int countReplyList(InfoUserDTO param);
 }
