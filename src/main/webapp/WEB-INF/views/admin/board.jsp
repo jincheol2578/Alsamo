@@ -12,7 +12,6 @@
             </li>
 
         </ul>
-        <h2 class="mt-4">게시판 관리</h2>
     </div>
     <div id="layoutSidenav_content">
         <main>
