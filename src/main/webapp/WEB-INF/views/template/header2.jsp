@@ -10,8 +10,8 @@
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
 
-                <%-- Todo list link 활용 방안 생각 --%>
-                <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
+<%--                <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>--%>
+
                 <c:choose>
                     <c:when test="${empty sessionScope.loginUser}">
                         <li class="nav-item"><a class="nav-link" onclick="openModal();" href="#!">Login</a></li>
@@ -25,8 +25,10 @@
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/user/logout">Logout</a>
                                 <a class="dropdown-item" href="/user/myPage">MyPage</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#!">Something else here</a>
+                                <c:if test="${sessionScope.loginUser.authno eq 1}">
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/admin/login">관리자 페이지</a>
+                                </c:if>
                             </div>
                         </li>
                     </c:otherwise>
@@ -38,7 +40,7 @@
 </nav>
 <div id="modal" class="displayNone">
     <div class="modal_content">
-       <div class="X"><a href="#" onclick="closeModal();"><i class="fas fa-times fa-2x"></i></a></div>
+        <div class="X"><a href="#" onclick="closeModal();"><i class="fas fa-times fa-2x"></i></a></div>
         <form class="loginForm" action="/user/login" method="post">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">

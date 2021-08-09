@@ -1,6 +1,3 @@
-function goHome() {
-    location.href = "/board/list";
-}
 
 function searchAl(name) {
     location.href = '/alcohol/alcoholList';
@@ -27,11 +24,7 @@ function ajaxAl(name) {
         })
         .then((myJson) => {
             document.getElementById('alcoholContent').innerHTML = myJson.content;
-
-            document.getElementById('alcoholTable').innerHTML = myJson.alTable;
-
             addSrc();
-            // hindUselss();
         })
 
 }

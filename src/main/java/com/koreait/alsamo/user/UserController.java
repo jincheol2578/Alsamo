@@ -161,12 +161,6 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/updUserMark", method = RequestMethod.POST)
-    public String superMark(@RequestParam("profileImg") MultipartFile profileImg,
-                            @RequestParam("authNo") int authNo) {
-        return "redirect:" + service.updUserMark(profileImg, authNo);
-    }
-
     @GetMapping("/errorMsg")
     public String blockUserLogin() {
         return "user/errorMsg";
