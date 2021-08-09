@@ -23,8 +23,8 @@
                                aria-expanded="false">${sessionScope.loginUser.uid}</a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/user/logout">Logout</a>
-                                <a class="dropdown-item" href="/user/myPage">MyPage</a>
+                                <a class="dropdown-item" href="/user/logout">로그아웃</a>
+                                <a class="dropdown-item" href="/user/myPage">마이페이지</a>
                                 <c:if test="${sessionScope.loginUser.authno eq 1}">
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="/admin/login">관리자 페이지</a>
