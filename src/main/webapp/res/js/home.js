@@ -64,8 +64,8 @@ function getCategoryList() {
                 // bcd 2는 공지사항이라 제외
                 if(item.bcd === 2){return;}
                 const board = document.createElement('div');
-                board.classList.add('miniBoard');
                 const boardTitle = document.createElement('div');
+                board.classList.add('miniBoard');
                 boardTitle.innerText = item.bnm;
                 board.append(boardTitle);
                 container.append(board);
