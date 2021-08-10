@@ -24,7 +24,7 @@
 
                     <div class="card-body">
                         <div class="">
-                            <select id="authorize">
+                            <select id="authorize" class="form-select">
                                 <option value="all">전체보기</option>
                                 <option value="general">일반유저</option>
                                 <option value="unAuthorize">미인증유저</option>

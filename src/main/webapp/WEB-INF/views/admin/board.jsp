@@ -43,7 +43,7 @@
                         <table id="datatablesSimple" class="dataTable-table ">
                             <thead>
                             <tr>
-                                <th><input type="checkbox" id="allChk"></th>
+                                <th><input class="form-check-input" type="checkbox" id="allChk"></th>
                                 <th>글번호</th>
                                 <th>작성자</th>
                                 <th>제목</th>
