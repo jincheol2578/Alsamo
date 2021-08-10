@@ -44,7 +44,7 @@
         <input type="hidden" name="uno" value="${requestScope.board.uno}">
         <input type="hidden" name="bpw" value="${requestScope.board.bpw}">
     </c:if>
-    <input type="text" name="btitle" placeholder="제목" value="${requestScope.board.btitle}">
+    <input type="text" name="btitle" placeholder="제목" maxlength="40" value="${requestScope.board.btitle}">
     <c:if test="${empty sessionScope.loginUser && param.modify ne 1}">
     <input type="password" name="bpw" placeholder="비밀번호" value="${param.bpw}">
     </c:if>

@@ -6,10 +6,12 @@ import com.koreait.alsamo.board.model.BoardEntity;
 import com.koreait.alsamo.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class BoardService {
     @Autowired
     private BoardMapper mapper;
@@ -60,6 +62,13 @@ public class BoardService {
         if (myUtils.getLoginUser() != null) {
             param.setUno(myUtils.getUserPk());
         }
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < param.getBdept(); i++) {
+            sb.append("　");
+        }
+        sb.append("└　");
+        sb.append(param.getBtitle());
+        param.setBtitle(sb.toString());
         return mapper.insReBoard(param);
     }
 

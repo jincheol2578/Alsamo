@@ -15,6 +15,10 @@ function getTodayRecList() {
             return res.json();
         })
         .then((data) => {
+            const boardTitle = document.createElement('div');
+            boardTitle.innerText = '일일 인기글'
+            boardTitle.classList.add('boardTitle');
+            todayBest.append(boardTitle);
             makeList(data, todayBest);
         });
 }
@@ -26,6 +30,10 @@ function getWeekendRecList() {
             return res.json();
         })
         .then((data) => {
+            const boardTitle = document.createElement('div');
+            boardTitle.innerText = '주간 인기글'
+            boardTitle.classList.add('boardTitle');
+            weekendBest.append(boardTitle);
             makeList(data, weekendBest);
         });
 }
@@ -37,6 +45,10 @@ function getNoticeList() {
             return res.json();
         })
         .then((data) => {
+            const boardTitle = document.createElement('div');
+            boardTitle.innerText = '공지사항'
+            boardTitle.classList.add('boardTitle');
+            notice.append(boardTitle);
             makeList(data, notice);
         });
 }
@@ -49,6 +61,8 @@ function getCategoryList() {
         })
         .then((data) => {
             data.result.forEach((item) => {
+                // bcd 2는 공지사항이라 제외
+                if(item.bcd === 2){return;}
                 const board = document.createElement('div');
                 const boardTitle = document.createElement('div');
                 board.classList.add('miniBoard');
