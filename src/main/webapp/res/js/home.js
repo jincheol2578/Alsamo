@@ -1,7 +1,7 @@
 const todayBest = document.querySelector('.todayBest');
 const weekendBest = document.querySelector('.weekendBest');
 const notice = document.querySelector('.notice');
-const miniBoard = document.querySelector('.miniBoard');
+const container = document.querySelector('.container');
 
 getTodayRecList();
 getWeekendRecList();
@@ -15,6 +15,10 @@ function getTodayRecList() {
             return res.json();
         })
         .then((data) => {
+            const boardTitle = document.createElement('div');
+            boardTitle.innerText = '일일 인기글'
+            boardTitle.classList.add('boardTitle');
+            todayBest.append(boardTitle);
             makeList(data, todayBest);
         });
 }
@@ -26,6 +30,10 @@ function getWeekendRecList() {
             return res.json();
         })
         .then((data) => {
+            const boardTitle = document.createElement('div');
+            boardTitle.innerText = '주간 인기글'
+            boardTitle.classList.add('boardTitle');
+            weekendBest.append(boardTitle);
             makeList(data, weekendBest);
         });
 }
@@ -37,6 +45,10 @@ function getNoticeList() {
             return res.json();
         })
         .then((data) => {
+            const boardTitle = document.createElement('div');
+            boardTitle.innerText = '공지사항'
+            boardTitle.classList.add('boardTitle');
+            notice.append(boardTitle);
             makeList(data, notice);
         });
 }
@@ -49,10 +61,14 @@ function getCategoryList() {
         })
         .then((data) => {
             data.result.forEach((item) => {
+                // bcd 2는 공지사항이라 제외
+                if(item.bcd === 2){return;}
                 const board = document.createElement('div');
-                board.classList.add('board');
-                board.innerText = item.bnm;
-                miniBoard.append(board);
+                board.classList.add('miniBoard');
+                const boardTitle = document.createElement('div');
+                boardTitle.innerText = item.bnm;
+                board.append(boardTitle);
+                container.append(board);
                 console.log(item);
                 getBoardList(item, board);
             })
@@ -100,7 +116,7 @@ function makeList(data, menu) {
         let regDate = item.brdt;
         const date = new Date(item.brdt);
         listElem.setAttribute('class','tableContent');
-        if (menu.className === 'todayBest' || menu.className === 'board') {
+        if (menu.className === 'todayBest' || menu.className === 'miniBoard') {
             const hours = ('0' + date.getHours()).slice(-2);
             const minutes = ('0' + date.getMinutes()).slice(-2);
             regDate = hours + ':' + minutes;

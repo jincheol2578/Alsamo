@@ -6,8 +6,8 @@
             <thead class="thead">
             <tr>
                 <th>글번호</th>
-                <th>작성자</th>
                 <th>제목</th>
+                <th>작성자</th>
                 <th>작성일</th>
                 <th>조회수</th>
                 <th>추천수</th>
@@ -19,11 +19,11 @@
             <c:forEach var="item" items="${requestScope.boardList}" varStatus="status">
             <tr id="boardClick" class="boardClick">
                 <td>${item.bno}</td>
+                <td class="bright"
+                    onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">${item.btitle}</td>
                 <td class="" id="${status.index}"
                 <c:if test="${item.uno !=0}">onclick="makeUl(${status.index},${item.uno});"</c:if>>${item.writer}
                 </td>
-                <td class="bright"
-                    onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">${item.btitle}</td>
                 <td>${item.brdt}</td>
                 <td>${item.bhit}</td>
                 <td>${item.rec}</td>
