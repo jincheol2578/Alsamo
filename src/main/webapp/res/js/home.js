@@ -1,7 +1,7 @@
 const todayBest = document.querySelector('.todayBest');
 const weekendBest = document.querySelector('.weekendBest');
 const notice = document.querySelector('.notice');
-const miniBoard = document.querySelector('.miniBoard');
+const container = document.querySelector('.container');
 
 getTodayRecList();
 getWeekendRecList();
@@ -50,9 +50,11 @@ function getCategoryList() {
         .then((data) => {
             data.result.forEach((item) => {
                 const board = document.createElement('div');
-                board.classList.add('board');
-                board.innerText = item.bnm;
-                miniBoard.append(board);
+                const boardTitle = document.createElement('div');
+                board.classList.add('miniBoard');
+                boardTitle.innerText = item.bnm;
+                board.append(boardTitle);
+                container.append(board);
                 console.log(item);
                 getBoardList(item, board);
             })
@@ -100,7 +102,7 @@ function makeList(data, menu) {
         let regDate = item.brdt;
         const date = new Date(item.brdt);
         listElem.setAttribute('class','tableContent');
-        if (menu.className === 'todayBest' || menu.className === 'board') {
+        if (menu.className === 'todayBest' || menu.className === 'miniBoard') {
             const hours = ('0' + date.getHours()).slice(-2);
             const minutes = ('0' + date.getMinutes()).slice(-2);
             regDate = hours + ':' + minutes;
