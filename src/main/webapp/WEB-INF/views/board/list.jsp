@@ -73,15 +73,15 @@
         </ul>
     </div>
 
-    <div class="boardSearch">
+    <div class="board-search">
         <form onsubmit="return false;">
-            <select id="searchType">
+            <select id="searchType" class="form-select">
                 <option value="1">제목+내용</option>
                 <option value="2">제목</option>
                 <option value="3">내용</option>
                 <option value="4">작성자</option>
             </select>
-            <input type="text" id="searchText">
+            <input type="text" id="searchText" class="form-control">
             <button class="btn btn-secondary" id="searchBtn"><i class="fas fa-search" style="color: white"> 검색</i></button>
         </form>
     </div>

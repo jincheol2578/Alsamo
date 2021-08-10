@@ -69,7 +69,6 @@ public class BoardController {
 
     @PostMapping("/write")
     public String write(BoardEntity param) {
-        System.out.println(param);
         if (param.getBidx() == 0) {
             service.insBoard(param);
         } else {
