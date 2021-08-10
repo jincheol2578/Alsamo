@@ -71,3 +71,4 @@
     </div>
 </div>
 <link href="/res/css/admin/styles.css" rel="stylesheet"/>
+<script src="/res/js/admin/user.js"/>

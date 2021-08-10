@@ -12,7 +12,7 @@
 }
 
 /* list . css*/
-.pagination {
+.pagination-list {
     padding-left: 8px;
 }
 
@@ -149,13 +149,12 @@
 #boardClick td:nth-child(2){
     cursor: pointer;
 }
-.pagination{
+.pagination-list{
     text-align: center;
 }
-.pagination li {
-    margin-right: 9px;
+.pagination-list li {
+    margin: 1px 4px;
     display: inline-block;
-
 }
 .active{
     color: red;
@@ -167,3 +166,51 @@
 #pagingBox{
     width: 100%;
 }
+.boardList .thead {
+    border-bottom: 2px solid #50575e;
+}
+.boardList .table {
+    font-size: 14px;
+}
+.boardList tr{
+    height: 50px !important;
+}
+.boardList td{
+    padding-top: 15px;
+}
+.board-no, .board-date, .board-hit, .board-recommend {
+    font-size: 12px;
+}
+.board-no{
+    width: 7%;
+}
+.board-wirter {
+    width: 12%;
+}
+.board-date {
+    padding-top: 9px !important;
+    width: 10%;
+}
+.board-hit {
+    width: 7%;
+}
+.board-recommend {
+    width: 7%;
+}
+.board-title {
+    text-align: start !important;
+}
+.board-search {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+.board-search form {
+    display: grid;
+    grid-template-columns: 3fr 5fr 2fr;
+    grid-gap: 5px;
+}
+.notice {
+    font-weight: bold;
+}
+.notice

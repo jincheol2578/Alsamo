@@ -221,16 +221,16 @@ const upRecBtn = document.getElementById('upRecBtn');
 const downRecBtn = document.getElementById('downRecBtn');
 
 upRecBtn.addEventListener('click', () => {
-    recClicked(1, upRecBtn.className);
+    recClicked(1, upRecBtn.classList);
 });
 downRecBtn.addEventListener('click', () => {
-    recClicked(0, downRecBtn.className);
+    recClicked(0, downRecBtn.classList);
 });
 
 function recClicked(recVal, btnClassName) {
-    if (upRecBtn.className !== 'clicked' && downRecBtn.className !== 'clicked') {
+    if (!upRecBtn.classList.contains('clicked') && !downRecBtn.classList.contains('clicked')) {
         regRec(recVal);
-    } else if (btnClassName === 'clicked') {
+    } else if (btnClassName.contains('clicked')) {
         delRec();
     } else {
         alert('이미 추천한 게시글입니다.')

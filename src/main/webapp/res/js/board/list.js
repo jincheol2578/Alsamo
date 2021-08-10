@@ -72,9 +72,17 @@ function makeNoticeList(data) {
         const bhitElem = document.createElement('td');
         const recElem = document.createElement('td');
 
-        noticeElem.classList.add('boardClick');
+        noticeElem.id = 'boardClick';
+        noticeElem.classList.add('notice');
+        bnoElem.classList.add('board-no');
+        btitleElem.classList.add('bright');
+        btitleElem.classList.add('board-title');
+        writerElem.classList.add('board-writer');
+        brdtElem.classList.add('board-date');
+        bhitElem.classList.add('board-hit');
+        recElem.classList.add('board-recommend')
 
-        bnoElem.append(item.bno);
+        bnoElem.append('공지');
         btitleElem.append(item.btitle);
         writerElem.append(item.writer);
         brdtElem.append(item.brdt);

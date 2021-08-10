@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Naum-Gothic';
+    src: url("../fonts/NanumGothic-Regular.ttf") format('truetype');
+}
+html, head, body {
+    font-family: Naum-Gothic;
+}
 #mark {
     background-color: #333;
     padding: 14px 16px 0px 16px;

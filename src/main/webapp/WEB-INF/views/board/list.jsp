@@ -15,18 +15,18 @@
             </thead>
             <tbody class="notice">
             </tbody>
-            <tbody class="boardList">
+            <tbody>
             <c:forEach var="item" items="${requestScope.boardList}" varStatus="status">
             <tr id="boardClick" class="boardClick">
-                <td>${item.bno}</td>
-                <td class="bright"
+                <td class="board-no">${item.bno}</td>
+                <td class="bright board-title"
                     onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">${item.btitle}</td>
-                <td class="" id="${status.index}"
+                <td class="board-writer" id="${status.index}"
                 <c:if test="${item.uno !=0}">onclick="makeUl(${status.index},${item.uno});"</c:if>>${item.writer}
                 </td>
-                <td>${item.brdt}</td>
-                <td>${item.bhit}</td>
-                <td>${item.rec}</td>
+                <td class="board-date">${item.brdt}</td>
+                <td class="board-hit">${item.bhit}</td>
+                <td class="board-recommend">${item.rec}</td>
             </tr>
             </c:forEach>
             </tbody>
@@ -45,7 +45,7 @@
     </div>
 
     <div id="pagingBox">
-        <ul class="pagination">
+        <ul class="pagination-list">
             <c:if test="${paging.curRange ne 1}">
                 <li class="firstPage" onclick="moveToPage(${param.bcd},1)">&#171;</li>
             </c:if>
@@ -73,15 +73,15 @@
         </ul>
     </div>
 
-    <div class="boardSearch">
+    <div class="board-search">
         <form onsubmit="return false;">
-            <select id="searchType">
+            <select id="searchType" class="form-select">
                 <option value="1">제목+내용</option>
                 <option value="2">제목</option>
                 <option value="3">내용</option>
                 <option value="4">작성자</option>
             </select>
-            <input type="text" id="searchText">
+            <input type="text" id="searchText" class="form-control">
             <button class="btn btn-secondary" id="searchBtn"><i class="fas fa-search" style="color: white"> 검색</i></button>
         </form>
     </div>
