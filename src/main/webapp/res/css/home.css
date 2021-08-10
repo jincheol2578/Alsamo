@@ -44,5 +44,5 @@ ul .rankTable {
 }
 .mainTitle{
     font-size: 16px;
-
+grid-template-columns: 0.3fr 3fr 0.2fr;
 }

@@ -478,3 +478,12 @@
 .card-body .Card-body-content, .dataTable-table,.Card-body-input{
     margin-top: 10px;
 }
+/* board/write */
+
+#writeFrm,.note-editor,#writeFrm .btn{
+    margin-top: 8px;
+}
+#infoWriterCon{
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr;
+}
