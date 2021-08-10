@@ -4871,3 +4871,6 @@ li.wb-otherproject-link {
     }
 }
 /**/
+#ulContainer ul {
+    margin: 0;
+}

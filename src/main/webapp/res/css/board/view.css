@@ -118,6 +118,65 @@
     display: flex;
     justify-content: center;
 }
-#downRecBtn{
+
+#downRecBtn {
     margin-left: 5px;
+}
+
+.viewContainer .ReplyDelUpdContainer a {
+    text-decoration: none;
+    color: black;
+}
+
+#repctnt {
+    margin-top: 5px;
+}
+
+.viewContainer .repFrmContainer {
+    margin-top: 15px;
+}
+
+#replyList #repConOnBott {
+    display: grid;
+    text-decoration: none;
+    grid-template-columns: 0.3fr 2fr 0.5fr 0.2fr;
+    grid-template-row: auto;
+    border-bottom: 1px solid #dee2e6;
+    margin: 10px 0px 5px 0px;
+    padding-bottom: 10px;
+}
+
+#repConOnBott .child1 {
+    word-break: break-all;
+    margin-right: 10px;
+}
+
+.reReplyFrm {
+    display: grid;
+    grid-template-columns: 0.3fr 2fr 0.5fr 0.2fr;
+    grid-column: 1/5;
+    margin-top: 10px;
+}
+
+.reReplyFrm .reRepName {
+    grid-column: 1/2;
+    height: 30px;
+}
+
+.reReplyFrm .reRepPwd {
+    grid-column: 1/2;
+    height: 30px;
+}
+
+.reReplyFrm .reRepCtnt {
+    grid-column: 2/3;
+    grid-row: 1/3;
+    margin: 0 5px 0 5px;
+}
+
+.reReplyFrm .btn {
+    grid-column: 4/5;
+    grid-row: 1/2;
+    width: 46px;
+    height: 32px;
 }

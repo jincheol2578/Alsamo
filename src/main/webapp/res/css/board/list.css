@@ -12,7 +12,7 @@
 }
 
 /* list . css*/
-.pagination {
+.pagination-list {
     padding-left: 8px;
 }
 
@@ -149,13 +149,12 @@
 #boardClick td:nth-child(2){
     cursor: pointer;
 }
-.pagination{
+.pagination-list{
     text-align: center;
 }
-.pagination li {
-    margin-right: 9px;
+.pagination-list li {
+    margin: 1px 4px;
     display: inline-block;
-
 }
 .active{
     color: red;
@@ -166,4 +165,17 @@
 }
 #pagingBox{
     width: 100%;
+}
+.boardList .table {
+    font-size: 15px;
+}
+.boardList tr{
+    vertical-align: center;
+    height: 45px;
+}
+.board-no, .board-date, .board-hit, .board-recommend {
+    font-size: 13px;
+}
+.board-title {
+    text-align: start !important;
 }

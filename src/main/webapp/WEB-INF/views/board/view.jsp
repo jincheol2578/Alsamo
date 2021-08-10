@@ -37,14 +37,7 @@
 
         </div>
 
-        <div class="ReplyDelUpdContainer">
-            <a href="/board/write?bcd=${param.bcd}&bno=${param.bno}">답글</a>
 
-            <c:if test="${sessionScope.loginUser.uno eq requestScope.board.uno || requestScope.board.uno == 0}">
-                <a href="/board/delete?bcd=${param.bcd}&bno=${param.bno}&delete=1">삭제</a>
-                <a href="/board/modify?bcd=${param.bcd}&bno=${param.bno}&modify=1">수정</a>
-            </c:if>
-        </div>
         <div class="repFrmContainer">
             <form id="repFrm" onsubmit="return false;">
                 <div class="repIdPwContainer">
@@ -67,23 +60,20 @@
             </form>
             <div id="replyList" data-user-pk="${sessionScope.loginUser.uno}"></div>
         </div>
+        <div class="ReplyDelUpdContainer">
+            <button class="btn btn-outline-info"><a href="/board/write?bcd=${param.bcd}&bno=${param.bno}">답글</a>
+            </button>
+
+            <c:if test="${sessionScope.loginUser.uno eq requestScope.board.uno || requestScope.board.uno == 0}">
+                <button class="btn btn-outline-info"><a href="/board/delete?bcd=${param.bcd}&bno=${param.bno}&delete=1">삭제</a>
+                </button>
+                <button class="btn btn-outline-info"><a href="/board/modify?bcd=${param.bcd}&bno=${param.bno}&modify=1">수정</a>
+                </button>
+            </c:if>
+        </div>
     </div>
 </div>
-<%--                <c:if test="${empty sessionScope.loginUser}">--%>
-<%--                    <div class="repIdPwContainer">--%>
-<%--                        <input type="text" class="form-control" id="repnm" placeholder="이름">--%>
-<%--                        <input type="password" class="form-control" id="reppw" placeholder="비밀번호">--%>
-<%--                </c:if>--%>
-<%--                <input type="button" class="btn btn-secondary" id="insBtn" value="작성">--%>
-<%--                    </div>--%>
-<%--                <div class="repTxtArea">--%>
-<%--                    <textarea id="repctnt" class="form-control" placeholder="댓글을 입력하세요"></textarea>--%>
-<%--                </div>--%>
-<%--            </form>--%>
-<%--            <div id="replyList" data-user-pk="${sessionScope.loginUser.uno}"></div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-</div>
-</div>
+
+
 <script defer src="/res/js/board/view.js"></script>
 <link href="/res/css/board/view.css" rel="stylesheet"/>

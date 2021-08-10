@@ -88,12 +88,17 @@ function makeReplyList(data) {
         const repElem2 = document.createElement('div');
         const repElem3 = document.createElement('div');
         const repElem4 = document.createElement('div');
+        repElem2.setAttribute('class','child1');
+        repElem4.setAttribute('class','child4');
         repElem1.append(item.repnm);
         repElem2.append(item.repctnt);
         repElem3.append(item.reprdt);
+
+        liElem.setAttribute('id','repConOnBott');
         // 자기 댓글이거나 익명댓글인 경우 삭제 버튼 만들어주기
         if (parseInt(loginUserPk) === item.uno || item.uno === 0) {
             const delBtn = document.createElement('button');
+            delBtn.setAttribute('class','btn btn-secondary  btn-sm');
             let promptPw = null;
 
             //삭제버튼 클릭시
@@ -123,15 +128,21 @@ function makeReplyList(data) {
             const inputReppw = document.createElement('input');
             const txtRepctnt = document.createElement('textarea');
             const inputReBtn = document.createElement('input');
+            const divForm = document.createElement('div');
 
             formElem.onsubmit = 'return false;';
             formElem.id = 'reReplyFrm' + item.repno;
+            formElem.setAttribute('class','reReplyFrm');
             inputRepnm.type = 'text';
-            inputRepnm.classList.add('reRepName');
+            inputRepnm.setAttribute('class','reRepName form-control');
+            inputRepnm.setAttribute('placeholder','아이디');
             inputReppw.type = 'password';
-            inputReppw.classList.add('reRepPwd');
-            txtRepctnt.classList.add('reRepCtnt');
+            inputReppw.setAttribute('class','reRepPwd form-control');
+            inputReppw.setAttribute('placeholder','비밀번호');
+            txtRepctnt.setAttribute('class','reRepCtnt form-control');
+            txtRepctnt.setAttribute('placeholder','내용');
             inputReBtn.type = 'button';
+            inputReBtn.setAttribute('class','btn btn-secondary btn-sm');
             inputReBtn.value = '작성';
 
             /*
@@ -142,9 +153,11 @@ function makeReplyList(data) {
                 if (isNaN(parseInt(loginUserPk))) {
                     formElem.append(inputRepnm);
                     formElem.append(inputReppw);
+
                 }
                 formElem.append(txtRepctnt);
                 formElem.append(inputReBtn);
+
                 liElem.append(formElem);
             } else {
                 document.getElementById('reReplyFrm' + item.repno).remove();
@@ -221,16 +234,16 @@ const upRecBtn = document.getElementById('upRecBtn');
 const downRecBtn = document.getElementById('downRecBtn');
 
 upRecBtn.addEventListener('click', () => {
-    recClicked(1, upRecBtn.className);
+    recClicked(1, upRecBtn.classList);
 });
 downRecBtn.addEventListener('click', () => {
-    recClicked(0, downRecBtn.className);
+    recClicked(0, downRecBtn.classList);
 });
 
 function recClicked(recVal, btnClassName) {
-    if (upRecBtn.className !== 'clicked' && downRecBtn.className !== 'clicked') {
+    if (!upRecBtn.classList.contains('clicked') && !downRecBtn.classList.contains('clicked')) {
         regRec(recVal);
-    } else if (btnClassName === 'clicked') {
+    } else if (btnClassName.contains('clicked')) {
         delRec();
     } else {
         alert('이미 추천한 게시글입니다.')
