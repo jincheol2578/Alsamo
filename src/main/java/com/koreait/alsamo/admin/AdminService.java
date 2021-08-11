@@ -47,7 +47,10 @@ public class AdminService {
     public int updUser(UserDTO param) {
         try {
             UserEntity userEntity = (UserEntity) session.getAttribute("loginAdmin");
-            if (userEntity != null && userEntity.getAuthno() == 1) {
+            if ((param.getAuthno() == 2 || param.getAuthno() == 1) && userEntity.getAuthno() != 1) {
+                return 0;
+            }
+            if (userEntity.getAuthno() == 2 || userEntity.getAuthno() == 1 ) {
                 return mapper.updUser(param);
             }
         } catch (Exception e) {

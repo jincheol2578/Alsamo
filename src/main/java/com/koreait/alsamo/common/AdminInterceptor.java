@@ -14,6 +14,7 @@ public class AdminInterceptor implements HandlerInterceptor {
         if (loginAdmin != null && (loginAdmin.getAuthno() == 1 || loginAdmin.getAuthno() == 2)) {
             return true;
         }
+        response.sendRedirect("/admin/login");
         return false;
     }
 

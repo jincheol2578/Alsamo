@@ -33,8 +33,8 @@ function getBoardList(page) {
                 const trElem = document.createElement('tr');
                 const chkBoxElem = document.createElement('td');
                 const bnoElem = document.createElement('td');
-                const writerElem = document.createElement('td');
                 const btitleElem = document.createElement('td');
+                const writerElem = document.createElement('td');
                 const hitElem = document.createElement('td');
                 const recElem = document.createElement('td');
                 const brdtElem = document.createElement('td');
@@ -49,16 +49,17 @@ function getBoardList(page) {
                 chkBoxElem.append(labelElem);
 
                 bnoElem.innerText = item.bno;
-                writerElem.innerText = item.writer;
                 btitleElem.innerText = item.btitle;
+                btitleElem.classList.add('board-title');
+                writerElem.innerText = item.writer;
                 hitElem.innerText = item.bhit;
                 recElem.innerText = item.rec;
                 brdtElem.innerText = item.brdt;
 
                 trElem.append(chkBoxElem);
                 trElem.append(bnoElem);
-                trElem.append(writerElem);
                 trElem.append(btitleElem);
+                trElem.append(writerElem);
                 trElem.append(hitElem);
                 trElem.append(recElem);
                 trElem.append(brdtElem);
@@ -70,10 +71,14 @@ function getBoardList(page) {
 // 페이징
 function pagination(data) {
     const pageBoxElem = document.createElement('ul');
+    pageBoxElem.classList.add('pagination-list');
 
     for (let i = data.startPage; i <= data.endPage; i++) {
         const pageNumElem = document.createElement('li');
         pageNumElem.innerText = i;
+        if (data.curPage === i) {
+            pageNumElem.classList.add('active');
+        }
         pageNumElem.addEventListener('click', () => {
             getBoardList(i);
         });
@@ -98,16 +103,24 @@ checkBoxElem.addEventListener('click', () => {
     }
 });
 
+const delBtnElem = document.getElementById('deleteBtn');
+delBtnElem.addEventListener('click', () => {
+    delBoard();
+});
+
 function delBoard() {
     const delChkVal = new Array;
 
-    if (confirm('삭제 하시겠습니까?')) {
-        for (let i = 0; i < delChkElem.length; i++) {
-            if (delChkElem[i].checked) {
-                delChkVal.push(delChkElem[i].value);
-            }
+    for (let i = 0; i < delChkElem.length; i++) {
+        if (delChkElem[i].checked) {
+            delChkVal.push(delChkElem[i].value);
         }
-
+    }
+    if (delChkVal.length === 0) {
+        alert('삭제할 게시글을 선택해주세요.');
+        return;
+    }
+    if (confirm('삭제 하시겠습니까?')) {
         fetch('/admin/board', {
             method: 'DELETE',
             body: JSON.stringify({delChk: delChkVal}),
@@ -132,7 +145,7 @@ function delBoard() {
 const tnameElem = document.getElementById('txtTag');
 
 tnameElem.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && tnameElem.value !== '') {
         regTag();
     }
 });
@@ -173,18 +186,28 @@ function getTags() { // 태그 가져오기
 function makeTagList(data) {
     const tagBoxElem = document.getElementById('tagBox');
     tagBoxElem.innerText = '';
-    data.tags.forEach((item) => {
+    data.tags.forEach((item, index) => {
         const tagElem = document.createElement('li');
-        const delElem = document.createElement('button')
-        tagElem.innerText = item.tname;
-        delElem.className = 'tagDelBtn';
+        const tagArticle = document.createElement('div');
+        const tagNameElem = document.createElement('div');
+        const delElem = document.createElement('button');
+
+
+        tagElem.style.backgroundColor = randomColor();
+        tagElem.classList.add('tag-item');
+        tagArticle.classList.add('tag-article');
+        tagNameElem.innerText = item.tname;
+        tagNameElem.classList.add('tag-name');
+        delElem.innerHTML = '<i class="fas fa-times"></i>';
 
         delElem.addEventListener('click', () => {
             if (confirm("삭제 하시겠습니까?")) {
                 delTag(item.tno);
             }
         })
-        tagElem.append(delElem);
+        tagArticle.append(tagNameElem);
+        tagArticle.append(delElem);
+        tagElem.append(tagArticle);
         tagBoxElem.append(tagElem);
     });
 }
@@ -199,6 +222,12 @@ function delTag(tno) { // 태그삭제
         .then((data) => {
             getTags();
         })
+}
+
+function randomColor() {
+    const Colors = ['#74b9ff', '#a29bfe', '#6c5ce7', '#b2bec3'
+        , '#fab1a0', '#636e72', '#fdcb6e', '#e17055'];
+    return Colors[Math.floor(Math.random() * Colors.length)];
 }
 
 /*------------------------Category-------------------------*/
@@ -219,23 +248,39 @@ function getCategoryList() {
                 const categoryItem = document.createElement('li');
                 const categoryContent = document.createElement('input');
 
+                categoryItem.classList.add('category-item');
+                categoryContent.classList.add('category-content');
+                categoryContent.classList.add('form-control');
                 categoryContent.type = 'text';
                 categoryContent.value = item.bnm;
+                categoryContent.readOnly = true;
 
                 categoryItem.append(categoryContent);
                 if (item.bcd > 2) {
                     const categoryDelete = document.createElement('button');
+                    const categoryOrd = document.createElement('div');
                     const categoryOrdUp = document.createElement('button');
                     const categoryOrdDown = document.createElement('button');
 
                     // TODO: X, 화살표 아이콘으로 바꿔야함
-                    categoryDelete.innerText = 'X';
-                    categoryOrdUp.innerText = '↑';
-                    categoryOrdDown.innerText = '↓';
+                    categoryDelete.innerHTML = '<i class="fas fa-trash-alt"></i>';
+                    categoryOrdUp.innerHTML = '<i class="fas fa-caret-up"></i>';
+                    categoryOrdUp.classList.add('category-ord-up');
+                    categoryOrdDown.innerHTML = '<i class="fas fa-caret-down"></i>';
+                    categoryOrdDown.classList.add('category-ord-down');
 
-                    //수정
-                    categoryContent.addEventListener('focusout',() => {
-                        updCategory(item.bcd, categoryContent.value);
+                    //fucus 상태일때 readonly 해제
+                    categoryContent.addEventListener('focus', () => {
+                        categoryContent.readOnly = false;
+                    });
+                    //focusout 일때 readonly 설정
+                    categoryContent.addEventListener('focusout', () => {
+                        categoryContent.readOnly = true;
+                    });
+                    categoryContent.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter') {
+                            updCategory(item.bcd, categoryContent.value);
+                        }
                     });
 
                     //삭제
@@ -247,17 +292,18 @@ function getCategoryList() {
 
                     //순서 ↑
                     categoryOrdUp.addEventListener('click', () => {
-                        updCategoryOrd('up',item.cord);
+                        updCategoryOrd('up', item.cord);
                     });
 
                     //순서 ↓
                     categoryOrdDown.addEventListener('click', () => {
-                        updCategoryOrd('down',item.cord);
+                        updCategoryOrd('down', item.cord);
                     });
 
+                    categoryOrd.append(categoryOrdUp);
+                    categoryOrd.append(categoryOrdDown);
+                    categoryItem.append(categoryOrd);
                     categoryItem.append(categoryDelete);
-                    categoryItem.append(categoryOrdUp);
-                    categoryItem.append(categoryOrdDown);
                 } else {
                     categoryContent.readOnly = true;
                 }
@@ -268,11 +314,15 @@ function getCategoryList() {
 
 // 카테고리 등록
 const categoryElem = document.getElementById('txtCategory');
+const regCategoryBtn = document.getElementById('regCategory');
 
 categoryElem.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         regCategory();
     }
+});
+regCategoryBtn.addEventListener('click', (e) => {
+    regCategory();
 });
 
 function regCategory() {
@@ -368,7 +418,7 @@ function updCategoryOrd(ordType, cord) {
             return res.json();
         })
         .then((data) => {
-            if (data.result === 0){
+            if (data.result === 0) {
                 alert('수정 실패');
             } else {
                 getCategoryList();
