@@ -501,3 +501,7 @@ html, head, body {
 .link:hover {
     text-decoration-line: underline;
 }
+
+#join-submit:hover {
+    color: #56ff41;
+}

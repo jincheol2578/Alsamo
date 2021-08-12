@@ -50,7 +50,7 @@
             <input type="text" class="form-control writeTitle" name="btitle" placeholder="제목" maxlength="40"
                    value="${requestScope.board.btitle}">
             <c:if test="${empty sessionScope.loginUser && param.modify ne 1}">
-                <input type="password" class="form-control" name="bpw" placeholder="비밀번호" value="${param.bpw}">
+                <input type="password" class="form-control" name="bpw" placeholder="비밀번호" maxlength="10" value="${param.bpw}">
             </c:if>
         </div>
         <textarea id="summernote" name="bctnt">${requestScope.board.bctnt}</textarea>

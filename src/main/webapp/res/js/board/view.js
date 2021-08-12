@@ -84,11 +84,16 @@ function makeReplyList(data) {
 
     data.forEach((item) => {
         const liElem = document.createElement('li');
+        const repBoxElem = document.createElement('div');
         const repElem1 = document.createElement('div');
         const repElem2 = document.createElement('div');
         const repElem3 = document.createElement('div');
         const repElem4 = document.createElement('div');
-        repElem2.setAttribute('class','child1');
+
+        repBoxElem.classList.add('rep-box');
+        repElem1.setAttribute('class','child1');
+        repElem2.setAttribute('class','child2');
+        repElem3.setAttribute('class','child3');
         repElem4.setAttribute('class','child4');
         repElem1.append(item.repnm);
         repElem2.append(item.repctnt);
@@ -97,7 +102,9 @@ function makeReplyList(data) {
         liElem.setAttribute('class','repConOnBott');
         // 자기 댓글이거나 익명댓글인 경우 삭제 버튼 만들어주기
         if (parseInt(loginUserPk) === item.uno || item.uno === 0) {
-            const delBtn = document.createElement('button');
+            const delBtn = document.createElement('input');
+            delBtn.type = 'button';
+            delBtn.value = '삭제';
             delBtn.setAttribute('class','btn btn-secondary  btn-sm');
             let promptPw = null;
 
@@ -124,15 +131,20 @@ function makeReplyList(data) {
             liElem.classList.toggle("reReply");
 
             const formElem = document.createElement('form');
+            const reReplyChild1 = document.createElement('div');
+            const reReplyChild2 = document.createElement('div');
+            const reReplyChild3 = document.createElement('div');
             const inputRepnm = document.createElement('input');
             const inputReppw = document.createElement('input');
             const txtRepctnt = document.createElement('textarea');
             const inputReBtn = document.createElement('input');
-            const divForm = document.createElement('div');
 
             formElem.onsubmit = 'return false;';
             formElem.id = 'reReplyFrm' + item.repno;
             formElem.setAttribute('class','reReplyFrm');
+            reReplyChild1.classList.add('re-rep-box1');
+            reReplyChild2.classList.add('re-rep-box2');
+            reReplyChild3.classList.add('re-rep-box3');
             inputRepnm.type = 'text';
             inputRepnm.setAttribute('class','reRepName form-control');
             inputRepnm.setAttribute('placeholder','아이디');
@@ -149,14 +161,16 @@ function makeReplyList(data) {
             댓글 클릭했을때 liElem에 'reReply'클래스 추가해줌
             'reReply' 클래스가 있으면 대댓글창 생성 없으면 삭제
             */
-            if (liElem.className === "reReply") {
+            if (liElem.classList.contains('reReply')) {
                 if (isNaN(parseInt(loginUserPk))) {
-                    formElem.append(inputRepnm);
-                    formElem.append(inputReppw);
-
+                    reReplyChild1.append(inputRepnm);
+                    reReplyChild1.append(inputReppw);
+                    formElem.append(reReplyChild1);
                 }
-                formElem.append(txtRepctnt);
-                formElem.append(inputReBtn);
+                reReplyChild2.append(txtRepctnt);
+                reReplyChild3.append(inputReBtn);
+                formElem.append(reReplyChild2);
+                formElem.append(reReplyChild3);
 
                 liElem.append(formElem);
             } else {
@@ -192,10 +206,11 @@ function makeReplyList(data) {
 
 
         ulElem.append(liElem);
-        liElem.append(repElem1);
-        liElem.append(repElem2);
-        liElem.append(repElem3);
-        liElem.append(repElem4);
+        repBoxElem.append(repElem1);
+        repBoxElem.append(repElem2);
+        repBoxElem.append(repElem3);
+        repBoxElem.append(repElem4);
+        liElem.append(repBoxElem);
     });
 }
 

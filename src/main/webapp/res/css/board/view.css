@@ -1,7 +1,11 @@
+.containerCenter {
+    margin-bottom: 30px;
+}
+
 .boardContainer {
     box-sizing: border-box;
     width: 100%;
-    margin: 12px 12px 0 12px;
+    margin: 12px 12px 0px 12px;
     min-height: 912px;
     height: 100%;
 }
@@ -42,16 +46,16 @@
 .viewContainer {
     box-sizing: border-box;
     padding: 15px;
+    font-size: 14px;
 }
 
 .title-row {
     box-sizing: border-box;
-    background-color: #dee2e6;
-    border-top: 1px solid #dee2e6;
-    border-bottom: 1px solid #dee2e6;
     width: 100%;
-    padding: 7px 12px 7px 12px;
-    text-align: center;
+    background-color: #f8f9fa;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    padding: 12px 12px;
 }
 
 .title-row .boardtitle {
@@ -60,6 +64,8 @@
     box-sizing: border-box;
     height: 25px;
     text-align: left;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .title-row span {
@@ -68,7 +74,7 @@
 }
 
 .boardInfo-row {
-    padding: 5px 11px 5px 11px;
+    padding: 5px 12px;
     border-bottom: 1px solid #dee2e6;
 }
 
@@ -81,11 +87,15 @@
 
 }
 
+.boardCtnt-row {
+    padding: 24px 10px;
+}
+
 .boardCtnt-row .boardCtnt {
     box-sizing: border-box;
     padding: 1rem;
     margin: 0;
-    height: 560px;
+    height: 100%;
     width: 100%
 }
 
@@ -105,12 +115,42 @@
     padding: 0 3px 0 0;
 }
 
-.repIdPwContainer {
-    display: flex;
+#repFrm {
+    margin-bottom: 30px;
 }
 
-.repFrmContainer .repIdPwContainer .btn {
-    margin-left: 450px;
+#repFrm div {
+    margin-bottom: 6px;
+}
+
+.repIdPwContainer {
+    width: 100%;
+}
+
+.repIdPwContainer #repnm {
+    display: inline-block;
+    width: 20%;
+    min-width: 90px;
+    font-size: 14px;
+}
+
+.repIdPwContainer #reppw {
+    display: inline-block;
+    width: 20%;
+    min-width: 90px;
+    font-size: 14px;
+}
+
+.repFrmContainer #repFrm #repctnt {
+    font-size: 14px;
+}
+
+.repFrmContainer .repBtn {
+    text-align: right;
+}
+
+.repFrmContainer #repFrm #insBtn {
+    font-size: 14px;
 }
 
 .boardRec-row {
@@ -118,64 +158,74 @@
     justify-content: center;
 }
 
+.boardRec-row .btn {
+    font-size: 14px;
+}
+
 #downRecBtn {
     margin-left: 5px;
 }
+
+.viewContainer { width: 100% }
 
 .viewContainer .ReplyDelUpdContainer a {
     text-decoration: none;
     color: black;
 }
 
-#repctnt {
-    margin-top: 5px;
+.ReplyDelUpdContainer {
+    text-align: right;
+    margin: 30px 0;
+}
+
+.ReplyDelUpdContainer .btn {
+    font-size: 14px;
 }
 
 .viewContainer .repFrmContainer {
     margin-top: 15px;
 }
 
-#replyList #repConOnBott {
-    display: grid;
-    text-decoration: none;
-    grid-template-columns: 0.3fr 2fr 0.5fr 0.2fr;
-    grid-template-row: auto;
+#replyList ul {
+    padding: 0;
+    font-size: 14px;
+}
+
+#replyList .repConOnBott {
+    list-style: none;
     border-bottom: 1px solid #dee2e6;
     margin: 10px 0px 5px 0px;
     padding-bottom: 10px;
 }
 
-#repConOnBott .child1 {
+.repConOnBott .rep-box {
+    display: grid;
+    grid-template-columns: 1.5fr 6fr 1.5fr 1fr;
+    grid-gap: 5px;
+}
+
+.repConOnBott .child2 {
     word-break: break-all;
     margin-right: 10px;
 }
 
+.repConOnBott .child3 {
+    font-size: 12px;
+    text-align: center;
+}
+
 .reReplyFrm {
     display: grid;
-    grid-template-columns: 0.3fr 2fr 0.5fr 0.2fr;
-    grid-column: 1/5;
+    grid-template-columns: 1.5fr 7.5fr 1fr;
+    grid-gap: 5px;
     margin-top: 10px;
 }
 
-.reReplyFrm .reRepName {
-    grid-column: 1/2;
-    height: 30px;
+.reReplyFrm .re-rep-box1 input {
+    min-width: 85px;
 }
 
-.reReplyFrm .reRepPwd {
-    grid-column: 1/2;
-    height: 30px;
-}
-
-.reReplyFrm .reRepCtnt {
-    grid-column: 2/3;
-    grid-row: 1/3;
-    margin: 0 5px 0 5px;
-}
-
-.reReplyFrm .btn {
-    grid-column: 4/5;
-    grid-row: 1/2;
-    width: 46px;
-    height: 32px;
+.reReplyFrm .re-rep-box2 textarea {
+    height: 100%;
+    width: 100%;
 }
