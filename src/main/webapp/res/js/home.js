@@ -69,7 +69,6 @@ function getCategoryList() {
                 boardTitle.innerText = item.bnm;
                 board.append(boardTitle);
                 container.append(board);
-                console.log(item);
                 getBoardList(item, board);
             })
         });
