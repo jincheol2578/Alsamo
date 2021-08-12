@@ -118,7 +118,6 @@ document.getElementById('searchBtn').addEventListener('click', () => {
             + "&searchType=" + searchType.value + "&searchText=" + searchText.value;
     }
 });
-
 // 페이지 이동
 function moveToPage(bcd, page) {
     let url = "/board/list?bcd=" + bcd
@@ -135,5 +134,3 @@ if (searchTypeVal !== null && searchTextVal !== null) {
     searchType.value = searchTypeVal;
     searchText.value = searchTextVal;
 }
-
-

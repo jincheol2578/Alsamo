@@ -15,21 +15,23 @@
             </thead>
             <tbody class="notice">
             </tbody>
-            <tbody>
-            <c:forEach var="item" items="${requestScope.boardList}" varStatus="status">
-                <tr id="boardClick" class="boardClick">
-                    <td class="board-no">${item.bno}</td>
-                    <td class="bright board-title"
-                        onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">${item.btitle}</td>
-                    <td class="board-writer" id="${status.index}"
-                        <c:if test="${item.uno !=0}">onclick="makeUl(${status.index},${item.uno});"</c:if>>${item.writer}
-                    </td>
-                    <td class="board-date">${item.brdt}</td>
-                    <td class="board-hit">${item.bhit}</td>
-                    <td class="board-recommend">${item.rec}</td>
-                </tr>
-            </c:forEach>
-            </tbody>
+            <c:if test="${param.bcd ne 2}">
+                <tbody>
+                <c:forEach var="item" items="${requestScope.boardList}" varStatus="status">
+                    <tr id="boardClick" class="boardClick">
+                        <td class="board-no">${item.bno}</td>
+                        <td class="bright board-title"
+                            onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">${item.btitle}</td>
+                        <td class="board-writer" id="${status.index}"
+                            <c:if test="${item.uno !=0}">onclick="makeUl(${status.index},${item.uno});"</c:if>>${item.writer}
+                        </td>
+                        <td class="board-date">${item.brdt}</td>
+                        <td class="board-hit">${item.bhit}</td>
+                        <td class="board-recommend">${item.rec}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </c:if>
         </table>
     </div>
 
@@ -38,7 +40,9 @@
         <div class="float-right">
             <c:if test="${param.bcd > 2}">
                 <a href="write?bcd=${param.bcd}">
-                    <button type="button" class="btn btn-secondary"><i class="fas fa-pencil-alt" style="color: white"></i> 글쓰기</button>
+                    <button type="button" class="btn btn-secondary"><i class="fas fa-pencil-alt"
+                                                                       style="color: white"></i> 글쓰기
+                    </button>
                 </a>
             </c:if>
         </div>
@@ -82,11 +86,11 @@
                 <option value="4">작성자</option>
             </select>
             <input type="text" id="searchText" class="form-control">
-            <button class="btn btn-secondary" id="searchBtn"><i class="fas fa-search" style="color: white"> 검색</i></button>
+            <button class="btn btn-secondary" id="searchBtn"><i class="fas fa-search" style="color: white"> 검색</i>
+            </button>
         </form>
     </div>
 </div>
-
 
 
 <script src="/res/js/board/list.js"></script>

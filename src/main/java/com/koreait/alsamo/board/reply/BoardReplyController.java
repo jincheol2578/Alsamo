@@ -44,12 +44,13 @@ public class BoardReplyController {
         return data;
     }
 
-    @PutMapping("/reply")
+    // 사용 X
+/*    @PutMapping("/reply")
     public Map<String, Integer> updReply(@RequestBody BoardReplyEntity param){
         int result = service.updReply(param);
         Map<String,Integer> data = new HashMap<>();
 
         data.put("result", result);
         return data;
-    }
+    }*/
 }

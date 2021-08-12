@@ -16,7 +16,7 @@ function getTodayRecList() {
         })
         .then((data) => {
             const boardTitle = document.createElement('div');
-            boardTitle.innerText = '일일 인기글'
+            boardTitle.innerHTML = '<i class="far fa-thumbs-up"></i> 일일 인기글'
             boardTitle.classList.add('boardTitle');
             todayBest.append(boardTitle);
             makeList(data, todayBest);
@@ -31,7 +31,7 @@ function getWeekendRecList() {
         })
         .then((data) => {
             const boardTitle = document.createElement('div');
-            boardTitle.innerText = '주간 인기글'
+            boardTitle.innerHTML = '<i class="far fa-thumbs-up"></i> 주간 인기글'
             boardTitle.classList.add('boardTitle');
             weekendBest.append(boardTitle);
             makeList(data, weekendBest);
@@ -40,13 +40,13 @@ function getWeekendRecList() {
 
 // 공지사항
 function getNoticeList() {
-    fetch('/board/notice/1')
+    fetch('/board/notice/main')
         .then((res) => {
             return res.json();
         })
         .then((data) => {
             const boardTitle = document.createElement('div');
-            boardTitle.innerText = '공지사항'
+            boardTitle.innerHTML = '<i class="fas fa-bullhorn"></i> 공지사항'
             boardTitle.classList.add('boardTitle');
             notice.append(boardTitle);
             makeList(data, notice);
@@ -65,8 +65,10 @@ function getCategoryList() {
                 if(item.bcd === 2){return;}
                 const board = document.createElement('div');
                 const boardTitle = document.createElement('div');
+                board.classList.add('main-board');
                 board.classList.add('miniBoard');
-                boardTitle.innerText = item.bnm;
+                boardTitle.innerHTML = '<i class="fas fa-clipboard-list"></i> ' + item.bnm;
+                boardTitle.classList.add('boardTitle');
                 board.append(boardTitle);
                 container.append(board);
                 getBoardList(item, board);
@@ -81,6 +83,7 @@ function getBoardList(item, board) {
         })
         .then((data) => {
             makeList(data.board, board);
+            console.log(data.board);
         });
 }
 
@@ -115,11 +118,11 @@ function makeList(data, menu) {
         let regDate = item.brdt;
         const date = new Date(item.brdt);
         listElem.setAttribute('class','tableContent');
-        if (menu.className === 'todayBest' || menu.className === 'miniBoard') {
+        if (menu.classList.contains('todayBest') || menu.classList.contains('miniBoard')) {
             const hours = ('0' + date.getHours()).slice(-2);
             const minutes = ('0' + date.getMinutes()).slice(-2);
             regDate = hours + ':' + minutes;
-        } else if (menu.className === 'weekendBest' || menu.className === 'notice') {
+        } else if (menu.classList.contains('weekendBest') || menu.classList.contains('notice')) {
             const month = ('0' + (date.getMonth() + 1)).slice(-2);
             const day = ('0' + date.getDate()).slice(-2);
             regDate = month + '.' + day;
@@ -129,6 +132,7 @@ function makeList(data, menu) {
             location.href = '/board/view?bcd='+item.bcd+"&bno="+item.bno;
         })
 
+        titleElem.classList.add('item-title');
         titleElem.innerText = item.btitle;
         recElem.innerText = item.rec;
         categoryElem.innerText = item.bnm;

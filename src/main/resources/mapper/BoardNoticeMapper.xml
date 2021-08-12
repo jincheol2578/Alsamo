@@ -9,10 +9,16 @@
         VALUES (#{bno})
     </insert>
 
+    <select id="selNotice" resultType="Integer">
+        SELECT COUNT(*) FROM t_board_notice
+        WHERE bno = #{bno}
+    </select>
+
     <select id="selNoticeList" resultType="BoardDomain">
         SELECT A.bno, A.uno, A.bcd, A.btitle, A.bctnt, A.bidx, A.bord
         , A.bdept, A.brdt
         , B.unm as writer
+        , E.bnm
         , (SELECT COUNT(D.bno)
         FROM t_board_recommendation AS D
         WHERE D.bno = A.bno AND rec = 1) AS rec
@@ -21,9 +27,31 @@
         ON A.bno = C.bno
         LEFT JOIN t_user as B
         ON A.uno = B.uno
+        LEFT JOIN t_board_category as E
+        ON A.bcd = E.bcd
         where A.bdel = 0 AND A.bcd > 1
         <if test="bcd > 2">AND A.bcd = #{bcd}</if>
         ORDER BY A.bidx desc, A.bord asc
+    </select>
+
+    <select id="selMainNoticeList" resultType="BoardDomain">
+        SELECT A.bno, A.uno, A.bcd, A.btitle
+        , A.brdt
+        , B.unm as writer
+        , E.bnm
+        , (SELECT COUNT(D.bno)
+        FROM t_board_recommendation AS D
+        WHERE D.bno = A.bno AND rec = 1) AS rec
+        FROM t_board as A
+        INNER JOIN t_board_notice as C
+        ON A.bno = C.bno
+        LEFT JOIN t_user as B
+        ON A.uno = B.uno
+        LEFT JOIN t_board_category as E
+        ON A.bcd = E.bcd
+        where A.bdel = 0
+        ORDER BY A.bidx desc, A.bord asc
+        LIMIT 10
     </select>
 
     <delete id="delNotice">
