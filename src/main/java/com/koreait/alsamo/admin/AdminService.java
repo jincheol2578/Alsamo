@@ -22,9 +22,9 @@ public class AdminService {
     public String login(UserEntity param) {
         UserEntity result = mapper.selAdmin(param);
 
-        if (result.getUid() == null) {
+        if (result== null) {
             //아이디 없음
-            return "/admin?err=1";
+            return "/user/loginErr?err=1";
         } else if (BCrypt.checkpw(param.getUpw(), result.getUpw())) {
             //로그인 성공
             result.setUpw(null);
@@ -32,7 +32,7 @@ public class AdminService {
             return "/admin/board";
         } else {
             //비밀번호 틀림
-            return "/admin?err=2";
+            return "/user/loginErr?err=2";
         }
     }
     //유저관리
