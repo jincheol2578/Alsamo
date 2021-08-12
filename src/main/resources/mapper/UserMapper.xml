@@ -8,10 +8,10 @@
     </insert>
 
     <select id="selId" resultType="UserEntity">
-        select uid
+        select *
         from t_user
         where uemail = #{uemail}
-          and uid = #{uid}
+          and unm = #{unm}
     </select>
     <select id="checkSocialUserExsist" resultType="UserEntity">
         select uid

@@ -94,7 +94,7 @@ function makeReplyList(data) {
         repElem2.append(item.repctnt);
         repElem3.append(item.reprdt);
 
-        liElem.setAttribute('id','repConOnBott');
+        liElem.setAttribute('class','repConOnBott');
         // 자기 댓글이거나 익명댓글인 경우 삭제 버튼 만들어주기
         if (parseInt(loginUserPk) === item.uno || item.uno === 0) {
             const delBtn = document.createElement('button');
