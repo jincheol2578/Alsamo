@@ -69,7 +69,7 @@
 
     <!--    메인 게시판 리스트-->
     <select id="selMainBoardList" resultType="BoardDomain">
-        select A.btitle, A.brdt, A.bcd, B.bnm
+        select A.bno, A.btitle, A.brdt, A.bcd, B.bnm
         , (SELECT COUNT(B.bno)
         FROM t_board_recommendation as B
         WHERE B.bno = A.bno AND B.rec = 1) as rec
@@ -79,6 +79,7 @@
         WHERE A.bdel = 0
         <if test="bcd > 1">AND A.bcd = #{bcd}</if>
         ORDER BY A.bidx desc, A.bord asc
+        LIMIT 10
     </select>
 
     <!--    게시글 SELECT -->

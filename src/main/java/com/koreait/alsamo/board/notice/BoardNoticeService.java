@@ -15,23 +15,29 @@ public class BoardNoticeService {
     @Autowired
     MyUtils myUtils;
 
+    public int selNotice(int bno) {
+        return mapper.selNotice(bno);
+    }
     public List<BoardDomain> selNoticeList(int bcd){
         return mapper.selNoticeList(bcd);
+    }
+    public List<BoardDomain> selMainNoticeList() {
+        return mapper.selMainNoticeList();
     }
 
     public int insNotice(int bno){
         int userAuth = myUtils.getLoginUser().getAuthno();
-        if(userAuth != 0 || userAuth != 1){
-            return 0;
+        if(userAuth == 1 || userAuth == 2){
+            return mapper.insNotice(bno);
         }
-        return mapper.insNotice(bno);
+        return 0;
     }
 
     public int delNotice(int bno){
         int userAuth = myUtils.getLoginUser().getAuthno();
-        if(userAuth != 0 || userAuth != 1){
-            return 0;
+        if(userAuth == 1 || userAuth == 2){
+            return mapper.delNotice(bno);
         }
-        return mapper.delNotice(bno);
+        return 0;
     }
 }

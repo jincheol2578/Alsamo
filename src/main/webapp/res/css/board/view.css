@@ -194,14 +194,14 @@
 #replyList .repConOnBott {
     list-style: none;
     border-bottom: 1px solid #dee2e6;
-    margin: 10px 0px 5px 0px;
-    padding-bottom: 10px;
+    padding: 4px
 }
 
 .repConOnBott .rep-box {
     display: grid;
     grid-template-columns: 1.5fr 6fr 1.5fr 1fr;
     grid-gap: 5px;
+    padding: 3px;
 }
 
 .repConOnBott .child2 {
@@ -228,4 +228,13 @@
 .reReplyFrm .re-rep-box2 textarea {
     height: 100%;
     width: 100%;
+}
+
+.re-reply-item {
+    background-color: #e7e7e7;
+    margin-left: 15px;
+}
+
+.re-reply-item div {
+    padding-top: 3px;
 }

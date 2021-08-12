@@ -52,11 +52,11 @@ public class BoardReplyService {
         }
         return mapper.delReply(param);
     }
-
-    public int updReply(BoardReplyEntity param){
+    // X
+    /*public int updReply(BoardReplyEntity param){
         if(myUtils.getLoginUser() != null){
             param.setUno(myUtils.getUserPk());
         }
         return mapper.updReply(param);
-    }
+    }*/
 }

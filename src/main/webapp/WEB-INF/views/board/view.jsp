@@ -43,6 +43,9 @@
                 <button class="btn btn-outline-secondary"><a href="/board/modify?bcd=${param.bcd}&bno=${param.bno}&modify=1">수정</a>
                 </button>
             </c:if>
+            <c:if test="${sessionScope.loginUser.authno eq 1 || sessionScope.loginUser.authno eq 2}">
+                <button id="regNotice" class="btn btn-outline-secondary"></button>
+            </c:if>
         </div>
         <div class="repFrmContainer">
             <form id="repFrm" onsubmit="return false;">

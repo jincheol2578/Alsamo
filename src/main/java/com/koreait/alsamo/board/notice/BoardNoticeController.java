@@ -15,20 +15,32 @@ public class BoardNoticeController {
     BoardNoticeService service;
 
     @GetMapping("/notice/{bcd}")
-    public List<BoardDomain> selNoticeList(@PathVariable int bcd){
+    public List<BoardDomain> selNoticeList(@PathVariable int bcd) {
         return service.selNoticeList(bcd);
     }
 
+    @GetMapping("/notice/main")
+    public List<BoardDomain> selMainNoticeList() {
+        return service.selMainNoticeList();
+    }
+
+    @GetMapping("/notice/check/{bno}")
+    public Map<String, Integer> selNotice(@PathVariable int bno) {
+        Map<String, Integer> data = new HashMap<>();
+        data.put("notice", service.selNotice(bno));
+        return data;
+    }
+
     @PostMapping("/notice/{bno}")
-    public Map<String, Integer> insNotice(@PathVariable int bno){
-        Map<String,Integer> data = new HashMap<>();
+    public Map<String, Integer> insNotice(@PathVariable int bno) {
+        Map<String, Integer> data = new HashMap<>();
         data.put("notice", service.insNotice(bno));
         return data;
     }
 
     @DeleteMapping("/notice/{bno}")
-    public Map<String, Integer> delNotice(@PathVariable int bno){
-        Map<String,Integer> data = new HashMap<>();
+    public Map<String, Integer> delNotice(@PathVariable int bno) {
+        Map<String, Integer> data = new HashMap<>();
         data.put("notice", service.delNotice(bno));
         return data;
     }

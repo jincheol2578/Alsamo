@@ -90,22 +90,25 @@ function makeReplyList(data) {
         const repElem3 = document.createElement('div');
         const repElem4 = document.createElement('div');
 
+        if(item.repdept > 0) {
+            repBoxElem.classList.add('re-reply-item');
+        }
         repBoxElem.classList.add('rep-box');
-        repElem1.setAttribute('class','child1');
-        repElem2.setAttribute('class','child2');
-        repElem3.setAttribute('class','child3');
-        repElem4.setAttribute('class','child4');
+        repElem1.setAttribute('class', 'child1');
+        repElem2.setAttribute('class', 'child2');
+        repElem3.setAttribute('class', 'child3');
+        repElem4.setAttribute('class', 'child4');
         repElem1.append(item.repnm);
         repElem2.append(item.repctnt);
         repElem3.append(item.reprdt);
 
-        liElem.setAttribute('class','repConOnBott');
+        liElem.setAttribute('class', 'repConOnBott');
         // 자기 댓글이거나 익명댓글인 경우 삭제 버튼 만들어주기
         if (parseInt(loginUserPk) === item.uno || item.uno === 0) {
             const delBtn = document.createElement('input');
             delBtn.type = 'button';
             delBtn.value = '삭제';
-            delBtn.setAttribute('class','btn btn-secondary  btn-sm');
+            delBtn.setAttribute('class', 'btn btn-secondary  btn-sm');
             let promptPw = null;
 
             //삭제버튼 클릭시
@@ -141,20 +144,20 @@ function makeReplyList(data) {
 
             formElem.onsubmit = 'return false;';
             formElem.id = 'reReplyFrm' + item.repno;
-            formElem.setAttribute('class','reReplyFrm');
+            formElem.setAttribute('class', 'reReplyFrm');
             reReplyChild1.classList.add('re-rep-box1');
             reReplyChild2.classList.add('re-rep-box2');
             reReplyChild3.classList.add('re-rep-box3');
             inputRepnm.type = 'text';
-            inputRepnm.setAttribute('class','reRepName form-control');
-            inputRepnm.setAttribute('placeholder','아이디');
+            inputRepnm.setAttribute('class', 'reRepName form-control');
+            inputRepnm.setAttribute('placeholder', '아이디');
             inputReppw.type = 'password';
-            inputReppw.setAttribute('class','reRepPwd form-control');
-            inputReppw.setAttribute('placeholder','비밀번호');
-            txtRepctnt.setAttribute('class','reRepCtnt form-control');
-            txtRepctnt.setAttribute('placeholder','내용');
+            inputReppw.setAttribute('class', 'reRepPwd form-control');
+            inputReppw.setAttribute('placeholder', '비밀번호');
+            txtRepctnt.setAttribute('class', 'reRepCtnt form-control');
+            txtRepctnt.setAttribute('placeholder', '내용');
             inputReBtn.type = 'button';
-            inputReBtn.setAttribute('class','btn btn-secondary btn-sm');
+            inputReBtn.setAttribute('class', 'btn btn-secondary btn-sm');
             inputReBtn.value = '작성';
 
             /*
@@ -345,4 +348,65 @@ function delRec() {
             }
             getRec(bnoVal);
         })
+}
+
+// 공지사항 등록, 해제
+const noticeBtnElem = document.getElementById('regNotice');
+if (noticeBtnElem !== null) {
+    checkNotice();
+}
+function checkNotice() {
+    fetch('/board/notice/check/' + bnoVal)
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            if (data.notice === 0) {
+                noticeBtnElem.innerText = '공지 등록';
+                noticeBtnElem.addEventListener('click', () => {
+                    if(confirm('등록하시겠습니까?')) {
+                        regNotice();
+                    }
+                });
+            } else {
+                noticeBtnElem.innerText = '공지 해제';
+                noticeBtnElem.addEventListener('click', () => {
+                    if(confirm('해제하시겠습니까?')) {
+                        delNotice();
+                    }
+                });
+            }
+        });
+}
+
+function regNotice() {
+    fetch('/board/notice/' + bnoVal, {
+        method: 'POST'
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            if(data.notice === 1){
+                checkNotice();
+            } else {
+                alert('권한이 없습니다');
+            }
+        });
+}
+
+function delNotice() {
+    fetch('/board/notice/' + bnoVal, {
+        method: 'DELETE'
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            if(data.notice === 1){
+                checkNotice();
+            } else {
+                alert('권한이 없습니다');
+            }
+        });
 }

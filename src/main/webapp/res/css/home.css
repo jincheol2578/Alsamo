@@ -5,15 +5,31 @@
 }
 .container {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-gap: 20px;
     margin: 12px 0px 12px 0px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(4, auto);
-    grid-gap: 8px;
+    font-size: 13px;
+    padding: 40px;
+}
+
+.main-board {
+    height: 390px;
+}
+
+.main-board .tableContent {
+    text-overflow: ellipsis;
+}
+
+.boardTitle {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 1px solid #dee2e6;
+    padding: 6px 0;
 }
 
 .todayBest, .weekendBest, .notice, .miniBoard {
     border: 1px solid #dee2e6;
-
 }
 
 ul {
@@ -22,27 +38,37 @@ ul {
 }
 
 ul .rankTable {
+    display: grid;
+    grid-template-columns: 5fr 1.3fr 2fr 1.7fr;
+    list-style: none;
     border-bottom: 1px dashed #dee2e6;
-    margin: 0px 13px 0px 13px;
-}
-
-ul .rankTable {
+    margin: 0 5px 0 5px;
     text-align: center;
     box-sizing: border-box;
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-}
-.tableContent{
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    place-items: center;
-    margin: 0 12px 0 12px;
 }
 
-.container div{
-    margin: 8px;
+.tableContent{
+    display: grid;
+    grid-template-columns: 5fr 1.3fr 2fr 1.7fr;
+    list-style: none;
+    place-items: center;
+    margin: 0 5px 0 5px;
+    text-align: center;
+    box-sizing: border-box;
 }
-.mainTitle{
-    font-size: 16px;
-grid-template-columns: 0.3fr 3fr 0.2fr;
+
+.tableContent div {
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.container .main-board ul div{
+    margin: 6px;
+}
+
+.item-title {
+    padding-left: 5px;
+    text-align: left;
 }
