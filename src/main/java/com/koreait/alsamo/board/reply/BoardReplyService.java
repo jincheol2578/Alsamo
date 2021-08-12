@@ -35,6 +35,13 @@ public class BoardReplyService {
             param.setUno(myUtils.getUserPk());
             param.setRepnm(myUtils.getLoginUser().getUnm());
         }
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<param.getRepdept(); i++) {
+            sb.append("　");
+        }
+        sb.append("└　");
+        sb.append(param.getRepctnt());
+        param.setRepctnt(sb.toString());
         mapper.updReReply(param);
         return mapper.insReReply(param);
     }

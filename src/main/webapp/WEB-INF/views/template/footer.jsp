@@ -35,8 +35,16 @@
     <%--스크롤바 --%>
     <div class="swiper-scrollbar"></div>
 </div>
-
-
+<div class="py-4 bg-light mt-auto">
+    <div class="d-flex align-items-center justify-content-between small">
+        <div class="text-muted">Copyright 2021. Alsamo All pictures cannot be copied without permission.</div>
+        <div>
+            <i class="fab fa-github"></i> <a href="https://github.com/jincheol2578">JINCHEOL KIM</a>
+            &middot;
+            <i class="fab fa-github"></i> <a href="https://github.com/heckevil">heckevil</a>
+        </div>
+    </div>
+</div>
 <script>
     var swiper = new Swiper('.swiper-container', {
         slidesPerView: 3,

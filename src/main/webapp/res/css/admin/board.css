@@ -1,0 +1,127 @@
+#categoryList {
+    text-align: start;
+    padding: 15px;
+}
+.category {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+}
+.category .card-body{
+
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+#categoryList li {
+    display: grid;
+    grid-gap: 2px;
+    grid-template-columns: 9fr 1fr 1fr;
+    list-style: none;
+    margin: 3px;
+}
+
+#categoryList button {
+    width: 100%;
+    border: none;
+    background-color: #ffffff;
+    opacity: 100%;
+}
+
+#categoryList .fa-caret-up:hover
+, #categoryList .fa-caret-down:hover
+, #categoryList .fa-trash-alt:hover {
+    color: red;
+}
+.category-text {
+    display: grid;
+    grid-template-columns: 8fr 2fr;
+    grid-gap: 4px;
+    padding-left: 18px;
+    padding-right: 7px;
+}
+.category-tip {
+    padding-top: 10px;
+    font-size: 14px;
+}
+.tag-box {
+    padding: 15px;
+}
+
+.tag-box .tag-item {
+    display: inline-block;
+    list-style: none;
+    color: #ffffff;
+    font-size: 13px;
+    border: 1px solid rgba(255, 255, 255, .125);
+    border-radius: 3rem;
+    padding: 2px 6px;
+    margin: 0 3px;
+}
+
+.tag-item .tag-article {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 5px;
+}
+
+.tag-box .tag-item .tag-name {
+    height: 100%;
+    display: inline-block;
+}
+
+.tag-item button {
+    height: 100%;
+    display: inline-block;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    padding: 0;
+}
+
+.tag-item .fa-times {
+    color: #ffffff;
+    margin: auto;
+}
+
+.tag-item .fa-times:hover {
+    color: red;
+}
+
+#datatablesSimple {
+    font-size: 14px;
+    text-align: center;
+}
+
+#datatablesSimple thead tr th {
+    text-align: center;
+}
+.board-title {
+    text-align: start;
+}
+
+#deleteBtn {
+    float: right;
+}
+
+.pagination-list {
+    text-align: center;
+}
+
+.pagination-list li {
+    margin: 1px 4px;
+    display: inline-block;
+}
+.pagination-list li:hover {
+    cursor: pointer;
+    border-bottom: 1px solid black;
+}
+
+.active {
+    color: red;
+}
+
+.active:hover {
+    border-bottom: 1px solid red;
+}
+
+#pagination {
+    width: 100%;
+}

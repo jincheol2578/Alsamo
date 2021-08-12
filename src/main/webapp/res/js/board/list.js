@@ -72,6 +72,10 @@ function makeNoticeList(data) {
         const bhitElem = document.createElement('td');
         const recElem = document.createElement('td');
 
+        btitleElem.addEventListener('click', () => {
+           location.href = '/board/view?bcd='+item.bcd+"&bno="+item.bno;
+        });
+
         noticeElem.id = 'boardClick';
         noticeElem.classList.add('notice');
         bnoElem.classList.add('board-no');
@@ -96,6 +100,7 @@ function makeNoticeList(data) {
         noticeElem.append(brdtElem);
         noticeElem.append(bhitElem);
         noticeElem.append(recElem);
+
     });
 }
 

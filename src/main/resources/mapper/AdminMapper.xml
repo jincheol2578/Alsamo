@@ -28,6 +28,9 @@
             <when test="authorize == 'block'">
                 A.authno = 5
             </when>
+            <when test="authorize == 'admin'">
+                A.authno = 2
+            </when>
             <otherwise>
                 (A.authno = 3 OR A.authno = 4 OR A.authno = 5)
             </otherwise>
@@ -183,6 +186,9 @@
             </when>
             <when test="authorize == 'block'">
                 A.authno = 5
+            </when>
+            <when test="authorize == 'admin'">
+                A.authno = 2
             </when>
             <otherwise>
                 (A.authno = 3 OR A.authno = 4 OR A.authno = 5)

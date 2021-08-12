@@ -1,5 +1,6 @@
 const authorizeElem = document.getElementById('authorize');
 let currentPage = document.getElementById('currentPage');
+const adminAuth = document.getElementById('loginAdmin').dataset.authno;
 
 //유저 리스트
 function getUserList(authorize, page, searchText) {
@@ -34,6 +35,8 @@ authorizeElem.addEventListener('change', () => {
     getUserList(authorizeElem.value, 1, searchTextElem.value);
 });
 
+console.log(adminAuth);
+
 function makeList(item) {
     const tableElem = document.getElementById('datatablesSimple');
     const tbodyElem = tableElem.querySelector('tbody');
@@ -49,14 +52,33 @@ function makeList(item) {
         const regdateElem = document.createElement('td');
         const etcElem = document.createElement('td');
         const etcBtnElem = document.createElement('button');
+        const adminBtnElem = document.createElement('button');
+
+        etcElem.classList.add('list-etc');
+        etcBtnElem.className = 'btn btn-secondary';
+        adminBtnElem.className = 'btn btn-secondary';
 
         let authVal = 0;
+        let adminAuthVal = 0;
         let alertMsg = '';
         switch (item.authno) {
+            case 2:
+                adminBtnElem.innerText = '관리자 해제';
+                adminAuthVal = 3;
+                alertMsg = '해당 유저를 일반유저로 변경하시겠습니까?';
+                etcElem.append(adminBtnElem);
+                break;
             case 3:
                 etcBtnElem.innerText = '차단';
                 authVal = 5;
-                alertMsg = '해당 유저를 차단 상태로 하시겠습니까?'
+                alertMsg = '해당 유저를 차단 상태로 변경하시겠습니까?'
+                if (adminAuth == 1) {
+                    adminBtnElem.innerText = '관리자 지정';
+                    adminAuthVal = 2;
+                    alertMsg = '해당 유저를 관리자로 변경하시겠습니까?';
+                    etcElem.append(adminBtnElem);
+                    break;
+                }
                 break;
             case 4:
                 etcBtnElem.innerText = '인증';
@@ -71,13 +93,26 @@ function makeList(item) {
         }
 
         etcBtnElem.addEventListener('click', () => {
-            if (confirm(alertMsg) && authVal !== 0) {
-                updUserAuthorize(item.uno, authVal);
+            if (authVal !== 0) {
+                if (confirm(alertMsg)) {
+                    updUserAuthorize(item.uno, authVal);
+                }
             } else {
                 alert('잘못된 접근입니다.');
             }
         });
-        etcElem.append(etcBtnElem);
+        adminBtnElem.addEventListener('click', () => {
+            if (adminAuthVal !== 0) {
+                if (confirm(alertMsg)) {
+                    updUserAuthorize(item.uno, adminAuthVal);
+                }
+            } else {
+                alert('잘못된 접근입니다.');
+            }
+        });
+        if (authorizeElem.value !== 'admin') {
+            etcElem.append(etcBtnElem);
+        }
 
         noElem.innerText = item.uno;
         idElem.innerText = item.uid;
@@ -102,11 +137,14 @@ const paginationElem = document.getElementById('pagination');
 function pagination(data) {
     paginationElem.innerText = '';
     const pageBoxElem = document.createElement('ul');
-    pageBoxElem.classList.add('dataTable-pagination-list');
+    pageBoxElem.classList.add('pagination-list');
 
     for (let i = data.startPage; i <= data.endPage; i++) {
         const pageNumElem = document.createElement('li');
         pageNumElem.innerText = i;
+        if (data.curPage === i) {
+            pageNumElem.classList.add('active');
+        }
         pageNumElem.addEventListener('click', () => {
             getUserList(authorizeElem.value, i, searchTextElem.value);
         });

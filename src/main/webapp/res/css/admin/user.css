@@ -1,0 +1,43 @@
+#datatablesSimple {
+    font-size: 14px;
+    text-align: center;
+}
+
+#datatablesSimple thead tr th {
+    text-align: center;
+}
+
+.list-etc {
+    text-align: center;
+}
+
+.list-etc button {
+    font-size: 14px;
+    padding: 0.1rem 0.4rem;
+    margin: 0 0.2rem;
+}
+
+.pagination-list {
+    text-align: center;
+}
+
+.pagination-list li {
+    margin: 1px 4px;
+    display: inline-block;
+}
+.pagination-list li:hover {
+    cursor: pointer;
+    border-bottom: 1px solid black;
+}
+
+.active {
+    color: red;
+}
+
+.active:hover {
+    border-bottom: 1px solid red;
+}
+
+#pagination {
+    width: 100%;
+}

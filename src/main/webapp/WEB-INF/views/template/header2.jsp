@@ -8,13 +8,13 @@
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/">홈</a></li>
 
 <%--                <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>--%>
 
                 <c:choose>
                     <c:when test="${empty sessionScope.loginUser}">
-                        <li class="nav-item"><a class="nav-link" onclick="openModal();" href="#!">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" onclick="openModal();" href="#!">로그인</a></li>
                     </c:when>
                     <c:otherwise>
                         <li class="nav-item dropdown">
@@ -27,7 +27,7 @@
                                 <a class="dropdown-item" href="/user/myPage">마이페이지</a>
                                 <c:if test="${sessionScope.loginUser.authno eq 1}">
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/admin/login">관리자 페이지</a>
+                                    <a class="dropdown-item" href="/admin/board">관리자 페이지</a>
                                 </c:if>
                             </div>
                         </li>
@@ -56,7 +56,11 @@
                 <input type="password" class="form-control" placeholder="Password" name="upw" aria-label="Password"
                        aria-describedby="basic-addon1" required>
             </div>
-            <div><a href="/user/bridgeFind">Forgot Id-Pw?</a></div>
+            <div>
+                <i class="fas fa-lock"></i>
+                <a href="/user/findId" class="link">아이디</a> ·
+                <a href="/user/findPw" class="link">비밀번호찾기</a>
+            </div>
             <div class="button_container"><input class="btn btn-secondary" type="submit" value="로그인"></div>
             <div><a href="/user/join">
                 <button class="btn btn-secondary" type="button">회원가입</button>

@@ -22,7 +22,7 @@
                 <input type="text" name="unm" class="form-control" id="exampleInputName" placeholder="이름을 입력하세요"
                        required>
             </div>
-            <button type="submit" class="btn btn-secondary">찾기</button>
+            <input type="submit" class="btn btn-secondary" value="찾기">
         </form>
     </div>
 </div>

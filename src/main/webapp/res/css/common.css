@@ -460,12 +460,12 @@ html, head, body {
 
 #layoutSidenav .chooseContainer .chooseUl .chooseLi:hover {
     background-color: #dee2e6;
-    border-radius: 20%;
+    border-radius: 0.2rem;
 }
 
 #layoutSidenav .chooseContainer .chooseUl .adminNow{
     background-color: #dee2e6;
-    border-radius: 20%;
+    border-radius: 0.2rem;
 }
 
 #layoutSidenav .chooseContainer .chooseUl a{
@@ -493,4 +493,11 @@ html, head, body {
 #infoWriterCon{
     display: grid;
     grid-template-columns: 0.5fr 2fr 1fr;
+}
+.link {
+    color: #6c757d;
+    text-decoration-line: none;
+}
+.link:hover {
+    text-decoration-line: underline;
 }

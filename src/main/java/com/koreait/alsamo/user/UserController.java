@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.EscapedErrors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
@@ -84,10 +83,6 @@ public class UserController {
         return "user/loginErr";
     }
 
-    @RequestMapping("/bridgeFind")
-    public String bridgeFind() {
-        return "user/bridgeFind";
-    }
 
     // 비밀번호 찾기
     @RequestMapping("/findPw")
