@@ -3,13 +3,10 @@ package com.koreait.alsamo.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.EscapedErrors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
@@ -38,7 +35,7 @@ public class UserController {
                 break;
 
         }
-        return "/user/loginMsg";
+        return "user/loginErr";
     }
 
     @RequestMapping("/join")
@@ -48,10 +45,9 @@ public class UserController {
 
     @RequestMapping(value = "/join", method = RequestMethod.POST)
     public String join(UserEntity param, Model model) throws MessagingException, UnsupportedEncodingException {
-        System.out.println(param);
         model.addAttribute("Msg", "가입시 사용한 이메일로 인증해 주세요.");
         service.join(param);
-        return "/user/loginMsg";
+        return "user/loginErr";
     }
 
     @RequestMapping("/logout")
@@ -61,19 +57,6 @@ public class UserController {
         return "redirect:/board/list";
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/googleJoin", method = RequestMethod.POST)
-    public int googleJoin(@RequestBody UserEntity user) {
-        System.out.println("aJax user :" + user);
-        int googleUser = service.googleLogin(user);
-        System.out.println(googleUser);
-        return googleUser;
-    }
-
-    @RequestMapping("/googleJoin")
-    public String googleJoin() {
-        return "user/googleJoin";
-    }
 
     //    회원가입시 이메일 인증
     @RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
@@ -97,13 +80,9 @@ public class UserController {
                 break;
         }
 
-        return "/user/loginMsg";
+        return "user/loginErr";
     }
 
-    @RequestMapping("/bridgeFind")
-    public String bridgeFind() {
-        return "user/bridgeFind";
-    }
 
     // 비밀번호 찾기
     @RequestMapping("/findPw")
@@ -121,7 +100,7 @@ public class UserController {
         } catch (MessagingException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return "/user/loginMsg";
+        return "user/loginErr";
     }
 
     // 아이디 찾기
@@ -133,8 +112,12 @@ public class UserController {
     @PostMapping("/findId")
     public String findId(UserEntity param, Model model) {
         UserEntity user = service.findId(param);
-        model.addAttribute("user", user);
-        return "/user/findId";
+        if (user.getUid() == null || user.getUid() == "") {
+            model.addAttribute("Msg","아이디 혹은 이메일이 확실 하지 않습니다.");
+        } else {
+            model.addAttribute("Msg", "아이디: "+user.getUid());
+        }
+        return "user/loginErr";
     }
 
 
@@ -151,9 +134,9 @@ public class UserController {
         if (result == 1) {
 
             model.addAttribute("uemail", param.getUemail());
-            return "/user/updUser";
+            return "user/updUser";
         } else {
-            return "/user/login";
+            return "user/login";
         }
 
     }
@@ -162,22 +145,24 @@ public class UserController {
     public String updUser(UserEntity param, Model model) {
         model.addAttribute("Msg", "수정된 비밀번호로 로그인 해주세요.");
         service.updUser(param);
-        return "user/loginMsg";
+        return "user/loginErr";
     }
 
     @RequestMapping("/myPage")
     public String myPage() {
-        return "board/myPage";
+        return "user/myPage";
     }
 
-    @RequestMapping("/adminpage")
-    public String adminPage(){
-        return "/user/adminPage";
+    @RequestMapping(value = "/myPage", method = RequestMethod.POST)
+    public String myPageMod(UserEntity param, Model model) {
+
+        service.updUser(param);
+        return "user/myPage";
     }
 
-    @RequestMapping(value = "/updUserMark" ,method = RequestMethod.POST)
-    public String superMark(@RequestParam("profileImg") MultipartFile profileImg,
-                            @RequestParam("authNo") int authNo){
-        return "redirect:"+service.updUserMark(profileImg, authNo);
+
+    @GetMapping("/errorMsg")
+    public String blockUserLogin() {
+        return "user/errorMsg";
     }
 }

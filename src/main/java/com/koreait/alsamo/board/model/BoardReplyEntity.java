@@ -9,7 +9,11 @@ public class BoardReplyEntity {
     private String repctnt;
     private String reprdt;
     private String reppw;
+    private int repdel;
+    private int repidx;
+    private int repord;
+    private int repdept;
+
     private int bno;
     private int uno;
-    private int bdel;
 }

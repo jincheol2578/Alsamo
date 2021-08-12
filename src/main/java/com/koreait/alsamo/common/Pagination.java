@@ -1,5 +1,8 @@
 package com.koreait.alsamo.common;
 
+import lombok.ToString;
+
+@ToString
 public class Pagination {
     /** 한 페이지당 게시글 수 **/
     private int pageSize = 10;

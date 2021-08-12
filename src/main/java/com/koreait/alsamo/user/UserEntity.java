@@ -10,6 +10,7 @@ import lombok.ToString;
 public class UserEntity {
     private int uno;
     private int authno;
+    private String authnm;
     private String uemail;
     private String uid;
     private String upw;

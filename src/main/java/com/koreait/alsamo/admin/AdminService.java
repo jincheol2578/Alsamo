@@ -1,11 +1,12 @@
 package com.koreait.alsamo.admin;
 
-import com.koreait.alsamo.board.model.BoardDTO;
 import com.koreait.alsamo.board.model.BoardDomain;
+import com.koreait.alsamo.user.UserDTO;
 import com.koreait.alsamo.user.UserEntity;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -16,56 +17,99 @@ public class AdminService {
     AdminMapper mapper;
     @Autowired
     HttpSession session;
+
     // 로그인
-    public String login(UserEntity param){
+    public String login(UserEntity param) {
         UserEntity result = mapper.selAdmin(param);
 
-        if (result == null) {
+        if (result== null) {
             //아이디 없음
-            return "아이디가 존재하지 않습니다.";
+            return "/user/loginErr?err=1";
         } else if (BCrypt.checkpw(param.getUpw(), result.getUpw())) {
             //로그인 성공
             result.setUpw(null);
             session.setAttribute("loginAdmin", result);
-            return "로그인 성공";
+            return "/admin/board";
         } else {
             //비밀번호 틀림
-            return "비밀번호를 확인해 주세요.";
+            return "/user/loginErr?err=2";
         }
+    }
+    //유저관리
+    public int getUserCount(UserDTO param) {
+        return mapper.selUserCount(param);
+    }
+
+    public List<UserEntity> getUserList(UserDTO param) {
+        return mapper.selUserList(param);
+    }
+
+    public int updUser(UserDTO param) {
+        try {
+            UserEntity userEntity = (UserEntity) session.getAttribute("loginAdmin");
+            if ((param.getAuthno() == 2 || param.getAuthno() == 1) && userEntity.getAuthno() != 1) {
+                return 0;
+            }
+            if (userEntity.getAuthno() == 2 || userEntity.getAuthno() == 1 ) {
+                return mapper.updUser(param);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     // 게시판 관리
-    public List<BoardDomain> getBoardList(BoardDTO param){
+    public List<BoardDomain> getBoardList(AdminDTO param) {
         return mapper.selBoardList(param);
     }
-    public int getBoardCount(BoardDTO param){
+
+    public int getBoardCount(AdminDTO param) {
         return mapper.selBoardCount(param);
     }
-    public int delBoard(AdminDTO param){
+
+    public int delBoard(AdminDTO param) {
         return mapper.delBoard(param);
     }
+
     // 게시판 태그 관리
-    public int regTag(BlockTags tags){
+    public int regTag(BlockTags tags) {
         return mapper.insTag(tags);
     }
-    public List<BlockTags> getTags(){
+
+    public List<BlockTags> getTags() {
         return mapper.selTags();
     }
+
     public int delTag(int tno) {
         return mapper.delTag(tno);
     }
 
     // 카테고리 관리
-    public int regCategory(String bno){
-        return mapper.insCategory(bno);
+    public int regCategory(BoardCategoryDTO param) {
+            return mapper.insCategory(param);
     }
-    public List<BoardCategoryDTO> getCategoryList(){
+
+    public List<BoardCategoryDTO> getCategoryList() {
         return mapper.selCategoryList();
     }
-    public int updCategory(BoardCategoryDTO param){
+
+    public int updCategory(BoardCategoryDTO param) {
         return mapper.updCategory(param);
     }
-    public int delCategory(int bcd){
-        return mapper.delCategory(bcd);
+
+    public int updCategoryOrd(BoardCategoryDTO param) {
+        return mapper.updCategoryOrd(param);
+    }
+
+    @Transactional
+    public int delCategory(BoardCategoryDTO param) {
+        try {
+            mapper.updCategoryDown(param.getCord());
+            return mapper.delCategory(param);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 }

@@ -3,8 +3,7 @@
 <c:if test="${param.delete eq 1}">
     <form action="/board/delete" method="post">
         <input type="hidden" name="bno" value="${param.bno}">
-        <c:if test="${requestScope.board.uno ne sessionScope.loginUser.uno and
-        sessionScope.loginUser.auth_no eq 1}">
+        <c:if test="${requestScope.board.uno eq 0}">
             <div><input type="password" name="bpw" placeholder="비밀번호를 입력하세요" autofocus required></div>
         </c:if>
         <div>
@@ -18,8 +17,7 @@
     <form action="/board/write" method="get">
         <input type="hidden" name="modify" value="1">
         <input type="hidden" name="bno" value="${param.bno}">
-        <c:if test="${requestScope.board.uno ne sessionScope.loginUser.uno and
-        sessionScope.loginUser.auth_no eq 1}}">
+        <c:if test="${requestScope.board.uno eq 0}">
             <div><input type="password" name="bpw" placeholder="비밀번호를 입력하세요" autofocus required></div>
         </c:if>
         <div>

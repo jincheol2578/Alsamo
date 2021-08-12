@@ -48,6 +48,7 @@
     <select id="selReplyList" resultType="BoardReplyEntity">
         SELECT * FROM t_board_reply
         where bno = #{bno} and repdel = 0
+        ORDER BY repidx desc, repord asc
     </select>
 <!--    답댓글 순서 정렬-->
     <update id="updReReply">
@@ -55,15 +56,15 @@
         SET repord = repord+1
         WHERE repidx = #{repidx} AND repord > #{repord}
     </update>
-<!--    댓글 수정-->
-    <update id="updReply">
+<!--    댓글 수정 X-->
+    <!--<update id="updReply">
         UPDATE t_board_reply
         SET repctnt = #{repctnt}, repnm = #{repnm}
         <if test="reppw != null">
             ,reppw = #{reppw}
         </if>
         WHERE repno = #{repno}
-    </update>
+    </update>-->
 <!--    댓글 삭제-->
     <update id="delReply">
         UPDATE t_board_reply
@@ -71,6 +72,6 @@
         WHERE repno = #{repno}
           AND (<if test="uno != 0"> uno = #{uno} OR </if>
               reppw = #{reppw}
-              OR (SELECT authno FROM t_user WHERE uno = #{uno} = 1))
+              OR ((SELECT authno FROM t_user WHERE uno = #{uno}) = 1))
     </update>
 </mapper>

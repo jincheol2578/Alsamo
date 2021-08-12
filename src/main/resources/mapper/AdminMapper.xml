@@ -5,11 +5,51 @@
 
     <!--    로그인-->
     <select id="selAdmin" resultType="UserEntity">
-        SELECT uid, upw
+        SELECT uid, upw, authno, uno
         FROM t_user
-        WHERE authno = (1 OR 2)
+        WHERE uid = #{uid}
+          AND (authno = 1 OR authno = 2)
     </select>
-
+    <!--    유저관리-->
+    <select id="selUserList" resultType="UserEntity">
+        SELECT A.uno, A.uemail, A.uid, A.unm, A.urdt, A.authno,
+        B.authnm
+        FROM t_user AS A
+        LEFT JOIN t_auth AS B
+        ON A.authno = B.authno
+        WHERE
+        <choose>
+            <when test="authorize == 'general'">
+                A.authno = 3
+            </when>
+            <when test="authorize == 'unAuthorize'">
+                A.authno = 4
+            </when>
+            <when test="authorize == 'block'">
+                A.authno = 5
+            </when>
+            <when test="authorize == 'admin'">
+                A.authno = 2
+            </when>
+            <otherwise>
+                (A.authno = 3 OR A.authno = 4 OR A.authno = 5)
+            </otherwise>
+        </choose>
+        <if test="searchText != null">
+            AND (
+            A.uid like CONCAT('%',#{searchText},'%')
+            OR A.uemail like CONCAT('%',#{searchText},'%')
+            OR A.unm like CONCAT('%',#{searchText},'%')
+            )
+        </if>
+        ORDER BY A.uno desc
+        LIMIT #{startIdx}, #{cntPerPage}
+    </select>
+    <update id="updUser">
+        UPDATE t_user
+        SET authno = #{authno}
+        WHERE uno = #{uno}
+    </update>
     <!--    게시판 태그 -->
     <insert id="insTag">
         INSERT INTO t_board_tags
@@ -27,60 +67,86 @@
     </delete>
 
     <!--    카테고리 관리 -->
-    <insert id="insCategory">
-        INSERT INTO t_board_category
-            (bnm, cord)
-        VALUES (#{bnm}, #{cord})
+    <insert id="insCategory">-- 카테고리생성
+    INSERT INTO t_board_category
+        (bnm, cord)
+    VALUES (#{bnm}, (SELECT MAX(B.cord) from t_board_category AS B) + 1)
     </insert>
-
-    <select id="selCategoryList" resultType="BoardCategoryList">
-        SELECT *
-        FROM t_board_category
+    <select id="selCategoryList" resultType="BoardCategoryDTO">-- 리스트
+    SELECT *
+    FROM t_board_category
+    WHERE cdel = 0
+    ORDER BY cord asc
     </select>
-    <update id="updCategory">
-        UPDATE t_board_category
-        SET bnm = #{bnm}
-        WHERE bcd = #{bcd}
+    <update id="updCategory"> -- 수정
+    UPDATE t_board_category
+    SET bnm = #{bnm}
+    WHERE bcd = #{bcd}
     </update>
-    <update id="updCategoryOrd">
+    <update id="updCategoryUp">
+        <![CDATA[
+        UPDATE t_board_category
+        SET cord = cord + 1
+        WHERE cord > #{cord}
+        ]]>
+    </update>
+    <update id="updCategoryDown">
+        <![CDATA[
+        UPDATE t_board_category
+        SET cord = cord - 1
+        WHERE cord > #{cord}
+        ]]>
+    </update>
+    <update id="updCategoryOrd">-- 순서 바꾸기
         UPDATE t_board_category
         SET cord =
         case
-        <if test="updType == 'up'">
+
+        <if test="ordType == 'up'">
             when cord = #{cord} AND cord > 1 then cord - 1
             when cord = #{cord} - 1 then cord + 1
+
         </if>
-        <if test="updType == 'down'">
-            when cord = #{cord} then cord + 1
+        <if test="ordType == 'down'">
+            <![CDATA[
+            when cord = #{cord}
+                AND cord < (SELECT MAX(sub.cord) FROM t_board_category AS sub)
+                then cord + 1
             when cord = #{cord} + 1 then cord - 1
+            ]]>
         </if>
         <![CDATA[
         ELSE cord
         END
-        WHERE cord > 0
-          AND cord < (SELECT cord FROM t_board_category order by cord desc limit 1) + 1;
+        WHERE cord > 0;
         ]]>
     </update>
-
-    <delete id="delCategory"> -- 삭제시 트랜잭션 이용해서 밑에 게시글까지 모두삭제
-    DELETE
-    FROM t_board_category
-    WHERE bcd = #{bcd}
-    </delete>
+    <update id="delCategory">
+        UPDATE t_board_category
+        SET cdel = 1,
+            cord = 0
+        WHERE bcd > 0
+          AND bcd = #{bcd}
+    </update>
 
     <!--    게시판 관리-->
     <select id="selBoardList" resultType="BoardDomain">
         SELECT A.bno, A.uno, A.bcd, A.btitle, A.bctnt, A.bidx, A.bord
         , A.bdept, A.brdt, A.bhit, A.bdel
-        , B.unm as writer
+        , B.unm as writer,
+        (SELECT COUNT(C.bno)
+        FROM t_board_recommendation AS C
+        WHERE C.bno = A.bno AND rec = 1) AS rec
         FROM t_board as A
         LEFT JOIN t_user as B
         ON A.uno = B.uno
-        where A.bcd = #{bcd}
-        AND A.bdel = 0
+        where A.bdel = 0
         <if test="bcd > 1">AND A.bcd = #{bcd}</if>
-        <if test="searchText != null">
-            <foreach collection=""></foreach>
+        <if test="tags != null">
+            <foreach collection="tags" index="index" item="tags" separator="OR" open="AND (" close=")">
+                A.btitle like CONCAT('%',#{tags.tname},'%')
+                OR A.bctnt like CONCAT('%',#{tags.tname},'%')
+            </foreach>
         </if>
         ORDER BY A.bidx desc, A.bord asc
         LIMIT #{startIdx}, #{cntPerPage}
@@ -90,7 +156,7 @@
         UPDATE t_board
         SET bdel = 1
         WHERE
-        <foreach collection="delChk" index="index" item="delChk" separator="or" open="">
+        <foreach collection="delChk" index="index" item="delChk" separator="or">
             bno = #{delChk}
         </foreach>
     </update>
@@ -98,10 +164,42 @@
     <select id="selBoardCount" resultType="Integer">
         select count(*)
         FROM t_board
-        WHERE bcd = #{bcd}
-        AND bdel = 0
+        WHERE bdel = 0
+        <if test="bcd > 1">AND A.bcd = #{bcd}</if>
+        <if test="tags != null">
+            <foreach collection="tags" index="index" item="tags" separator="OR" open="AND (" close=")">
+                btitle like CONCAT('%',#{tags.tname},'%')
+                OR bctnt like CONCAT('%',#{tags.tname},'%')
+            </foreach>
+        </if>
+    </select>
+    <select id="selUserCount" resultType="Integer">
+        select count(*)
+        FROM t_user AS A
+        WHERE
+        <choose>
+            <when test="authorize == 'general'">
+                A.authno = 3
+            </when>
+            <when test="authorize == 'unAuthorize'">
+                A.authno = 4
+            </when>
+            <when test="authorize == 'block'">
+                A.authno = 5
+            </when>
+            <when test="authorize == 'admin'">
+                A.authno = 2
+            </when>
+            <otherwise>
+                (A.authno = 3 OR A.authno = 4 OR A.authno = 5)
+            </otherwise>
+        </choose>
         <if test="searchText != null">
-            <foreach collection=""></foreach>
+            AND (
+            A.uid like CONCAT('%',#{searchText},'%')
+            OR A.uemail like CONCAT('%',#{searchText},'%')
+            OR A.unm like CONCAT('%',#{searchText},'%')
+            )
         </if>
     </select>
 

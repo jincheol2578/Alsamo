@@ -5,10 +5,12 @@ import com.koreait.alsamo.board.model.BoardReplyEntity;
 import com.koreait.alsamo.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class BoardReplyService {
 
     @Autowired
@@ -33,22 +35,28 @@ public class BoardReplyService {
             param.setUno(myUtils.getUserPk());
             param.setRepnm(myUtils.getLoginUser().getUnm());
         }
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<param.getRepdept(); i++) {
+            sb.append("　");
+        }
+        sb.append("└　");
+        sb.append(param.getRepctnt());
+        param.setRepctnt(sb.toString());
         mapper.updReReply(param);
-        return mapper.insReply(param);
+        return mapper.insReReply(param);
     }
 
     public int delReply(BoardReplyEntity param) {
         if(myUtils.getLoginUser() != null){
             param.setUno(myUtils.getUserPk());
         }
-        System.out.println(param.getReppw());
         return mapper.delReply(param);
     }
-
-    public int updReply(BoardReplyEntity param){
+    // X
+    /*public int updReply(BoardReplyEntity param){
         if(myUtils.getLoginUser() != null){
             param.setUno(myUtils.getUserPk());
         }
         return mapper.updReply(param);
-    }
+    }*/
 }

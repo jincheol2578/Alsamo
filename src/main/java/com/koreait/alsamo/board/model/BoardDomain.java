@@ -8,9 +8,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class BoardDomain extends BoardEntity{
-    private String writer;
-    private int uLev;
-    private int uExp;
-    private String uicon;
+    private String writer = "익명";
     private String bnm;
+    private int rec;
 }

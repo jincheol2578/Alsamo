@@ -3,8 +3,9 @@ package com.koreait.alsamo.board;
 import com.google.gson.JsonObject;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +21,6 @@ public class FileManageController {
     @PostMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
     public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
         JsonObject jsonObject = new JsonObject();
-        /*
-         * String fileRoot = "C:\\summernote_image\\"; // 외부경로로 저장을 희망할때.
-         */
 
         // 내부경로로 저장
         String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
@@ -45,7 +43,6 @@ public class FileManageController {
             e.printStackTrace();
         }
         String a = jsonObject.toString();
-        System.out.println(a);
         return a;
     }
 }

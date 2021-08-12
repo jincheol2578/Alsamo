@@ -1,0 +1,254 @@
+.boardContainer {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 12px 0px 12px 0px;
+    font-size: 14px;
+}
+
+.boardContainer .form-control {
+    font-size: 14px;
+}
+
+.boardContainer .form-select {
+    font-size: 14px;
+}
+
+.boardContainer .btn {
+    font-size: 14px;
+}
+
+.boardContainer::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+/* list . css*/
+.pagination-list {
+    padding-left: 8px;
+}
+
+.table {
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 10px;
+
+}
+
+.table th {
+    text-align: center;
+}
+
+.table .bright {
+    text-align: left;
+}
+
+.boardBtn {
+    float: right;
+    display: inline-block;
+}
+
+#boardClick:hover {
+    background-color: #cacad0;
+}
+
+
+/* view . css */
+.viewContainer {
+    box-sizing: border-box;
+    width: 1080px;
+    padding: 15px;
+}
+
+.title-row {
+    box-sizing: border-box;
+    background-color: #d3d3d3;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 100%;
+    padding: 7px 12px 7px 12px;
+    text-align: center;
+}
+
+.title-row .boardtitle {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    height: 25px;
+    text-align: left;
+}
+
+.title-row span {
+    font-size: 20px;
+    display: inline-block;
+}
+
+.boardInfo-row {
+    padding: 5px 11px 5px 11px;
+    border-bottom: 1px solid black;
+}
+
+.boardInfo-row .boardInfo {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    height: 20px;
+    width: 100%;
+
+}
+
+.boardCtnt-row .boardCtnt {
+    box-sizing: border-box;
+    padding: 1rem;
+    margin: 0;
+    height: 560px;
+    width: 100%
+}
+
+.boardInfo-row .memberInfo .writerInfo, .boardInfo-row .boardInfo span {
+    display: inline-block;
+}
+
+.boardInfo-row .memberInfo .writerInfo {
+    float: left;
+}
+
+.boardInfo-row .boardInfo .infoHead, .boardInfo-row .boardInfo .infoBody {
+    float: right;
+}
+
+.boardInfo-row .boardInfo .infoHead {
+    padding: 0 3px 0 0;
+}
+
+#boardClick td {
+    text-align: center;
+}
+
+.bright, .userId:hover {
+    cursor: pointer;
+
+}
+
+/* 유저 인포 아이디 클릭시 노출*/
+.infoUser {
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    margin-left: 80px;
+    padding: 0px;
+
+
+}
+
+.infoUser ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.infoUser ul li {
+    list-style: none;
+    margin: 0px;
+    padding: 0px 9px 0px 9px;
+    width: 85px;
+    height: 25px;
+    border: 1px solid black;
+}
+
+.infoUser ul li a {
+    text-decoration: none;
+    color: black;
+}
+
+.infoUser ul li a:hover {
+    color: red;
+}
+
+#boardClick td:nth-child(2) {
+    cursor: pointer;
+}
+
+.pagination-list {
+    text-align: center;
+}
+
+.pagination-list li {
+    margin: 1px 4px;
+    display: inline-block;
+}
+
+.active {
+    color: red;
+}
+
+.active:hover {
+    cursor: pointer;
+    border-bottom: 1px solid black;
+}
+
+#pagingBox {
+    width: 100%;
+}
+
+.boardList .thead {
+    border-bottom: 2px solid #50575e;
+}
+
+.boardList .table {
+    font-size: 14px;
+}
+
+.boardList tr {
+    height: 50px !important;
+}
+
+.boardList td {
+    padding-top: 15px;
+}
+
+.board-no, .board-date, .board-hit, .board-recommend {
+    font-size: 12px;
+}
+
+.board-no {
+    width: 7%;
+}
+
+.board-wirter {
+    width: 12%;
+}
+
+.board-date {
+    padding-top: 9px !important;
+    width: 10%;
+}
+
+.board-hit {
+    width: 7%;
+}
+
+.board-recommend {
+    width: 7%;
+}
+
+.board-title {
+    text-align: start !important;
+}
+
+.board-search {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.board-search form {
+    display: grid;
+    grid-template-columns: 3fr 5fr 2fr;
+    grid-gap: 5px;
+}
+
+.notice {
+    font-weight: bold;
+}
+
+.notice

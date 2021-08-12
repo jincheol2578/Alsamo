@@ -1,0 +1,36 @@
+.containerCenter {
+    font-size: 14px;
+}
+
+#write-form .form-select {
+    width: 120px;
+    font-size: 14px;
+}
+
+#write-form .form-control {
+    display: inline-block;
+    min-width: 120px;
+    font-size: 14px;
+}
+
+.head-title .writeTitle {
+    width: 70%;
+    margin-right: 1%;
+}
+
+.head-title .writePwd {
+    width: 28%;
+}
+
+.head-title {
+    margin: 10px 0;
+}
+
+#write-form .btn {
+    font-size: 14px;
+}
+
+.write-footer {
+    padding-top: 10px;
+    text-align: right;
+}

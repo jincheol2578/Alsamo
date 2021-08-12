@@ -1,44 +1,10 @@
-html, body {
-    width: 100%;
-    height: 100%;
+@font-face {
+    font-family: 'Naum-Gothic';
+    src: url("../fonts/NanumGothic-Regular.ttf") format('truetype');
 }
-
-html, body, ul {
-    padding: 0;
-    margin: 0;
+html, head, body {
+    font-family: Naum-Gothic;
 }
-
-header, ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-
-/* after content 에 대한 배경색*/
-header ul:after {
-    content: '';
-    display: block;
-    clear: both;
-}
-
-header ul li {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 13px;
-    text-decoration: none;
-}
-
-header ul li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 0;
-    text-decoration: none;
-}
-
 #mark {
     background-color: #333;
     padding: 14px 16px 0px 16px;
@@ -64,19 +30,10 @@ header ul li a {
 }
 
 /*클래스명이 active 인거 빼고(not) hover 시킴 not = 예외처리*/
-header ul li a:hover:not(.active) {
+#markBoxUl li a:hover:not(.active) {
     list-style-type: none;
     text-decoration: none;
     color: #d3d3d3;
-}
-
-section {
-    padding-left: 40px;
-}
-
-footer {
-    position: absolute;
-    bottom: 0;
 }
 
 #modal {
@@ -89,14 +46,15 @@ footer {
     justify-content: center;
     align-items: center;
     display: none;
+    z-index: 9;
 }
 
 .modal_content {
     background-color: white;
     border: 1px solid #95a5a6;
-    padding: 20px;
+    padding: 10px;
     width: 400px;
-    height: 500px;
+    height: 300px;
 }
 
 .loginProperty {
@@ -129,20 +87,413 @@ footer {
     width: 100%;
 }
 
-.g-signin2 {
-    padding-top: 10px;
-    width: 110px;
-    display: block;
-    margin: auto;
+
+.swiper-container {
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    height: 180px;
+}
+
+.swiper-slide {
+    width: 100%;
+
+}
+
+.swiper-slide img {
+    object-fit: contain;
+    height: 150px;
+}
+
+.loginForm {
+    padding: 8px;
+}
+
+.loginForm .btn-secondary {
+    width: 358px;
+    margin-top: 18px;
+}
+
+.fas {
+    color: #6c757d;
+}
+
+.input-group {
+    width: 358px;
+}
+
+.fa-times {
+    margin-right: 11px;
+}
+
+/* 공용 속성 */
+.containerCenter {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8px;
+}
+
+/* 아이디 찾기 */
+.findIdContainer {
+    width: 1000px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/*비밀번호 찾기*/
+.findPwContainer {
+    width: 1000px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 회원 가입 */
+
+.joinContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid #dee2e6;
+    width: 1000px;
+    height: 500px;
+    margin: 8px;
+}
+
+.btn .joinAtag {
+    text-decoration: none;
+    color: white;
+}
+
+.joinContainer .form-group {
+    margin-top: 8px;
+}
+
+.joinContainer form {
+    margin: 12px;
+}
+
+/* 에러 메시지 */
+.containerMsg {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8px;
 }
 
 .loginMsg {
+    width: 1000px;
+    height: 500px;
     display: flex;
     justify-content: center;
-    border: 1px solid #00a3df;
-    width: 500px;
-    box-sizing: border-box;
+    border: 1px solid #dee2e6;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginMsg div {
+    padding-top: 8px;
+}
+
+.msg {
+    font-size: 30px;
+}
+
+/* 마이페이지 */
+.myPageontainer {
+    display: flex;
+    justify-content: center;
+}
+
+#myPageontainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid #dee2e6;
+    margin-top: 8px;
+    padding: 12px;
+    width: 1000px;
+    height: 500px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* updUser */
+.updUserContainer {
+    width: 1000px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.updUserContainer .form-control {
+    width: 400px;
+}
+
+.updUserContainer .btn {
+    margin-top: 8px;
+}
+
+/* 아이디 비번 찾기 분기점 brige*/
+.bridgeContainer {
+    width: 1000px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.bridgeContainer a {
+    text-decoration: none;
+}
+
+.bridgeContainer .findUp .btn {
+    margin-right: 7px;
+}
+
+.bridgeContainer .findDown .btn {
+    margin-bottom: 7px;
+}
+
+/* 댓글info */
+#infoReplyContainer .table td, #infoReplyContainer .table th {
+    min-width: 10rem;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+}
+
+#infoReplyContainer .table tr a {
+    vertical-align: middle;
+    text-decoration: none;
+    color: black;
+}
+
+#infoReplyContainer {
+    margin-top: 12px;
+}
+
+/* 쓴글 info*/
+#infoWriteContainer .table td, #infoWriteContainer .table th {
+    min-width: 10rem;
+    vertical-align: middle;
+    text-align: center;
+    overflow: hidden;
+}
+
+#infoWriteContainer a {
+    vertical-align: middle;
+    text-decoration: none;
+    color: black;
+}
+
+#infoWriteContainer {
+    margin-top: 12px;
+}
+
+#infoWriteContainer .pagination {
+    margin: auto;
+}
+
+#infoWriteContainer .pagination li {
+    margin-left: 9px;
+    font-size: 20px;
 
 }
 
+#infoWriteContainer .pagination .active {
+    color: red;
+}
 
+/* 회원 가입 */
+
+.joinContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid #dee2e6;
+    width: 1000px;
+    height: 500px;
+    margin: 8px;
+}
+
+.joinContainer .btn .joinAtag {
+    text-decoration: none;
+    color: white;
+}
+
+.joinContainer .form-group {
+    margin-top: 8px;
+}
+
+.joinContainer form {
+    margin: 12px;
+}
+
+/* 에러 메시지 */
+.containerMsg {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8px;
+}
+
+.loginMsgContainer {
+    width: 1000px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginMsgContainer div {
+    padding-top: 8px;
+}
+
+.loginMsgContainer .msg {
+    font-size: 30px;
+}
+
+/* 마이 페이지 */
+.myPageontainer {
+    display: flex;
+    justify-content: center;
+}
+
+#myPageontainer {
+    border: 1px solid #dee2e6;
+    margin-top: 8px;
+    padding: 12px;
+    width: 1000px;
+    height: 500px;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+/* 비밀번호 찾기- 수정*/
+.updUserContainer {
+    width: 1000px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.updUserContainer .form-control {
+    width: 400px;
+}
+
+.updUserContainer .btn {
+    margin-top: 8px;
+}
+
+/* 관리자 확인 페이지 부트스트랩은 -> admin/style .css*/
+.adminLoginMsg {
+    display: flex;
+}
+
+.adminChckdContainer {
+    width: 1000px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.adminChckdContainer .btn {
+    margin-top: 8px;
+}
+
+#layoutSidenav .chooseContainer {
+    margin-top: 8px;
+}
+
+#layoutSidenav .chooseContainer .chooseUl {
+    list-style: none;
+    margin: 0;
+
+}
+
+#layoutSidenav .chooseContainer .chooseUl .chooseLi {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    margin-left: 10px;
+    -webkit-transition: all 0.5s;
+
+}
+
+#layoutSidenav .chooseContainer .chooseUl .chooseLi:hover {
+    background-color: #dee2e6;
+    border-radius: 0.2rem;
+}
+
+#layoutSidenav .chooseContainer .chooseUl .adminNow{
+    background-color: #dee2e6;
+    border-radius: 0.2rem;
+}
+
+#layoutSidenav .chooseContainer .chooseUl a{
+    text-decoration: none;
+    list-style: none;
+    color: black;
+}
+
+#layoutSidenav .mt-4 {
+    float: right;
+    margin: 0 20px 0 0;
+}
+
+#layoutSidenav_content .card {
+    margin-top: 70px;
+}
+.card-body .Card-body-content, .dataTable-table,.Card-body-input{
+    margin-top: 10px;
+}
+
+.link {
+    color: #6c757d;
+    text-decoration-line: none;
+}
+.link:hover {
+    text-decoration-line: underline;
+}
+
+#join-submit:hover {
+    color: #56ff41;
+}

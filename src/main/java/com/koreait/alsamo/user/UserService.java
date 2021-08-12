@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.FileNameMap;
 import java.util.UUID;
 
 @Service
@@ -45,13 +44,11 @@ public class UserService {
 
             /* 메일 작성 */
             String txt = String.format("<a href='http://localhost:8080/user/emailConfirm?userEmail=%S&AuthKey=%s'target='_blank'>이메일 인증 확인</a>", param.getUemail(), key);
-            String subject = "<h1>Alsamo 이메일 인증</h1>";
+            String subject = "Alsamo 이메일 인증";
             myUtils.mailSender(param.getUemail(), subject, txt);
 
             mapper.insUser(param);
 
-        } else {
-            mapper.insGoogleUser(param);
         }
     }
 
@@ -74,20 +71,6 @@ public class UserService {
 
     }
 
-    public int googleLogin(UserEntity user) {
-        UserEntity exsistUser = mapper.checkSocialUserExsist(user);
-        System.out.println(exsistUser);
-        if (exsistUser == null) {
-            //가입 필요 /user/googleJoin
-            mapper.insGoogleUser(user);
-            return 1;
-
-        } else {
-
-            //이미 가입 완료 /board/list
-            return 0;
-        }
-    }
 
     public int chckAuthkey(UserEntity param) {
         UserEntity result = mapper.chckAuthkey(param);
@@ -129,39 +112,6 @@ public class UserService {
     }
 
 
-
-
-    public String updUserMark(MultipartFile img, int authNo) {
-       UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
-        final String PATH = "D:/springImg/"+authNo;
-        String nowMark = mapper.selNowMark(authNo);
-
-        File folder1 = new File(PATH);
-        folder1.mkdirs();
-
-        String ext = FilenameUtils.getExtension(img.getOriginalFilename());
-        String fileNm = UUID.randomUUID().toString() + "." + ext;
-
-        File target = new File(PATH + "/" + fileNm);
-        try {
-            img.transferTo(target);
-
-            File defile = new File(PATH+ "/" + nowMark);
-            if (defile.exists()) {
-                defile.delete();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        UserEntity param = new UserEntity();
-        param.setProfileImg(fileNm);
-        param.setAuthno(authNo);
-
-        loginUser.setProfileImg(fileNm);
-
-        mapper.updMark(param);
-        return "/user/adminpage";
-    }
 
 
 }

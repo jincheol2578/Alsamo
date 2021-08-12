@@ -23,14 +23,16 @@
                , #{bctnt}
                , #{bidx}
                , #{bord} + 1
-               , #{bdept} + 1)
-             , #{bpw}
+               , #{bdept} + 1
+             , #{bpw} )
     </insert>
 
     <!--    게시판 카테고리 SELECT -->
     <select id="selBoardCategory" resultType="BoardDTO">
         SELECT bcd, bnm
         FROM t_board_category
+        WHERE cdel = 0
+        ORDER BY cord
     </select>
 
     <!--    게시판 리스트 SELECT -->
@@ -38,25 +40,46 @@
         SELECT A.bno, A.uno, A.bcd, A.btitle, A.bctnt, A.bidx, A.bord
         , A.bdept, A.brdt, A.bhit
         , B.unm as writer
+        , (SELECT COUNT(C.bno)
+        FROM t_board_recommendation AS C
+        WHERE C.bno = A.bno AND rec = 1) AS rec
         FROM t_board as A
         LEFT JOIN t_user as B
         ON A.uno = B.uno
         where A.bdel = 0
-        <if test="bcd > 1">AND A.bcd = #{bcd}</if>
-        <if test="searchType != null">
-            <if test="searchType == '제목+내용'">
-                AND A.btitle like CONCAT('%',#{searchText},'%')
-                OR A.bctnt like CONCAT('%',#{searchText},'%')
+        <if test="bcd > 2">AND A.bcd = #{bcd}</if>
+        <if test="searchType != 0">
+            <if test="searchType == 1">
+                AND (A.btitle like CONCAT('%',#{searchText},'%')
+                OR A.bctnt like CONCAT('%',#{searchText},'%'))
             </if>
-            <if test="searchType == '제목'">
+            <if test="searchType == 2">
                 AND A.btitle like CONCAT('%',#{searchText},'%')
             </if>
-            <if test="searchType == '내용'">
+            <if test="searchType == 3">
                 AND A.bctnt like CONCAT('%',#{searchText},'%')
+            </if>
+            <if test="searchType == 4">
+                AND B.unm like CONCAT('%',#{searchText},'%')
             </if>
         </if>
         ORDER BY A.bidx desc, A.bord asc
         LIMIT #{startIdx}, #{cntPerPage}
+    </select>
+
+    <!--    메인 게시판 리스트-->
+    <select id="selMainBoardList" resultType="BoardDomain">
+        select A.bno, A.btitle, A.brdt, A.bcd, B.bnm
+        , (SELECT COUNT(B.bno)
+        FROM t_board_recommendation as B
+        WHERE B.bno = A.bno AND B.rec = 1) as rec
+        FROM t_board AS A
+        LEFT JOIN t_board_category AS B
+        ON B.bcd = A.bcd
+        WHERE A.bdel = 0
+        <if test="bcd > 1">AND A.bcd = #{bcd}</if>
+        ORDER BY A.bidx desc, A.bord asc
+        LIMIT 10
     </select>
 
     <!--    게시글 SELECT -->
@@ -71,6 +94,7 @@
              , A.bdept
              , A.brdt
              , A.bhit
+             , A.bpw
              , B.unm as writer
         FROM t_board as A
                  LEFT JOIN t_user as B
@@ -81,19 +105,22 @@
     <!--    총 게시물 수 가져오기-->
     <select id="selBoardCount" resultType="Integer">
         select count(*)
-        FROM t_board
-        WHERE bcd = #{bcd}
-        AND bdel = 0
+        FROM t_board as A
+        WHERE A.bdel = 0
+        <if test="bcd > 1">AND bcd = #{bcd}</if>
         <if test="searchType != null">
-            <if test="searchType == '제목+내용'">
+            <if test="searchType == 1">
                 AND A.btitle like CONCAT('%',#{searchText},'%')
                 OR A.bctnt like CONCAT('%',#{searchText},'%')
             </if>
-            <if test="searchType == '제목'">
+            <if test="searchType == 2">
                 AND A.btitle like CONCAT('%',#{searchText},'%')
             </if>
-            <if test="searchType == '내용'">
+            <if test="searchType == 3">
                 AND A.bctnt like CONCAT('%',#{searchText},'%')
+            </if>
+            <if test="searchType == 4">
+                AND B.uno like CONCAT('%',#{searchText},'%')
             </if>
         </if>
     </select>
@@ -117,17 +144,21 @@
         bctnt = #{bctnt}
         WHERE bno = #{bno}
         AND
-        (<if test="uno != 0">uno = #{uno} OR</if>
+        (
+        <if test="uno != 0">uno = #{uno} OR</if>
         bpw = #{bpw})
     </update>
     <!--    게시글 삭제-->
     <update id="delBoard">
+
         UPDATE t_board
         SET bdel = 1
         WHERE bno = #{bno}
-        AND
-        (<if test="uno != 0">uno = #{uno} OR</if>
+        AND (
+        <if test="uno != 0">uno = #{uno} OR</if>
         bpw = #{bpw}
-        OR ((SELECT authno FROM t_user WHERE uno = #{uno}) = 1 OR 2))
+        <![CDATA[
+            OR ((SELECT authno FROM t_user WHERE uno = #{uno}) < 3))
+        ]]>
     </update>
 </mapper>

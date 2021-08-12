@@ -8,18 +8,11 @@
     </insert>
 
     <select id="selId" resultType="UserEntity">
-        select uid
+        select *
         from t_user
         where uemail = #{uemail}
-          and uid = #{uid}
+          and unm = #{unm}
     </select>
-
-    <insert id="insGoogleUser">
-        insert into t_Googleuser
-            (uid, unm, uemail)
-        values (#{uid}, #{unm}, #{uemail})
-    </insert>
-
     <select id="checkSocialUserExsist" resultType="UserEntity">
         select uid
         from t_googleuser
@@ -42,7 +35,7 @@
     <update id="updUser">
         update t_user
         set upw = #{upw}
-        where uemail = #{uemail}
+        where uemail = #{uemail} or uid=#{uid}
     </update>
 
     <select id="selUser" resultType="UserEntity">
@@ -60,4 +53,7 @@
         from t_user
         where authno = #{authno}
     </select>
+    <update id="modUser">
+        UPDATE t_user set upw = #{upw} where uid=#{uid}
+    </update>
 </mapper>

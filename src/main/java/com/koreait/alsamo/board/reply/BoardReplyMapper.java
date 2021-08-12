@@ -14,7 +14,7 @@ public interface BoardReplyMapper {
     List<BoardReplyDomain> selReplyList(BoardReplyEntity param);
 
     int updReReply(BoardReplyEntity param);
-    int updReply(BoardReplyEntity param);
+//    int updReply(BoardReplyEntity param); X
 
     int delReply(BoardReplyEntity param);
 }
