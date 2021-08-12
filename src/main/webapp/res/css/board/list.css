@@ -2,7 +2,19 @@
     box-sizing: border-box;
     width: 100%;
     margin: 12px 0px 12px 0px;
+    font-size: 14px;
+}
 
+.boardContainer .form-control {
+    font-size: 14px;
+}
+
+.boardContainer .form-select {
+    font-size: 14px;
+}
+
+.boardContainer .btn {
+    font-size: 14px;
 }
 
 .boardContainer::after {
