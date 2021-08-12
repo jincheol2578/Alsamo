@@ -23,7 +23,13 @@
                         <td class="bright board-title"
                             onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">${item.btitle}</td>
                         <td class="board-writer" id="${status.index}"
-                            <c:if test="${item.uno !=0}">onclick="makeUl(${status.index},${item.uno});"</c:if>>${item.writer}
+                            <c:if test="${item.uno !=0}">onclick="makeUl(${status.index},${item.uno});"</c:if>>
+<%--                            <c:choose>--%>
+<%--                                <c:when test="${item.uno == 0}">익명</c:when>--%>
+<%--                            </c:choose>--%>
+<%--                            <c:otherwise>--%>
+                                ${item.writer}
+<%--                            </c:otherwise>--%>
                         </td>
                         <td class="board-date">${item.brdt}</td>
                         <td class="board-hit">${item.bhit}</td>
