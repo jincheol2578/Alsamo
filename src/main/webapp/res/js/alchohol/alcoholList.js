@@ -1,4 +1,3 @@
-
 function searchAl(name) {
     location.href = '/alcohol/alcoholList';
     const al = document.getElementById(name);
@@ -24,6 +23,10 @@ function ajaxAl(name) {
         })
         .then((myJson) => {
             document.getElementById('alcoholContent').innerHTML = myJson.content;
+            const conetentInnerText = document.getElementById('alcoholContent').innerHTML;
+            if (conetentInnerText == null || conetentInnerText == '') {
+                alert('검색어가 유효하지 않습니다!');
+            }
             addSrc();
         })
 
@@ -39,9 +42,10 @@ function addSrc() {
         a[i].href = sufix + origin;
     }
 }
-function searchWhat(name){
-    const what ={
-        name:name
+
+function searchWhat(name) {
+    const what = {
+        name: name
     };
     ajaxAl(what)
 }
@@ -64,5 +68,5 @@ function enterKey() {
 
 function hindUselss() {
     document.querySelector('#p-lang-btn').style.display = 'none';
-    document.querySelector('.nowraplinks ').style.display='none';
+    document.querySelector('.nowraplinks ').style.display = 'none';
 }

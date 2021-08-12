@@ -16,11 +16,11 @@
     </div>
     <div class="form-group">
         <label for="inputPassword">비밀번호</label>
-        <input type="password" class="form-control" name="upw" id="inputPassword" placeholder="비밀번호를 입력해주세요" required>
+        <input type="password" class="form-control" name="upw" id="inputPassword"  minlength="6" maxlength="12" placeholder="비밀번호를 입력해주세요" required>
     </div>
     <div class="form-group">
         <label for="inputPasswordChck">비밀번호 확인</label>
-        <input type="password" class="form-control" id="inputPasswordChck" placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요"
+        <input type="password" class="form-control" id="inputPasswordChck"  minlength="6" maxlength="12" placeholder="비밀번호 확인을 위해 다시한번 입력 해 주세요"
                required>
     </div>
     <div id="checkPwMsg"></div>
