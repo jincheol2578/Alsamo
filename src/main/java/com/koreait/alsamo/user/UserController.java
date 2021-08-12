@@ -3,6 +3,7 @@ package com.koreait.alsamo.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.EscapedErrors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -116,8 +117,12 @@ public class UserController {
     @PostMapping("/findId")
     public String findId(UserEntity param, Model model) {
         UserEntity user = service.findId(param);
-        model.addAttribute("user", user);
-        return "/user/findId";
+        if (user.getUid() == null || user.getUid() == "") {
+            model.addAttribute("Msg","아이디 혹은 이메일이 확실 하지 않습니다.");
+        } else {
+            model.addAttribute("Msg", "아이디: "+user.getUid());
+        }
+        return "user/loginErr";
     }
 
 
@@ -156,8 +161,8 @@ public class UserController {
     @RequestMapping(value = "/myPage", method = RequestMethod.POST)
     public String myPageMod(UserEntity param, Model model) {
 
-         service.updUser(param);
-         return "user/myPage";
+        service.updUser(param);
+        return "user/myPage";
     }
 
 
