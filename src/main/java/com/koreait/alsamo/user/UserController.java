@@ -7,6 +7,7 @@ import org.springframework.web.bind.EscapedErrors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
@@ -51,10 +52,10 @@ public class UserController {
     }
 
     @RequestMapping("/logout")
-    public String logout(HttpSession hs) {
+    public String logout(HttpSession hs, HttpServletRequest req) {
         hs.invalidate();
-
-        return "redirect:/board/list";
+        String referer =req.getHeader("REFERER");
+        return "redirect:"+referer;
     }
 
 
