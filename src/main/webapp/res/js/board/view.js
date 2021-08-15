@@ -193,7 +193,6 @@ function makeReplyList(data) {
                     reRepPwd = reRepFrm.querySelector('.reRepPwd').value;
                 }
 
-                console.log(parseInt(loginUserPk));
                 reRepCtnt = reRepFrm.querySelector('.reRepCtnt').value;
                 const param = {
                     bno: bnoVal,
@@ -204,7 +203,6 @@ function makeReplyList(data) {
                     repord: item.repord,
                     repdept: item.repdept
                 }
-                console.log(param)
                 regAjax(param, 1);
 
             })
