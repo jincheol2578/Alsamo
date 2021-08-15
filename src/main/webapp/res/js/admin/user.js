@@ -35,7 +35,6 @@ authorizeElem.addEventListener('change', () => {
     getUserList(authorizeElem.value, 1, searchTextElem.value);
 });
 
-console.log(adminAuth);
 
 function makeList(item) {
     const tableElem = document.getElementById('datatablesSimple');

@@ -1,11 +1,3 @@
-function searchAl(name) {
-    location.href = '/alcohol/alcoholList';
-    const al = document.getElementById(name);
-    const alData = {
-        name: al.dataset.name
-    };
-    ajaxAl(alData);
-}
 
 function ajaxAl(name) {
     const init = {
