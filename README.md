@@ -15,7 +15,7 @@ http://alsamo.site/
 
 ## 사용 기술 및 개발 환경
 
-Java 8, Spring, IntelliJ, Maven, MariaDB, MyBatis, Jsoup, JavaScript, Bootstrap,
+Java 8, Spring, IntelliJ, Maven, MariaDB, MyBatis, Jsoup, JavaScript, Bootstrap, AWS
 
 
 
