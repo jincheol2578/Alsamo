@@ -1,0 +1,6 @@
+.modifyBtn{
+    display: flex;
+}
+.modifyBtn .btn2{
+    margin-left: 8px;
+}

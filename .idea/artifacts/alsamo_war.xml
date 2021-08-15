@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="alsamo:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/alsamo_war</output-path>
+    <root id="archive" name="alsamo_war.war">
+      <element id="artifact" artifact-name="alsamo:war exploded" />
+    </root>
+  </artifact>
+</component>

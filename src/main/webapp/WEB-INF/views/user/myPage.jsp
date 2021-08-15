@@ -11,7 +11,7 @@
                         <span class="input-group-text" id="basic-addon1">이메일</span>
                     </div>
                     <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                           aria-describedby="basic-addon1" value="${sessionScope.loginUser.uemail}">
+                           aria-describedby="basic-addon1" value="${sessionScope.loginUser.uemail}" readonly>
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -25,19 +25,21 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon3">비밀번호</span>
                     </div>
-                    <input type="password" class="form-control inputPassword" name="upw" placeholder="Password" aria-label="Password"
+                    <input type="password" id="inputPassword" class="form-control inputPassword" name="upw"
+                           placeholder="Password" aria-label="Password"
                            aria-describedby="basic-addon1" value="">
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon4">비밀번호 확인</span>
                     </div>
-                    <input type="password" class="form-control inputPasswordChck" name="upwChck" placeholder="Password Check"
+                    <input type="password" id="inputPasswordChck" class="form-control inputPasswordChck" name="upwChck"
+                           placeholder="Password Check"
                            aria-label="Username"
                            aria-describedby="basic-addon1" value="">
                     <input type="hidden" name="uid" value="${sessionScope.loginUser.uid}">
                 </div>
-                <div class="myPageMsg"></div>
+                <div id="checkPwMsg"></div>
                 <div class="button_container"><input class="btn btn-secondary" type="submit" value="적용">
                     <a href="/board/list">
                         <button class="btn btn-secondary" type="button">취소</button>
@@ -47,4 +49,4 @@
     </div>
 </div>
 
-<script src="/res/js/user/myPage.js/"></script>
+<script src="/res/js/user/join.js/"></script>

@@ -83,7 +83,7 @@ function getBoardList(item, board) {
         })
         .then((data) => {
             makeList(data.board, board);
-            console.log(data.board);
+
         });
 }
 
