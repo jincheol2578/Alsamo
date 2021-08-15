@@ -10,4 +10,3 @@
     </div>
 
 </div>
-<link rel="stylesheet" href="/res/css/user/loginErr.css">
