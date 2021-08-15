@@ -43,7 +43,7 @@ public class UserService {
             param.setAuthkey(key);
 
             /* 메일 작성 */
-            String txt = String.format("<a href='http://localhost:8080/user/emailConfirm?userEmail=%S&AuthKey=%s'target='_blank'>이메일 인증 확인</a>", param.getUemail(), key);
+            String txt = String.format("<a href='http://3.36.116.159/user/emailConfirm?userEmail=%S&AuthKey=%s'target='_blank'>이메일 인증 확인</a>", param.getUemail(), key);
             String subject = "Alsamo 이메일 인증";
             myUtils.mailSender(param.getUemail(), subject, txt);
 
@@ -55,7 +55,6 @@ public class UserService {
     public String login(UserEntity param) {
 
         UserEntity result = mapper.selUser(param);
-
         if (result == null) {
             //아이디 없음
             return "/user/loginErr?err=1";
@@ -63,7 +62,7 @@ public class UserService {
             //로그인 성공
             result.setUpw(null);
             session.setAttribute("loginUser", result);
-            return "/board/list";
+            return "/";
         } else {
             //비밀번호 틀림
             return "/user/loginErr?err=2";
@@ -94,7 +93,7 @@ public class UserService {
         /* 메일 작성 */
         UserEntity selUser = mapper.selUser(param);
         String subject = "Alsamo 아이디/비밀번호 찾기 이메일 인증";
-        String txt = String.format("<a href='http://localhost:8080/user/femailConfirm?fuserEmail=%s&fAuthKey=%s' target='_blank'>이메일 인증확인</a>", param.getUemail(), selUser.getAuthkey());
+        String txt = String.format("<a href='http://3.36.116.159:8080/user/femailConfirm?fuserEmail=%s&fAuthKey=%s' target='_blank'>이메일 인증확인</a>", param.getUemail(), selUser.getAuthkey());
         myUtils.mailSender(param.getUemail(), subject, txt);
 
     }

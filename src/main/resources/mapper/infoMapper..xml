@@ -36,8 +36,10 @@
                  LEFT JOIN t_user AS B
                            ON A.uno = B.uno
         WHERE B.uno = #{uno} and A.repdel = 0
-        ORDER BY A.uno DESC
+        <if test="!startIdx!=null and startIdx!='' and cntPerPage!=null and cntPerPage!=''">
+            ORDER BY A.uno DESC
             limit #{startIdx}, #{cntPerPage}
+        </if>
     </select>
     <select id="countAllWrite" resultType="int">
         SELECT COUNT(case when uno = #{param} then 1 end)
