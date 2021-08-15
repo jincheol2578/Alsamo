@@ -138,7 +138,7 @@ html, head, body {
 
 /* 아이디 찾기 */
 .findIdContainer {
-    width: 1000px;
+    width: 100%;
     height: 500px;
     display: flex;
     justify-content: center;
@@ -150,7 +150,7 @@ html, head, body {
 
 /*비밀번호 찾기*/
 .findPwContainer {
-    width: 1000px;
+    width: 100%;
     height: 500px;
     display: flex;
     justify-content: center;
@@ -166,7 +166,7 @@ html, head, body {
     display: grid;
     grid-template-columns: 1fr;
     border: 1px solid #dee2e6;
-    width: 1000px;
+    width: 100%;
     height: 500px;
     margin: 8px;
 }
@@ -195,7 +195,7 @@ html, head, body {
 }
 
 .loginMsg {
-    width: 1000px;
+    width: 100%;
     height: 500px;
     display: flex;
     justify-content: center;
@@ -225,7 +225,7 @@ html, head, body {
     border: 1px solid #dee2e6;
     margin-top: 8px;
     padding: 12px;
-    width: 1000px;
+    width: 100%;
     height: 500px;
     align-items: center;
     justify-content: center;
@@ -233,7 +233,7 @@ html, head, body {
 
 /* updUser */
 .updUserContainer {
-    width: 1000px;
+    width: 100%;
     height: 500px;
     display: flex;
     justify-content: center;
@@ -253,7 +253,7 @@ html, head, body {
 
 /* 아이디 비번 찾기 분기점 brige*/
 .bridgeContainer {
-    width: 1000px;
+    width: 100%;
     height: 500px;
     display: flex;
     justify-content: center;
@@ -331,7 +331,7 @@ html, head, body {
     display: grid;
     grid-template-columns: 1fr;
     border: 1px solid #dee2e6;
-    width: 1000px;
+    width: 100%;
     height: 500px;
     margin: 8px;
 }
@@ -360,7 +360,7 @@ html, head, body {
 }
 
 .loginMsgContainer {
-    width: 1000px;
+    width: 100%;
     height: 500px;
     display: flex;
     justify-content: center;
@@ -388,7 +388,7 @@ html, head, body {
     border: 1px solid #dee2e6;
     margin-top: 8px;
     padding: 12px;
-    width: 1000px;
+    width: 100%;
     height: 500px;
     align-items: center;
     justify-content: center;
@@ -401,7 +401,7 @@ html, head, body {
 
 /* 비밀번호 찾기- 수정*/
 .updUserContainer {
-    width: 1000px;
+    width: 100%;
     height: 500px;
     display: flex;
     justify-content: center;
@@ -425,7 +425,7 @@ html, head, body {
 }
 
 .adminChckdContainer {
-    width: 1000px;
+    width: 100%;
     height: 500px;
     display: flex;
     justify-content: center;
@@ -496,4 +496,16 @@ html, head, body {
 
 #join-submit:hover {
     color: #56ff41;
+}
+
+/* 게시판 비밀번호 체크 */
+.check-container {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

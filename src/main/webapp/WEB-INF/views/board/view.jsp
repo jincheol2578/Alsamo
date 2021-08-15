@@ -7,7 +7,7 @@
         </div>
         <div class="boardInfo-row">
             <div class="memberInfo">
-                <p class="writerInfo">${requestScope.board.writer}</p>
+                <a class="writerInfo" href="/user/info?uno=${requestScope.board.uno}">${requestScope.board.writer}</a>
             </div>
             <div class="boardInfo">
                 <p class="infoBody">${requestScope.board.brdt}</p>
