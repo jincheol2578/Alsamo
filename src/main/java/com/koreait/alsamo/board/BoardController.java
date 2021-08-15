@@ -4,6 +4,7 @@ import com.koreait.alsamo.board.model.BoardDTO;
 import com.koreait.alsamo.board.model.BoardDomain;
 import com.koreait.alsamo.board.model.BoardEntity;
 import com.koreait.alsamo.common.Pagination;
+import com.koreait.alsamo.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,9 @@ import java.util.TreeMap;
 public class BoardController {
     @Autowired
     BoardService service;
+
+    @Autowired
+    MyUtils myUtils;
 
     int listCnt = 0;
 
@@ -56,7 +60,7 @@ public class BoardController {
         if (param.getBno() == 0) { //원글 작성시
             model.addAttribute("categoryList", service.selBoardCategory());
         } else if (param.getModify() == 1) { //수정버튼 클릭시
-            if (board.getBpw().equals(param.getBpw())) {
+            if ((board.getUno() != 0 && board.getUno() == myUtils.getUserPk()) || board.getBpw().equals(param.getBpw())) {
                 model.addAttribute("board", board);
             } else {
                 return "board/errpage";

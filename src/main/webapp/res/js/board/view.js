@@ -98,7 +98,10 @@ function makeReplyList(data) {
         repElem2.setAttribute('class', 'child2');
         repElem3.setAttribute('class', 'child3');
         repElem4.setAttribute('class', 'child4');
-        repElem1.append(item.repnm);
+        const writerProfile = document.createElement('a');
+        writerProfile.innerText = item.repnm;
+        writerProfile.href = '/user/info?uno=' + item.uno;
+        repElem1.append(writerProfile);
         repElem2.append(item.repctnt);
         repElem3.append(item.reprdt);
 
@@ -379,6 +382,7 @@ function checkNotice() {
         });
 }
 
+// 공지사항 등록
 function regNotice() {
     fetch('/board/notice/' + bnoVal, {
         method: 'POST'
@@ -395,6 +399,7 @@ function regNotice() {
         });
 }
 
+// 공지사항 삭제
 function delNotice() {
     fetch('/board/notice/' + bnoVal, {
         method: 'DELETE'

@@ -16,6 +16,12 @@
     display: block;
 }
 
+.viewContainer a {
+    text-decoration: inherit;
+    font-style: inherit;
+    color: inherit;
+}
+
 /* list . css*/
 .table {
     box-sizing: border-box;

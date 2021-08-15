@@ -16,7 +16,7 @@ function makeUl(count, pk) {
     aTagElemPrf.innerText = '프로필';
     aTagElemWhatWrt.innerText = '작성글';
     aTagElemRep.innerText = '댓글';
-    if (targets.className === 'userId') {
+    if (targets.classList.contains('userId')) {
         divElem.append(ulElem);
 
         ulElem.append(liWhoElem);
