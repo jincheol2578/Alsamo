@@ -43,8 +43,8 @@ public class UserService {
             param.setAuthkey(key);
 
             /* 메일 작성 */
-            String txt = String.format("<a href='http://localhost:8090/user/emailConfirm?userEmail=%S&AuthKey=%s'target='_blank'>이메일 인증 확인</a>", param.getUemail(), key);
-            String subject = "<h1>Alsamo 이메일 인증</h1>";
+            String txt = String.format("<a href='http://3.36.116.159/user/emailConfirm?userEmail=%S&AuthKey=%s'target='_blank'>이메일 인증 확인</a>", param.getUemail(), key);
+            String subject = "Alsamo 이메일 인증";
             myUtils.mailSender(param.getUemail(), subject, txt);
 
             mapper.insUser(param);
