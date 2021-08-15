@@ -1,5 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div class="infoNameContainer">
+    <div id="infoCategory">
+        <div><h2>${requestScope.infoUser.boardList[0].writer} 님의 프로필</h2></div>
+        <div>
+            <ul>
+                <li><a href="/user/infowrite?uno=${requestScope.infoUser.uno}&page=1">게시글</a></li>
+                <li><a href="/user/inforeply?uno=${requestScope.infoUser.uno}&page=1">댓글</a></li>
+
+            </ul>
+        </div>
+    </div>
+</div>
 <div id="infoWriteContainer">
     <table class="table table-hover" id="infoWriteTable">
         <tr>
@@ -53,4 +65,4 @@
 </div>
 
 <script defer src="/res/js/user/infoWrite.js"></script>
-<link rel="stylesheet" href="/res/css/user/infoWrite.css">
+<link rel="stylesheet" href="/res/css/user/info.css">

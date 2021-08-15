@@ -93,7 +93,7 @@ public class UserService {
         /* 메일 작성 */
         UserEntity selUser = mapper.selUser(param);
         String subject = "Alsamo 아이디/비밀번호 찾기 이메일 인증";
-        String txt = String.format("<a href='http://localhost:8080/user/femailConfirm?fuserEmail=%s&fAuthKey=%s' target='_blank'>이메일 인증확인</a>", param.getUemail(), selUser.getAuthkey());
+        String txt = String.format("<a href='http://3.36.116.159:8080/user/femailConfirm?fuserEmail=%s&fAuthKey=%s' target='_blank'>이메일 인증확인</a>", param.getUemail(), selUser.getAuthkey());
         myUtils.mailSender(param.getUemail(), subject, txt);
 
     }

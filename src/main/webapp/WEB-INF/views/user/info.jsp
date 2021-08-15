@@ -6,8 +6,8 @@
         <div><h2>${requestScope.infoUser.boardList[0].writer} 님의 프로필</h2></div>
         <div>
             <ul>
-                <li><a href="/user/infowrite?uno=${requestScope.infoUser.boardList[0].uno}&page=1">게시글</a></li>
-                <li><a href="/user/inforeply?uno=${requestScope.infoUser.boardList[0].uno}&page=1">댓글</a></li>
+                <li><a href="/user/infowrite?uno=${requestScope.infoUser.uno}&page=1">게시글</a></li>
+                <li><a href="/user/inforeply?uno=${requestScope.infoUser.uno}&page=1">댓글</a></li>
 
             </ul>
         </div>
@@ -65,4 +65,5 @@
 </div>
 
 
+<link rel="stylesheet" href="/res/css/user/info.css">
 <link rel="stylesheet" href="/res/css/user/info.css">
