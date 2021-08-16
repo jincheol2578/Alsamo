@@ -2,6 +2,7 @@
 
 주류 관련 정보 공유를 위한 커뮤니티 사이트 Alsamo 입니다.
 
+http://alsamo.site/
 
 
 ## 팀원
@@ -14,7 +15,7 @@
 
 ## 사용 기술 및 개발 환경
 
-Java 8, Spring, IntelliJ, Maven, MariaDB, MyBatis, Jsoup, JavaScript, Bootstrap,
+Java 8, Spring, IntelliJ, Maven, MariaDB, MyBatis, Jsoup, JavaScript, Bootstrap, AWS
 
 
 

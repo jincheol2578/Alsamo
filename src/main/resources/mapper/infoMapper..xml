@@ -12,6 +12,8 @@
              , A.bdept
              , A.brdt
              , A.bhit
+             , A.bcd
+             , A.bno
              , B.unm as writer
         FROM t_board as A
                  LEFT JOIN t_user as B
@@ -27,6 +29,7 @@
                A.bno,
                A.reprdt,
                B.uno,
+               C.bcd,
                (SELECT D.bnm
                 FROM t_board AS C
                          LEFT JOIN t_board_category AS D
@@ -35,6 +38,8 @@
         FROM t_board_reply AS A
                  LEFT JOIN t_user AS B
                            ON A.uno = B.uno
+                 LEFT JOIN t_board AS C
+                            ON B.uno = C.uno
         WHERE B.uno = #{uno} and A.repdel = 0
         <if test="!startIdx!=null and startIdx!='' and cntPerPage!=null and cntPerPage!=''">
             ORDER BY A.uno DESC
