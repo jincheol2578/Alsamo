@@ -23,7 +23,6 @@ public class InfoService {
 
     // 리플 리스트
     public List<InfoReplyDTO> selAllReply(InfoUserDTO param) {
-
         return mapper.selAllRepWho(param);
     }
 
@@ -36,7 +35,7 @@ public class InfoService {
     public int selBoardCount(InfoUserDTO param) {
         return mapper.countBoardList(param);
     }
-    public int selReplyCount(InfoUserDTO param) { return mapper.countBoardList(param); }
+    public int selReplyCount(InfoUserDTO param) { return mapper.countAllReply(param.getUno()); }
 
 
 }

@@ -17,7 +17,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon2">이름</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Email" aria-label="Username"
+                    <input type="text" class="form-control" placeholder="Email" aria-label="Username" readonly
                            aria-describedby="basic-addon1" value="${sessionScope.loginUser.unm}">
                 </div>
 
@@ -27,7 +27,7 @@
                     </div>
                     <input type="password" id="inputPassword" class="form-control inputPassword" name="upw"
                            placeholder="Password" aria-label="Password"
-                           aria-describedby="basic-addon1" value="">
+                           aria-describedby="basic-addon1" minlength="6" maxlength="12" required>
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -36,7 +36,7 @@
                     <input type="password" id="inputPasswordChck" class="form-control inputPasswordChck" name="upwChck"
                            placeholder="Password Check"
                            aria-label="Username"
-                           aria-describedby="basic-addon1" value="">
+                           aria-describedby="basic-addon1" minlength="6" maxlength="12" required>
                     <input type="hidden" name="uid" value="${sessionScope.loginUser.uid}">
                 </div>
                 <div id="checkPwMsg"></div>

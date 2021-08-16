@@ -10,4 +10,7 @@ import lombok.ToString;
 @ToString
 public class InfoReplyDTO extends BoardReplyEntity {
     private String bnm;
+    private int bcd;
+    private int bno;
+    private String repnm;
 }

@@ -25,7 +25,6 @@ public class InfoUserController {
         dto.setCountReplyList(service.selAllReplyCount(param));
         dto.setCountBoardList(service.selAllWriteCount(param));
 
-
         model.addAttribute("infoUser", dto);
 
         return "user/info";

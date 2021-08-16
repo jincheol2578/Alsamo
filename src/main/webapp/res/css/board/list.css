@@ -251,4 +251,7 @@
     font-weight: bold;
 }
 
-.notice
+.board-writer a {
+    text-decoration: inherit;
+    color: inherit;
+}

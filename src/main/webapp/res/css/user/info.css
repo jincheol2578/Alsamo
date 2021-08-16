@@ -8,10 +8,14 @@
     height: 0.2rem;
 }
 
-a{
+.container-fluid a{
     vertical-align: middle;
     text-decoration: none;
     color: black;
+    font-size: 14px;
+}
+.container-fluid div {
+    font-size: 14px;
 }
 
 .infoNameContainer{
@@ -48,4 +52,10 @@ p{
 }
 .infoContent{
     margin-top: 60px;
+}
+.info-header {
+    margin: 10px 5px;
+}
+#infoWriteTable {
+    margin-bottom: 0;
 }

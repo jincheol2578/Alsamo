@@ -12,19 +12,19 @@
         </div>
     </div>
 </div>
-<div id="infoWriteContainer">
+<div id="infoContainer">
     <table class="table table-hover" id="infoWriteTable">
         <tr>
             <th></th>
-            <th></th>
-            <th>total ${infoUser.countBoardList} </th>
+            <th>제목</th>
+            <th>Total ${infoUser.countBoardList} </th>
         </tr>
         <c:forEach var="item" items="${requestScope.infoUser.boardList}">
             <tr>
+                <td><a href="/board/view?bcd=${item.bcd}&bno=${item.bno}">바로가기</a></td>
                 <td><a href="/board/view?bcd=${item.bcd}&bno=${item.bno}">${item.btitle}</a></td>
-                <td><a href="/board/view?bcd=${item.bcd}&bno=${item.bno}">${item.bctnt}</a></td>
-                <td><a href="/board/view?bcd=${item.bcd}">
-                    <div>${item.bcd} </div>
+                <td><a href="/board/list?bcd=${item.bcd}">
+                    <div>${item.bnm} </div>
                 </a>
                     <div>${item.brdt}</div>
                 </td>

@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="infoNameContainer">
     <div id="infoCategory">
-        <div><h2>${requestScope.infoUser.boardList[0].writer} 님의 프로필</h2></div>
+        <div><h2>${requestScope.infoUser.replyList[0].repnm} 님의 프로필</h2></div>
         <div>
             <ul>
                 <li><a href="/user/infowrite?uno=${requestScope.infoUser.uno}&page=1">게시글</a></li>
@@ -12,18 +12,18 @@
         </div>
     </div>
 </div>
-<div id="infoReplyContainer">
+<div id="infoContainer">
     <table class="table table-hover" id="infoReplyTable">
         <tr>
             <th></th>
-            <th></th>
+            <th>댓글</th>
             <th>Total ${infoUser.countReplyList}</th>
         </tr>
         <c:forEach var="repItem" items="${requestScope.infoUser.replyList}">
             <tr>
-                <td><a href="">댓글 바로가기</a></td>
-                <td><a href="">${repItem.repctnt} </a></td>
-                <td><a href="">
+                <td><a href="/board/view?bcd=${repItem.bcd}&bno=${repItem.bno}">바로가기</a></td>
+                <td><a href="/board/view?bcd=${repItem.bcd}&bno=${repItem.bno}">${repItem.repctnt} </a></td>
+                <td><a href="/board/list?bcd=${repItem.bcd}">
                     <div> ${repItem.bnm} </div>
                 </a>
                     <div>${repItem.reprdt}</div>
