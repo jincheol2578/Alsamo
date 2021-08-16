@@ -22,9 +22,14 @@
                         <td class="board-no">${item.bno}</td>
                         <td class="bright board-title"
                             onclick="location.href='view?bcd=${item.bcd}&bno=${item.bno}'">${item.btitle}</td>
-                        <td class="board-writer" id="${status.index}"
-                            <c:if test="${item.uno !=0}">onclick="makeUl(${status.index},${item.uno});"</c:if>>
-                                ${item.writer}
+                        <td class="board-writer" id="${status.index}">
+                        <c:choose>
+                            <c:when test="${item.uno !=0}">
+                                <a href="/user/info?uno=${item.uno}">${item.writer}</a>
+                            </c:when>
+                            <c:otherwise>${item.writer}
+                            </c:otherwise>
+                        </c:choose>
                         </td>
                         <td class="board-date">${item.brdt}</td>
                         <td class="board-hit">${item.bhit}</td>
