@@ -16,18 +16,19 @@
 
 <div class="infoContent">
     <div class="infoUpper">
+        <div class="info-header">게시글</div>
         <table class="table table-hover" id="infoWriteTable">
             <tr>
                 <th></th>
                 <th></th>
-                <th>total ${infoUser.countBoardList} </th>
+                <th>Total ${infoUser.countBoardList} </th>
             </tr>
             <c:forEach var="item" items="${requestScope.infoUser.boardList}" begin="0" end="4">
                 <tr>
                     <td><a href="/board/view?bcd=${item.bcd}&bno=${item.bno}">${item.btitle}</a></td>
                     <td><a href="/board/view?bcd=${item.bcd}&bno=${item.bno}">${item.bctnt}</a></td>
-                    <td><a href="/board/view?bcd=${item.bcd}">
-                        <div>${item.bcd}</div>
+                    <td><a href="/board/list?bcd=${item.bcd}">
+                        <div>${item.bnm}</div>
                     </a>
                         <div>${item.brdt}</div>
                     </td>
@@ -40,7 +41,7 @@
 
     <br>
     <div class="infoDowner">
-        <div>내가 쓴 댓글</div>
+        <div class="info-header">댓글</div>
 
         <table class="table table-hover" id="infoReplyTable">
             <tr>
@@ -50,9 +51,9 @@
             </tr>
             <c:forEach var="repItem" items="${requestScope.infoUser.replyList}" begin="0" end="5">
                 <tr>
-                    <td><a href="">댓글 바로가기</a></td>
-                    <td><a href="">${repItem.repctnt} </a></td>
-                    <td><a href="">
+                    <td><a href="/board/view?bno=${repItem.bno}">댓글 바로가기</a></td>
+                    <td><a href="/board/view?bno=${repItem.bno}">${repItem.repctnt} </a></td>
+                    <td><a href="/board/list?bcd=${repItem.bcd}">
                         <div> 게시판 ${repItem.bnm} </div>
                     </a>
                         <div>${repItem.reprdt}</div>

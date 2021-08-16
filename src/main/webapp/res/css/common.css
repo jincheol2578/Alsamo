@@ -276,52 +276,53 @@ html, head, body {
 }
 
 /* 댓글info */
-#infoReplyContainer .table td, #infoReplyContainer .table th {
+#infoContainer .table td, #infoContainer .table th {
     min-width: 10rem;
     vertical-align: middle;
     text-align: center;
     overflow: hidden;
 }
 
-#infoReplyContainer .table tr a {
+#infoContainer .table tr a {
     vertical-align: middle;
     text-decoration: none;
     color: black;
 }
 
-#infoReplyContainer {
+#infoContainer {
     margin-top: 12px;
 }
 
 /* 쓴글 info*/
-#infoWriteContainer .table td, #infoWriteContainer .table th {
+#infoContainer .table td, #infoContainer .table th {
     min-width: 10rem;
     vertical-align: middle;
     text-align: center;
     overflow: hidden;
 }
 
-#infoWriteContainer a {
+#infoContainer a {
     vertical-align: middle;
     text-decoration: none;
     color: black;
 }
 
-#infoWriteContainer {
+#infoContainer {
     margin-top: 12px;
 }
 
-#infoWriteContainer .pagination {
+#infoContainer .pagination {
     margin: auto;
+    justify-content: center;
 }
 
-#infoWriteContainer .pagination li {
+#infoContainer .pagination li {
     margin-left: 9px;
-    font-size: 20px;
-
+    font-size: 16px;
 }
 
-#infoWriteContainer .pagination .active {
+
+#infoContainer .pagination .active {
     color: red;
 }
 
@@ -500,6 +501,17 @@ html, head, body {
 
 /* 게시판 비밀번호 체크 */
 .check-container {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.errorpage-container {
     width: 100%;
     height: 500px;
     display: flex;

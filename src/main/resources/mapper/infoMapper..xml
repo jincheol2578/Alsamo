@@ -3,33 +3,41 @@
 <mapper namespace="com.koreait.alsamo.user.info.InfoMapper">
     <select id="selAllBoardWho" resultType="BoardDomain">
         SELECT A.bno
-             , A.uno
-             , A.bcd
-             , A.btitle
-             , A.bctnt
-             , A.bidx
-             , A.bord
-             , A.bdept
-             , A.brdt
-             , A.bhit
-             , A.bcd
-             , A.bno
-             , B.unm as writer
+        , A.uno
+        , A.bcd
+        , A.btitle
+        , A.bctnt
+        , A.bidx
+        , A.bord
+        , A.bdept
+        , A.brdt
+        , A.bhit
+        , A.bcd
+        , A.bno
+        , B.unm as writer
+        , C.bnm
         FROM t_board as A
-                 LEFT JOIN t_user as B
-                           ON A.uno = B.uno
+        LEFT JOIN t_user as B
+        ON A.uno = B.uno
+        LEFT JOIN t_board_category as C
+        ON A.bcd = C.bcd
         where A.uno = #{uno} and A.bdel = 0
         ORDER BY A.bno DESC
-        <if test='startIdx != null and startIdx!="" and cntPerPage != null and cntPerPage != "" '>
-            limit #{startIdx}, #{cntPerPage}
-        </if>
+        <choose>
+            <when test="cntPerPage == 0">
+                limit 5
+            </when>
+            <otherwise>
+                limit #{startIdx}, #{cntPerPage}
+            </otherwise>
+        </choose>
     </select>
     <select id="selAllRepWho" resultType="InfoReplyDTO">
         SELECT A.repctnt,
                A.bno,
                A.reprdt,
                B.uno,
-               C.bcd,
+               A.repnm,
                (SELECT D.bnm
                 FROM t_board AS C
                          LEFT JOIN t_board_category AS D
@@ -38,13 +46,17 @@
         FROM t_board_reply AS A
                  LEFT JOIN t_user AS B
                            ON A.uno = B.uno
-                 LEFT JOIN t_board AS C
-                            ON B.uno = C.uno
-        WHERE B.uno = #{uno} and A.repdel = 0
-        <if test="!startIdx!=null and startIdx!='' and cntPerPage!=null and cntPerPage!=''">
-            ORDER BY A.uno DESC
-            limit #{startIdx}, #{cntPerPage}
-        </if>
+        WHERE B.uno = #{uno}
+          and A.repdel = 0
+        ORDER BY A.uno DESC
+        <choose>
+            <when test="cntPerPage == 0">
+                limit 5
+            </when>
+            <otherwise>
+                limit #{startIdx}, #{cntPerPage}
+            </otherwise>
+        </choose>
     </select>
     <select id="countAllWrite" resultType="int">
         SELECT COUNT(case when uno = #{param} then 1 end)
@@ -57,10 +69,14 @@
 
     <select id="countBoardList" resultType="Integer">
         select count(*)
-        FROM t_board WHERE uno = #{uno} and bdel = 0
+        FROM t_board
+        WHERE uno = #{uno}
+          and bdel = 0
     </select>
     <select id="countReplyList" resultType="Integer">
         select count(*)
-        FROM t_board_reply WHERE uno = #{uno} and repdel = 0
+        FROM t_board_reply
+        WHERE uno = #{uno}
+          and repdel = 0
     </select>
 </mapper>
