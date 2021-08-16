@@ -21,9 +21,9 @@
         </tr>
         <c:forEach var="repItem" items="${requestScope.infoUser.replyList}">
             <tr>
-                <td><a href="">댓글 바로가기</a></td>
-                <td><a href="">${repItem.repctnt} </a></td>
-                <td><a href="">
+                <td><a href="/board/view?bcd=${repItem.bcd}&bno=${repItem.bno}">댓글 바로가기</a></td>
+                <td><a href="/board/view?bcd=${repItem.bcd}&bno=${repItem.bno}">${repItem.repctnt} </a></td>
+                <td><a href="/board/view?bcd=${repItem.bcd}&bno=${repItem.bno}">
                     <div> ${repItem.bnm} </div>
                 </a>
                     <div>${repItem.reprdt}</div>
