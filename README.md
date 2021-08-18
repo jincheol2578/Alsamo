@@ -10,7 +10,7 @@ http://alsamo.site/
 ![GitHub-Mark-32px](https://user-images.githubusercontent.com/81733208/127449795-e4a42194-93a0-4060-bdac-8425789cb40a.png) [김진철](https://github.com/jincheol2578)
 
 ![GitHub-Mark-32px](https://user-images.githubusercontent.com/81733208/127449795-e4a42194-93a0-4060-bdac-8425789cb40a.png) [홍준호](https://github.com/heckevil)
-https://forward-to-tomorrow.tistory.com
+ BLOG : https://forward-to-tomorrow.tistory.com
 
 
 
