@@ -2,7 +2,7 @@
 
 주류 관련 정보 공유를 위한 커뮤니티 사이트 Alsamo 입니다.
 
-http://alsamo.site/
+http://alsamo.ga/
 
 
 ## 팀원
