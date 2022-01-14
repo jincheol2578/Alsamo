@@ -2,9 +2,6 @@
 
 주류 관련 정보 공유를 위한 커뮤니티 사이트 Alsamo 입니다.
 
-http://alsamo.ga/
-
-
 ## 팀원
 
 ![GitHub-Mark-32px](https://user-images.githubusercontent.com/81733208/127449795-e4a42194-93a0-4060-bdac-8425789cb40a.png) [김진철](https://github.com/jincheol2578)
